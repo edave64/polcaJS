@@ -1,0 +1,320 @@
+<h1>Constants</h1>
+<table>
+    <tr>
+        <th>command</th>
+        <th>description</th>
+    </tr>
+    <tr>
+        <td>PI, pi, π</td>
+        <td>(half) circle constant</td>
+    </tr>
+    <tr>
+       <td>tau, τ</td>
+        <td>(full) circle constant</td>
+    </tr>
+    <tr>
+        <td>E, e</td>
+        <td>Euler's constant</td>
+    </tr>
+    <tr>
+        <td>LN10</td>
+        <td>natural logarithm of 10</td>
+    </tr>
+    <tr>
+        <td>LN2</td>
+        <td>natural logarithm of 2</td>
+    </tr>
+    <tr>
+        <td>LOG10E</td>
+        <td>the logarithm of E to base 10</td>
+    </tr>
+    <tr>
+        <td>LOG2E</td>
+        <td>the logarithm of E to base 2</td>
+    </tr>
+    <tr>
+        <td>SQRT1_2</td>
+        <td>square root of 1/2</td>
+    </tr>
+    <tr>
+        <td>SQRT2</td>
+        <td>square root of 2</td>
+    </tr>
+</table>
+
+<h1>Calculations</h1>
+<table>
+    <tr>
+        <th>command</th>
+        <th>arguments</th>
+        <th>description</th>
+    </tr>
+    <!-- <trig> -->
+    <tr>
+        <td>sin</td>
+        <td>x</td>
+        <td>sine of x</td>
+    </tr>
+    <tr>
+        <td>cos</td>
+        <td>x</td>
+        <td>cosine of x</td>
+    </tr>
+    <tr>
+        <td>tan</td>
+        <td>x</td>
+        <td>tangent of x</td>
+    </tr>
+    <tr>
+        <td>asin</td>
+        <td>x</td>
+        <td>arcsine of x in radians</td>
+    </tr>
+    <tr>
+        <td>acos</td>
+        <td>x</td>
+        <td>arccosine of x in radians</td>
+    </tr>
+    <tr>
+        <td>atan</td>
+        <td>x</td>
+        <td>arctangent of x in radians</td>
+    </tr>
+    <tr>
+        <td>atan2</td>
+        <td>x y</td>
+        <td>arctangent of the quotient of its arguments in radians</td>
+    </tr>
+    <!-- </trig> -->
+    <!-- <log> -->
+    <tr>
+        <td>log</td>
+        <td>x base</td>
+        <td>logarithm of <em>x</em> to base <em>base</em></td>
+    </tr>
+    <tr>
+        <td>l2</td>
+        <td>x</td>
+        <td>logarithm to base 2</td>
+    </tr>
+    <tr>
+        <td>l10</td>
+        <td>x</td>
+        <td>logarithm to base 10</td>
+    </tr>
+    <tr>
+        <td>ln</td>
+        <td>x</td>
+        <td>natural logarithm (base E) of <em>x</em></td>
+    </tr>
+    <tr>
+        <td>exp</td>
+        <td>x</td>
+        <td>E to the power x</td>
+    </tr>
+    <!-- </log> -->
+    <tr>
+        <td>ratio</td>
+        <td>num, denom</td>
+        <td>
+            Ratio with <em>num</em> as numerator and <em>denom</em> as
+            denominator. If one of the values isn't integer, the other one
+            will be multiplied with the number of digits after the point.
+            A ratio will automatically be shortened and most operations
+            performed on a ratio will return a ratio themselves.
+            <em>num</em> and <em>denom</em> have to be numbers.
+        </td>
+    </tr>
+    <tr>
+        <td><a id="fac">factorial</a></td>
+        <td>x</td>
+        <td>
+            calculates the factorial of x. based 
+            <a href="#gamma"><code>gamma</code></a> when non-integer.
+        </td>
+    </tr>
+    <tr>
+        <td><a id="gamma">gamma</a></td>
+        <td>x</td>
+        <td>
+            approximation of the gamma function, based on <a href="#loggamma"><code>loggamma</code></a>
+        </td>
+    </tr>
+    <tr>
+        <td>loggamma</td>
+        <td>x</td>
+        <td>approximation of the natural logarithm of the gamma function</td>
+    </tr>
+    <tr>
+        <td><a id="min">min</a></td>
+        <td>x y</td>
+        <td>minimum of x and y</td>
+    </tr>
+    <tr>
+        <td><a id="max">max</a></td>
+        <td>x y</td>
+        <td>maximum of x and y</td>
+    </tr>
+    <tr>
+        <td><a id="pow">pow</a></td>
+        <td>x y</td>
+        <td>x to the power of y</td>
+    </tr>
+    <tr>
+        <td>sqrt</td>
+        <td>x</td>
+        <td>square root of x</td>
+    </tr>
+    <tr>
+        <td>ceil</td>
+        <td>x</td>
+        <td>rounds up x</td>
+    </tr>
+    <tr>
+        <td>floor</td>
+        <td>x</td>
+        <td>rounds down x</td>
+    </tr>
+    <tr>
+        <td>round</td>
+        <td>x</td>
+        <td>rounds x</td>
+    </tr>
+    <tr>
+        <td>rand, random</td>
+        <td></td>
+        <td>return a random number beween 0 and 1</td>
+    </tr>
+</table>
+
+<h1>Operators</h1>
+<table>
+    <tr>
+        <th>command</th>
+        <th>arguments</th>
+        <th>description</th>
+    </tr>
+    <tr>
+        <td>+</td>
+        <td>x y</td>
+        <td>addition</td>
+    </tr>
+    <tr>
+        <td>-</td>
+        <td>x y</td>
+        <td>subtraction</td>
+    </tr>
+    <tr>
+        <td>*</td>
+        <td>x y</td>
+        <td>multiplication</td>
+    </tr>
+    <tr>
+        <td>/</td>
+        <td>x y</td>
+        <td>division</td>
+    </tr>
+    <tr>
+        <td>%</td>
+        <td>x y</td>
+        <td>modulo</td>
+    </tr>
+    <tr>
+        <td>^</td>
+        <td>x y</td>
+        <td>
+            same as <a href="#pow">pow</a>
+        </td>
+    </tr>
+    <tr>
+        <td>!</td>
+        <td>x</td>
+        <td>
+            same as <a href="#fac">factorial</a>
+        </td>
+    </tr>
+    <tr>
+        <td>&&</td>
+        <td>x y</td>
+        <td>
+            same as <a href="#min">min</a>
+        </td>
+    </tr>
+    <tr>
+        <td>||</td>
+        <td>x y</td>
+        <td>
+            same as <a href="#min">max</a>
+        </td>
+    </tr>
+    <tr>
+        <td>&</td>
+        <td>x y</td>
+        <td>
+            bitwise and
+        </td>
+    </tr>
+    <tr>
+        <td>|</td>
+        <td>x y</td>
+        <td>
+            bitwise or
+        </td>
+    </tr>
+    <tr>
+        <td>++</td>
+        <td>x</td>
+        <td>
+            increment x by one
+        </td>
+    </tr>
+    <tr>
+        <td>--</td>
+        <td>x</td>
+        <td>
+            decrement x by one
+        </td>
+    </tr>
+</table>
+
+<h1>Loops</h1>
+<table>
+    <tr>
+        <th>command</th>
+        <th>arguments</th>
+        <th>description</th>
+    </tr>
+    <tr>
+        <td>times</td>
+        <td>x proc</td>
+        <td>executes <em>proc</em> <em>x</em> times</td>
+    </tr>
+    <tr>
+        <td>forLength</td>
+        <td>x proc</td>
+        <td>executes <em>proc</em>, till the stack is bigger or equal to <em>x</em></td>
+    </tr>
+</table>
+
+<h1>Typing</h1>
+<table>
+    <tr>
+        <td>number</td>
+        <td>x</td>
+        <td>
+            tries converts the given argument into a number. If this fails, it
+            returns NaN (Not a number)
+        </td>
+    </tr>
+    <tr>
+        <td>typeof</td>
+        <td>x</td>
+        <td>
+            returns the type of the argument, e.g <em>number</em>, <em>string</em>
+            or <em>procedure</em>
+        </td>
+    </tr>
+</table>
+
+<a href="javascript:polca.link('help')">back</a>
+

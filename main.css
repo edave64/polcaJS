@@ -1,0 +1,115 @@
+html,body{
+    background: #806040;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    z-index: 0
+}
+
+/* A container wrapping the hole page */
+#content{
+    display: table;
+    width: 512px;
+    height: 100%;
+    margin: auto;
+    background-color: #ffe0c0
+}
+
+/* A simple table for help pages */
+table {
+    width: 448px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+table tr:nth-child(odd) {
+    background: #ffd0b0;
+}
+
+/* The upper section wrapping the logo and inputs */
+#header{
+    display: table-row;
+    height: 192px;
+    background: #ffc080 url(upper-right.png) no-repeat bottom right;
+}
+
+/* The big polca banner */
+#logo{
+    margin-top: 24px;
+    border: 0
+}
+
+/* The container wrapping the input form */
+#input_bar {
+    background: url(input-back.png);
+    width: 452px;
+    height: 32px;
+    text-align: center;
+    margin: auto;
+    margin-top: 16px
+}
+
+/* The container wrapping the input field and the ok button
+   (inside the input form) */
+#input {
+    display: table;
+    margin: auto;
+    padding: 0;
+    font-size: 16px
+}
+
+/* The input field */
+#input_box{
+    position: relative;
+    left: 2px;
+    top: 0px;
+    border: solid #806040;
+    height: 24px;
+    width: 318px;
+    margin: 0;
+    margin-left: 4px;
+    margin-right: -1px
+}
+
+/* The red button next to the input field */
+#ok_btn{
+    position: relative;
+    left: -1px;
+    top: 0px;
+    height: 32px;
+    width: 64px;
+    background: #ff0000;
+    border: solid #806040;
+    margin: 0;
+    cursor: pointer
+}
+
+/* The output div */
+#result{
+    display: table-row;
+    background: url(middle-left.png) no-repeat top left,      /* upper left corner */
+                url(middle-right.png) no-repeat bottom right; /* bottom right corner */
+    text-align: left
+}
+
+#result *: first-child{
+    margin-top: 32px
+}
+
+#result *{
+    margin-left: 32px
+}
+
+#result * *{
+    margin-left: 0px
+}
+
+/* The container of the checkboxes on the bottom */
+#options{
+    display: table-row;
+    height: 32px;
+    padding: 8px;
+    background: #ffc080 url(lower-left.png) no-repeat top left
+}

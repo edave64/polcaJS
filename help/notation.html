@@ -1,0 +1,28 @@
+<h1>What?</h1>
+
+<p>polca uses prefix or postfix notation. That means that the operator is written before or after the operands, respectively. For example you write "<code>4 8 +</code>" in postfix and "<code>+ 4 8</code>" in prefix instead of "<code>4 + 8</code>" in traditional notation.
+Prefix notation is also known as <a href="https://secure.wikimedia.org/wikipedia/en/wiki/Polish_notation">Polish notation</a> or Łukasiewicz notation after <a href="https://secure.wikimedia.org/wikipedia/en/wiki/Jan_%C5%81ukasiewicz">Jan Łukasiewicz</a> who discovered it 1924.</p>
+<p>Postfix notation is also known as <href="https://secure.wikimedia.org/wikipedia/en/wiki/Reverse_Polish_notation">reverse Polish notation</a> or RPN. Programmming languages like <a href="https://secure.wikimedia.org/wikipedia/en/wiki/Forth">Forth</a>, <a href="https://secure.wikimedia.org/wikipedia/en/wiki/FALSE">FALSE</a> and <a href="https://secure.wikimedia.org/wikipedia/en/wiki/Factor_(programming_language)">Factor</a> are built upon postfix notation. This notation can be simply interpreted using the concept of a <a href="https://secure.wikimedia.org/wikipedia/en/wiki/Stack_(data_structure)">stack</a>.</p>
+
+<h1>How?</h1>
+
+<p>Making a valid prefix or postfix expression is easy, for anyone. For this example we will use postfix, prefix is just the other way around.
+First, you write down the operands, like "<code>2 5</code>" then add write the operator after that "<code>2 5 *</code>" you can than use this expression as an operand itself by simple substitution, thus "<code>6 x +</code>" becomes "<code>6 <strong>2 5 *</strong> +</code>" or substitute one of i's own operands "<code>2 5 *</code>". You can literally read that as a sequence of operations to be made <em>in that order</em>.</p>
+
+<p>Relations like <code>=</code> or <code>&gt;</code> can be seen as operations that return an truth value, which are represented as <code>1</code> and <code>0</code> in polca. thus "<code>3.5 3.5 =</code>" returns <code>1</code>, while "<code>2 2 = 2 6 &gt; -></code>" returns <code>-1</code>.</p>
+
+<h1>Why?</h1>
+
+<p>Traditional mathematical notation is somewhat messy, binary functions (in this case: operations that have two operands) are usually written in an infix style like "<code>2 + 3</code>". this, while somewhat intuitive, brings a lot of problems:</p>
+<p>"<code>2 + 3 * 4</code>" most basically, is an undefined statement. you will probably not agree, since you learned that some operations have precedence over others, but that's an additional rule that isn't part of infix notation. another rule would be to just give precedence to the thing that is written first, in this case "<code>2 + 3</code>" would be evaluated first.</p>
+<p>To some extend the traditional way works ok, some operations seem to be 'higher' than others, but besides that this is not really true for all binary operations (is a root higher than a logarithm? what about logical operators?), it's already breaks down when the operation isn't associative. you have to invent another rule that says that equal operation are evaluated from left to right (or the other way around).</p>
+<p>But there aren't only binary operations, there also unary operations that you have to prefix or postfix anyway. traditional notation does it <em>both</em> so that even simple statements like "sin 4 !" are ambiguous, so unary operations need precedence, too!</p>
+<p>This is normally dealt with by the use of parenthesis, which can be quite excessive if you want to express something that is not thougth of by the usual rules.</p>
+
+<p>Prefix and postfix notation both are fully unambiguous, without needing any parenthesis. as demonstrated here:</p>
+
+<code>2 3 4 * +</code> </br>
+<code>2 3 + 2 *</code> </br>
+<code>4 ! sin</code> </br>
+<code>4 sin !</code> </br>
+

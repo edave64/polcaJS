@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>polca! JS 0.8</title>
+        <link rel="shortcut icon" href="favicon.png" />
+        <link rel="stylesheet" href="style/main_c.css" type="text/css" />
+        <script type="application/javascript" src="scripts/protojazz-min.js"></script>
+        <script type="application/javascript" src="scripts/polcalib.js"></script>
+        <script type="application/javascript" src="scripts/ratio.js"></script>
+        <script type="application/javascript" src="scripts/polca08.js"></script>
+    </head>
+    <body onload="polca.initialize()">
+        <div id="content">
+            <div id="header">
+                <a href=""><img id="logo" src="style/header.png" alt="polca" onclick="polca.initialize();return false" /></a>
+                <div id="input_bar">
+                    <form action="javascript:polca.exec()">
+                        <div id="input">
+                            <input id="input_box" />
+                            <input id="ok_btn" type="submit" value=" " />
+                        </div>
+                    </form>
+                </div>
+                <br />
+            </div>
+            <div id="result"><p>Javascript has to be enabled!</p></div>
+            <div id="options">
+                <input class="checkbox" type="checkbox" id="reverse" /> Reversed notation
+                <input class="checkbox" type="checkbox" id="stack_to_input" /> <a title="Write stack content input field">Keep stack</a>
+            </div>
+        </div>
+    </body>
+</html>

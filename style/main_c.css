@@ -1,0 +1,16 @@
+html,body{background:#806040;text-align:center;padding:0;margin:0;height:100%;z-index:0}
+#content{display:table;width:512px;height:100%;margin:auto;background-color:#ffe0c0}
+table{width:448px;margin:0;padding:0;border:0}
+tr{border-top: #fff 1px solid}
+/*table tr:nth-child(even){background: #ffd0b0}*/
+#header{display:table-row;height:192px;background:#ffc080 url(upper-right.png) no-repeat bottom right}
+#logo{margin-top:24px;border:0}
+#input_bar{background:url(input-back.png);width:452px;height:32px;text-align:center;margin:auto;margin-top:16px}
+#input{display:table;margin:auto;padding:0;font-size:16px}
+#input_box{position:relative;left:2px;top:0px;border:solid #806040;height:24px;width:318px;margin:0;margin-left:4px;margin-right:-1px}
+#ok_btn{position:relative;left:-1px;top:0px;height:32px;width:64px;background:#ff0000;border:solid #806040;margin:0;cursor:pointer}
+#result{display:table-row;background:url(middle-left.png) no-repeat top left, url(middle-right.png) no-repeat bottom right;text-align:left}
+#result *:first-child{margin-top:32px}
+#result *{margin-left:32px}
+#result * *{margin-left:0px}
+#options{display:table-row;height:32px;padding:8px;background:#ffc080 url(lower-left.png) no-repeat top left}
