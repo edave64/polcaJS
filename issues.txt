@@ -1,2 +1,0 @@
-Polca 0.8:
-- Dies in opera for no apperend reason

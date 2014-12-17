@@ -1,0 +1,32 @@
+(+)
+function: +
+  missing two numbers -> infer two input parameters
+  always pushes one number -> infer one output
+
+`+` lookup
+  Num Num -> Num
+
+(1 +)
+  push number on stack
+  missing one number for + -> infer one input parameter
+  always pushes one number -> infer one output
+
+(1 +) typing
+  Num -> Num
+
+`clear` typing
+  Any* ->
+
+(1 clear)
+  push number on stack
+  clear takes number and borrows further Anys
+
+(1 clear) typing
+  Any* ->
+
+(1 2) typing
+  -> Num Num
+
+('Ratio load) typing
+  ->
+

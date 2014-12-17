@@ -1,16 +1,82 @@
-html,body{background:#806040;text-align:center;padding:0;margin:0;height:100%;z-index:0}
-#content{display:table;width:512px;height:100%;margin:auto;background-color:#ffe0c0}
-table{width:448px;margin:0;padding:0;border:0}
-tr{border-top: #fff 1px solid}
-/*table tr:nth-child(even){background: #ffd0b0}*/
-#header{display:table-row;height:192px;background:#ffc080 url(upper-right.png) no-repeat bottom right}
-#logo{margin-top:24px;border:0}
-#input_bar{background:url(input-back.png);width:452px;height:32px;text-align:center;margin:auto;margin-top:16px}
-#input{display:table;margin:auto;padding:0;font-size:16px}
-#input_box{position:relative;left:2px;top:0px;border:solid #806040;height:24px;width:318px;margin:0;margin-left:4px;margin-right:-1px}
-#ok_btn{position:relative;left:-1px;top:0px;height:32px;width:64px;background:#ff0000;border:solid #806040;margin:0;cursor:pointer}
-#result{display:table-row;background:url(middle-left.png) no-repeat top left, url(middle-right.png) no-repeat bottom right;text-align:left}
-#result *:first-child{margin-top:32px}
-#result *{margin-left:32px}
-#result * *{margin-left:0px}
-#options{display:table-row;height:32px;padding:8px;background:#ffc080 url(lower-left.png) no-repeat top left}
+* {
+  margin:0;
+  padding:0;
+  font-family: "DejaVu Sans Mono", "Lucida Console", monospace;
+}
+
+html,body{
+  background:#bf8040;
+  text-align:center;
+  padding:0;
+  margin:0;
+  height:100%;
+  overflow: hidden;
+  z-index:0
+}
+
+#polca_content{
+  display:block;
+  width:532px;
+  height:100%;
+  overflow: auto;
+  margin: auto;
+  background: url('backflower.svg') no-repeat center;
+  background-size: 256px 256px;
+}
+
+input {
+  font-size: 24px;
+}
+
+.polca_in {
+  height: 32px;
+  width: 432px;
+  border: 0;
+  outline: 0;
+  vertical-align: top;
+}
+
+.polca_in:focus {
+  height: 32px;
+  width: 432px;
+  margin-left: -4px;
+  border-left: 4px red solid;
+  vertical-align: top;
+}
+
+.polca_btn {
+  height: 32px;
+  width: 32px;
+  border: 0;
+  background: #fff;
+  color: #bf8040;
+  vertical-align: top;
+}
+
+#plus_btn {
+  margin-top: 8px;
+  width: 496px;
+}
+
+.polca_section {
+  /*margin-top: 8px;*/
+}
+
+.polca_btn:hover {
+  color: #F00;
+}
+
+.polca_btn:active {
+  color: #fff;
+  background: #f00;
+}
+
+.polca_out {
+  display: block;
+  width: 496px;
+  margin: auto;
+  min-height: 32px;
+  font-size: 24px;
+  text-align: left;
+  background: #dfc0a0;
+}
