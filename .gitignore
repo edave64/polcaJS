@@ -1,1 +1,7 @@
 /nbproject/private/
+node_modules/
+.idea/
+src/polca.ui.js
+src/polca.ui.js.map
+src/polca1.0.js
+src/polca1.0.js.map

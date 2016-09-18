@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/scripts/lib/ratio.js" />
+        <item url="file://$PROJECT_DIR$/scripts/polca.ui.js" />
+        <item url="file://$PROJECT_DIR$/scripts/polca1.0.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/src/lib/ratio.js" />
+      <root url="file://$PROJECT_DIR$/src/polca.ui.js" />
+      <root url="file://$PROJECT_DIR$/src/polca1.0.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

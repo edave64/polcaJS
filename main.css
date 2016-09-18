@@ -86,6 +86,8 @@ table tr:nth-child(odd) {
     cursor: pointer
 }
 
+#add
+
 /* The output div */
 #result{
     display: table-row;

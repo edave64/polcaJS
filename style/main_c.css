@@ -4,13 +4,13 @@
   font-family: "DejaVu Sans Mono", "Lucida Console", monospace;
 }
 
-html,body{
+html, body{
   background:#bf8040;
   text-align:center;
   padding:0;
   margin:0;
   height:100%;
-  overflow: hidden;
+  /*overflow: hidden;*/
   z-index:0
 }
 
@@ -18,7 +18,7 @@ html,body{
   display:block;
   width:532px;
   height:100%;
-  overflow: auto;
+  /*overflow: auto;*/
   margin: auto;
   background: url('backflower.svg') no-repeat center;
   background-size: 256px 256px;
@@ -33,6 +33,7 @@ input {
   width: 432px;
   border: 0;
   outline: 0;
+  padding-left: 4px;
   vertical-align: top;
 }
 
@@ -47,19 +48,11 @@ input {
 .polca_btn {
   height: 32px;
   width: 32px;
+  padding-left: 4px;
   border: 0;
   background: #fff;
   color: #bf8040;
   vertical-align: top;
-}
-
-#plus_btn {
-  margin-top: 8px;
-  width: 496px;
-}
-
-.polca_section {
-  /*margin-top: 8px;*/
 }
 
 .polca_btn:hover {
@@ -71,12 +64,44 @@ input {
   background: #f00;
 }
 
-.polca_out {
-  display: block;
-  width: 496px;
-  margin: auto;
-  min-height: 32px;
-  font-size: 24px;
-  text-align: left;
+.polca_out_wrapper {
   background: #dfc0a0;
+  width: 500px;
+  margin: auto;
+  display: table;
+  min-height: 32px;
+}
+
+.polca_out {
+  min-height: 32px;
+  width: 464px;
+  border: 0;
+  outline: 0;
+  font-size: 24px;
+  vertical-align: middle;
+  text-align: left;
+  padding-left: 4px;
+  display: table-cell;
+}
+
+.polca_out_wrapper > .polca_btn {
+  background: #dfc0a0;
+  height: 100%;
+  display: table-cell;
+}
+
+.polca_out_wrapper.failed {
+  background: #ffC0C0;
+}
+
+.polca_out_wrapper.failed > .polca_btn {
+  background: #ffC0C0;
+}
+
+.polca_section:only-child .polca_delete_btn {
+  display: none;
+}
+
+.polca_section:only-child .polca_in {
+  width: 464px;
 }
