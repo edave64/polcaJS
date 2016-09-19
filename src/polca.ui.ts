@@ -1,4 +1,4 @@
-/// <reference path="polca1.0.ts"/>
+/// <reference path="polca.ts"/>
 /// <reference path="../lib/jquery.d.ts"/>
 /// <reference path="../lib/jquery-textrange.d.ts"/>
 
