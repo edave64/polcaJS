@@ -1,5 +1,6 @@
 module Polca {
     export var helpCache = {};
+    export var version = "0.9";
 
     export function compile(str: string) {
         var char_, i, word = '', currentTokenKind = '', escape = false,

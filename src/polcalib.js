@@ -2,7 +2,7 @@ polcaLib = (function () {
     "use strict";
 
     var polcaLib = {
-        version: "1.0",
+        version: "0.9",
 
         abs: Math.abs,
         exp: Math.exp,
