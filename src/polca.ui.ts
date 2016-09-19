@@ -48,7 +48,7 @@ module Polca {
             private outputContainer: JQuery;
 
             private code: String;
-            private compiled: Polca.Structures.Func;
+            private compiled: Polca.Structures.CustomFunc;
 
             constructor(prev: BaseSection) {
                 super();

@@ -5,7 +5,7 @@ module Polca {
         var char_, i, word = '', currentTokenKind = '', escape = false,
             currentContainer, containerStack = [];
 
-        var root = (currentContainer = new Structures.Func("", true));
+        var root = (currentContainer = new Structures.CustomFunc("", true));
 
         function finishWord() {
             if (currentTokenKind === "'string")
@@ -53,7 +53,7 @@ module Polca {
                         break;
                     case '(':
                         finishWord();
-                        var newContainer = new Structures.Func ("");
+                        var newContainer = new Structures.CustomFunc ("");
                         currentContainer.elements.push(newContainer);
                         containerStack.push(currentContainer);
                         currentContainer = newContainer;
@@ -74,7 +74,7 @@ module Polca {
         return root;
     }
 
-    export function exec (structure: Structures.Structure, parentContext: Context) {
+    export function exec (structure: Structures.Structure, parentContext: Context): Context {
         if (!parentContext) parentContext = new Context();
         var context = parentContext.fork();
 
@@ -191,7 +191,11 @@ module Polca {
             }
         }
 
-        export class Func implements Structure {
+        export abstract class Func implements Structure {
+            abstract call(context: Context);
+        }
+
+        export class CustomFunc implements Func {
             private elements = [];
             private binding: Scope;
 
@@ -202,7 +206,7 @@ module Polca {
                 this.elements.every(function (element) {
                     if (element instanceof ID) {
                         context.stack.push(element.call(context));
-                    } else if (element instanceof Func) {
+                    } else if (element instanceof CustomFunc) {
                         context.stack.push(element.bind(context.scope));
                     } else
                         context.stack.push(element);
@@ -228,15 +232,21 @@ module Polca {
                 return result + ')';
             }
 
+            cat(other: CustomFunc) {
+                var newFunc = new Polca.Structures.CustomFunc ("(" + this.name + " " + other.name + ")");
+                newFunc.elements = this.elements.concat(other.elements);
+                return newFunc;
+            }
+
             bind(scope: Scope) {
-                var newFunc = new Func (this.name, this.root);
+                var newFunc = new CustomFunc (this.name, this.root);
                 newFunc.elements = this.elements;
                 newFunc.binding = scope;
                 return newFunc;
             }
         }
 
-        export class NativeFunc implements Structure {
+        export class NativeFunc implements Func {
             constructor(
                 private func: Function,
                 private name: string
