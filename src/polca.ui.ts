@@ -16,6 +16,7 @@ module Polca {
         var firstSection: Section;
         var mainArea: JQuery;
 
+        //noinspection JSUnusedLocalSymbols
         export function reset () {
             firstSection = null;
             mainArea = $('#polca_sections');
@@ -111,33 +112,30 @@ module Polca {
             }
 
             protected createDeleteButton () {
-                var self = this;
-                $('<input type="button" class="polca_btn polca_delete_btn">').click(function () {
-                    self.remove();
-                }).val('x').appendTo(this.container);
+                $('<input type="button" class="polca_btn polca_delete_btn">')
+                    .click(() => this.remove())
+                    .val('x')
+                    .appendTo(this.container);
             }
 
             protected createExecButton () {
-                var self = this;
-                $('<input type="button" class="polca_btn">').click(function () {
-                    self.jumpToNext();
-                }).val('↲').appendTo(this.container);
+                $('<input type="button" class="polca_btn">')
+                    .click(() => this.jumpToNext())
+                    .val('↲').appendTo(this.container);
             }
 
             protected createAddButton () {
-                var self = this;
-                $('<input type="button" class="polca_btn">').click(function () {
-                    new Section(self);
-                }).val('+').appendTo(this.outputContainer);
+                $('<input type="button" class="polca_btn">')
+                    .click(() => new Section(this))
+                    .val('+')
+                    .appendTo(this.outputContainer);
             }
 
             protected createInputField () {
-                var self = this;
-                this.input = $('<input class="polca_in">').change(function () {
-                    self.exec();
-                }).keydown(function (e: JQueryKeyEventObject) {
-                    return self.keydownHandler(<KeyboardEvent>e.originalEvent);
-                }).appendTo(this.container);
+                this.input = $('<input class="polca_in">')
+                    .change(() => this.exec())
+                    .keydown((e: JQueryKeyEventObject) => this.keydownHandler(<KeyboardEvent>e.originalEvent))
+                    .appendTo(this.container);
             }
 
             protected createOutputField () {

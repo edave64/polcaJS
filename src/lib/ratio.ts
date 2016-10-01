@@ -101,7 +101,7 @@ class Ratio {
         )
     });
 
-    polcaLib['^'] = binaryRatioWrap(polcaLib['^'], function (a, b) {
+    polcaLib.pow = binaryRatioWrap(polcaLib.pow, function (a, b) {
         return Math['^'](a.toNumber(),b.toNumber());
     });
 

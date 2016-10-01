@@ -186,6 +186,9 @@ polcaLib = (function () {
             '})');
         return true
     });
+    polcaLib['^'] = function (a, b) {
+        return polcaLib.pow(a, b);
+    }
 
     polcaLib['='] = function (a, b) {
         return Number(polcaLib.compare(a, b) === 0)
@@ -212,7 +215,7 @@ polcaLib = (function () {
     polcaLib.e = polcaLib.E = Math.E;
     polcaLib.tau = polcaLib.τ = polcaLib.π * 2;
 
-    9/* Alias methods and Operators */
+    /* Alias methods and Operators */
     polcaLib['?'] = polcaLib.times;
 
     /* Unicode symbols */
