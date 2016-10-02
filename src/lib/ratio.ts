@@ -34,7 +34,7 @@ class Ratio {
 
 
     /* Calculates the greatest common divisor */
-    private static gcd(num, denom) {
+    private static gcd(num: number, denom: number) {
         var a = num,
             b = denom,
             r = 0;
@@ -67,47 +67,42 @@ class Ratio {
             if (a instanceof Ratio || b instanceof Ratio) {
                 a = convert(a);
                 b = convert(b);
-                alternative(a, b);
-            } else oldFunc(a, b);
+                return alternative(a, b);
+            } else return oldFunc(a, b);
         };
         func['name'] = oldFunc.name;
+        return func;
     }
 
-    polcaLib['+'] = binaryRatioWrap(polcaLib['+'], function (a, b) {
-        return new Ratio (
+    polcaLib['+'] = binaryRatioWrap(polcaLib['+'],
+        (a, b) => new Ratio(
             a.numerator * b.denominator + b.numerator * a.denominator,
             a.denominator * b.denominator
-        )
-    });
+        ));
 
-    polcaLib['-'] = binaryRatioWrap(polcaLib['-'], function (a, b) {
-        return new Ratio (
+    polcaLib['-'] = binaryRatioWrap(polcaLib['-'],
+        (a, b) => new Ratio(
             a.numerator * b.denominator - b.numerator * a.denominator,
             a.denominator * b.denominator
-        )
-    });
+        ));
 
-    polcaLib['*'] = binaryRatioWrap(polcaLib['*'], function (a, b) {
-        return new Ratio (
+    polcaLib['*'] = binaryRatioWrap(polcaLib['*'],
+        (a, b) => new Ratio(
             a.numerator * b.numerator,
             a.denominator * b.denominator
-        )
-    });
+        ));
 
-    polcaLib['/'] = binaryRatioWrap(polcaLib['/'], function (a, b) {
-        return new Ratio (
+    polcaLib['/'] = binaryRatioWrap(polcaLib['/'],
+        (a, b) => new Ratio(
             a.numerator * b.denominator,
             a.denominator * b.numerator
-        )
-    });
+        ));
 
-    polcaLib.pow = binaryRatioWrap(polcaLib.pow, function (a, b) {
-        return Math['^'](a.toNumber(),b.toNumber());
-    });
+    polcaLib.pow = binaryRatioWrap(polcaLib.pow,
+        (a, b) => polcaLib.pow(a.toNumber(), b.toNumber()));
 
-    polcaLib['compare'] = binaryRatioWrap(polcaLib['compare'], function (a, b) {
-        return polcaLib['compare'](a.toNumber(),b.toNumber());
-    });
+    polcaLib.compare = binaryRatioWrap(polcaLib.compare,
+        (a, b) => polcaLib.compare(a.toNumber(), b.toNumber()));
 }());
 
 /* extend number method */
