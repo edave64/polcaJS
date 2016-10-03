@@ -1,26 +1,31 @@
 /// <reference path="polca.ts"/>
-/// <reference path="../lib/jquery.d.ts"/>
-/// <reference path="../lib/jquery-textrange.d.ts"/>
 
 declare var polcaLib;
 
 module Polca {
     export module UI {
-        var KeyEnd = 35;
-        var KeyHome = 36;
-        var KeyUp = 38;
-        var KeyDown = 40;
-        var KeyEnter = 13;
-        var KeyBackspace = 8;
+        module Keys {
+            export const
+                Backspace = 8,
+                Enter = 13,
+                Space = 32,
+                End = 35,
+                Home = 36,
+                Left = 37,
+                Up = 38,
+                Right = 39,
+                Down = 40,
+                Del = 46;
+        }
 
         var firstSection: Section;
-        var mainArea: JQuery;
+        var mainArea: HTMLDivElement;
 
         //noinspection JSUnusedLocalSymbols
         export function reset () {
             firstSection = null;
-            mainArea = $('#polca_sections');
-            mainArea.empty();
+            mainArea = <HTMLDivElement>document.getElementById('polca_content');
+            mainArea.innerHTML = "";
             addSection();
         }
 
@@ -43,12 +48,11 @@ module Polca {
 
         class Section extends BaseSection {
             protected prev: BaseSection;
-            private container: JQuery;
-            private input: JQuery;
-            private output: JQuery;
-            private outputContainer: JQuery;
+            private container: HTMLElement;
+            private input: HTMLInputElement;
+            private output: HTMLElement;
 
-            private code: String;
+            private code: string;
             private compiled: Polca.Structures.CustomFunc;
 
             constructor(prev: BaseSection) {
@@ -78,77 +82,79 @@ module Polca {
                 this.input.focus();
             }
 
-            public focusFirst () {
+            public append (str: string) {
+                var str = str.trim();
+                var oldText = this.input.value.replace(/\s+$/, "");
+                var separator = (str != "" && oldText != "") ? " " : "";
+                this.input.value = oldText + separator + str;
+                this.setCursor(oldText.length);
+            }
+
+            private setCursor (pos: number) {
+                this.input.selectionStart = this.input.selectionEnd = pos;
+            }
+
+            public cursorStart () {
+                this.setCursor(0);
+            }
+
+            public cursorEnd () {
+                this.setCursor(this.input.value.length);
+            }
+
+            public focusFirst (): Section {
                 if (this.prev instanceof Section) {
-                    (<Section>this.prev).focusFirst();
+                    return (<Section>this.prev).focusFirst();
                 } else {
                     this.focus();
+                    return this;
                 }
             }
 
-            public focusLast () {
+            public focusLast (): Section {
                 if (this.next) {
-                    this.next.focusLast();
+                    return this.next.focusLast();
                 } else {
                     this.focus();
+                    return this;
                 }
             }
 
             protected createUI () {
                 this.createContainer();
                 this.createInputField();
-                this.createDeleteButton();
-                this.createExecButton();
                 this.createOutputField();
-                this.createAddButton();
             }
 
             protected createContainer () {
-                this.container = $('<div class="polca_section">');
-                if (this.prev && this.prev instanceof Section)
-                    this.container.insertAfter((<Section>this.prev).container);
+                this.container = document.createElement('section');
+                this.container.addEventListener("focus", (e) => this.focusHandler(), true);
+                this.container.addEventListener("blur",  (e) => this.blurHandler(), true);
+
+                if (this.next)
+                    mainArea.insertBefore(this.container, this.next.container);
                 else
-                    this.container.appendTo(mainArea);
-            }
-
-            protected createDeleteButton () {
-                $('<input type="button" class="polca_btn polca_delete_btn">')
-                    .click(() => this.remove())
-                    .val('x')
-                    .appendTo(this.container);
-            }
-
-            protected createExecButton () {
-                $('<input type="button" class="polca_btn">')
-                    .click(() => this.jumpToNext())
-                    .val('↲').appendTo(this.container);
-            }
-
-            protected createAddButton () {
-                $('<input type="button" class="polca_btn">')
-                    .click(() => new Section(this))
-                    .val('+')
-                    .appendTo(this.outputContainer);
+                    mainArea.appendChild(this.container);
             }
 
             protected createInputField () {
-                this.input = $('<input class="polca_in">')
-                    .change(() => this.exec())
-                    .keydown((e: JQueryKeyEventObject) => this.keydownHandler(<KeyboardEvent>e.originalEvent))
-                    .appendTo(this.container);
+                var input = this.input = document.createElement('input');
+                input.addEventListener("change", () => this.exec());
+                input.addEventListener("keydown", (e) => this.keydownHandler(<KeyboardEvent>e));
+                this.container.appendChild(input);
             }
 
             protected createOutputField () {
-                this.outputContainer = $('<div class="polca_out_wrapper">').appendTo(this.container);
-                this.output = $('<div class="polca_out">').appendTo(this.outputContainer);
+                this.output = document.createElement('output');
+                this.container.appendChild(this.output);
             }
 
-            protected exec () {
-                var value = <string> this.input.val();
+            protected exec (autoexec: boolean = false) {
+                var value = this.input.value;
                 try {
                     if (this.prev.failed) {
                         this.failed = true;
-                        this.output.html("");
+                        this.output.innerHTML = "";
                     } else {
                         if (this.code !== value) {
                             this.code = value;
@@ -156,65 +162,103 @@ module Polca {
                         }
                         var result = Polca.exec(this.compiled, this.prev.context);
                         this.context = result;
-                        this.output.html(result.stack.toString());
+                        this.output.innerHTML = result.stack.toString();
                         if (this.failed) {
-                            this.outputContainer.removeClass("failed");
+                            this.output.classList.remove("failed");
                         }
                         this.failed = false;
                     }
                 } catch (e) {
-                    this.output.html(e.toString());
-                    this.outputContainer.addClass("failed");
+                    if (!autoexec) {
+                        this.output.innerHTML = e.toString();
+                        this.output.classList.add("failed");
+                    }
                     this.failed = true;
                     throw e;
                 } finally {
-                    if (this.next)
+                    if (this.next && !autoexec)
                         this.next.exec();
                 }
             }
 
-            protected jumpToNext () {
-                if (!this.next)
-                    new Section(this);
-
+            protected insertLine () {
+                var input = this.input;
+                var newThisLine = input.value.substr(0, input.selectionStart);
+                var nextLine = input.value.substr(input.selectionEnd);
+                input.value = newThisLine;
+                this.exec();
+                new Section(this);
+                this.next.input.value = nextLine;
                 this.next.focus();
+                this.next.cursorStart();
+                this.next.exec();
+            }
+
+            protected focusHandler () {
+                this.container.classList.add("active");
+            }
+
+            protected blurHandler () {
+                this.container.classList.remove("active");
             }
 
             protected keydownHandler (e: KeyboardEvent) {
+                var sStart = this.input.selectionStart,
+                    sEnd = this.input.selectionEnd,
+                    sLen = sEnd - sStart;
                 switch (e.keyCode) {
-                    case KeyUp:
-                        if (this.prev instanceof Section)
+                    case Keys.Space:
+                        window.setTimeout(() => this.exec(true), 0);
+                        break;
+
+                    case Keys.Up:
+                        if (this.prev instanceof Section) {
                             (<Section>this.prev).focus();
+                            (<Section>this.prev).cursorEnd();
+                            e.preventDefault();
+                        }
                         break;
-                    case KeyDown:
-                        if (this.next instanceof Section)
+
+                    case Keys.Down:
+                        if (this.next instanceof Section) {
                             this.next.focus();
+                            this.next.cursorEnd();
+                            e.preventDefault();
+                        }
                         break;
 
-                    case KeyHome:
-                        this.focusFirst();
+                    case Keys.Home:
+                        if (e.ctrlKey) this.cursorStart();
                         break;
 
-                    case KeyEnd:
-                        this.focusLast();
+                    case Keys.End:
+                        if (e.ctrlKey) this.focusLast();
                         break;
 
-                    case KeyEnter:
+                    case Keys.Enter:
                         if (e.ctrlKey)
                             this.exec();
                         else
-                            this.jumpToNext();
+                            this.insertLine();
                         break;
 
-                    case KeyBackspace:
-                        if (this.input.textrange('get').position === 0 && this.prev instanceof Section) {
-                            var prev = <Section>this.prev,
-                                oldPrevText = (<string>prev.input.val()).replace(/~+$/, '');
-                            prev.input.val(oldPrevText + ' ' + this.input.val());
+                    case Keys.Backspace:
+                        if (sStart === 0 && sLen === 0 && this.prev instanceof Section) {
+                            var prev = <Section>this.prev;
+                            prev.append(this.input.value);
                             prev.exec();
                             prev.focus();
-                            prev.input.textrange('setcursor', oldPrevText + 1);
                             this.remove();
+                            e.preventDefault();
+                            return false;
+                        }
+                        break;
+
+                    case Keys.Del:
+                        if (sStart === this.input.value.length && sLen === 0 && this.next) {
+                            this.append(this.next.input.value);
+                            this.next.remove();
+                            this.exec();
                             return false;
                         }
                 }

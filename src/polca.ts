@@ -158,10 +158,10 @@ module Polca {
             return str.replace("\\", "\\\\").replace('"', '\\"');
         }
 
-        toString() {
+        toString(): string {
             return this.ary.reduce(function (sum, element, i) {
                 if (i != 0) sum += ' ';
-                if (typeof element === 'string' || element instanceof String)
+                if (typeof element === 'string')
                     return sum + '"' + Polca.Stack.maskString(element) + '"';
                 else
                     return sum + element.toString();
@@ -200,7 +200,7 @@ module Polca {
             private elements = [];
             private binding: Scope;
 
-            constructor(private name: String, private root: boolean = false) {}
+            constructor(private name: string, private root: boolean = false) {}
 
             call(context: Context) {
                 if (!this.root) context = context.subContext(this.binding);
@@ -223,7 +223,7 @@ module Polca {
                     else
                         result += ' ';
 
-                    if ((typeof element == 'string') || (element instanceof String))
+                    if (typeof element == 'string')
                         result += '"' + element + '"';
                     else
                         result += element.toString();

@@ -1,107 +1,71 @@
-* {
-  margin:0;
-  padding:0;
-  font-family: "DejaVu Sans Mono", "Lucida Console", monospace;
-}
-
-html, body{
-  background:#bf8040;
-  text-align:center;
-  padding:0;
-  margin:0;
-  height:100%;
-  /*overflow: hidden;*/
-  z-index:0
-}
-
-#polca_content{
-  display:block;
-  width:532px;
-  height:100%;
-  /*overflow: auto;*/
-  margin: auto;
-  background: url('backflower.svg') no-repeat center;
+html
+{
+  font-family: "Source Code Pro", "Consolas", "Inconsolata", "DejaVu Sans Mono", "Lucida Console", monospace;
+  font-size: 24px;
+  min-height: 100vh;
+  background: #bf8040 url('backflower.svg') no-repeat fixed center;
   background-size: 256px 256px;
 }
 
-input {
-  font-size: 24px;
-}
-
-.polca_in {
-  height: 32px;
-  width: 432px;
-  border: 0;
-  outline: 0;
-  padding-left: 4px;
-  vertical-align: top;
-}
-
-.polca_in:focus {
-  height: 32px;
-  width: 432px;
-  margin-left: -4px;
-  border-left: 4px red solid;
-  vertical-align: top;
-}
-
-.polca_btn {
-  height: 32px;
-  width: 32px;
-  padding-left: 4px;
-  border: 0;
-  background: #fff;
-  color: #bf8040;
-  vertical-align: top;
-}
-
-.polca_btn:hover {
-  color: #F00;
-}
-
-.polca_btn:active {
+::selection
+{
   color: #fff;
   background: #f00;
 }
 
-.polca_out_wrapper {
-  background: #dfc0a0;
-  width: 500px;
+body
+{
+  margin: 8px;
+}
+
+#polca_content
+{
+  width: 100%;
+  max-width: 768px;
   margin: auto;
-  display: table;
-  min-height: 32px;
+  display:flex;
+  flex-direction: column;
+  background-color: #fff;
 }
 
-.polca_out {
-  min-height: 32px;
-  width: 464px;
+input, output
+{
+  font: inherit;
+  flex-grow: 1;
+  min-width: 50%;
+  min-height: 1em;
+  box-sizing: border-box;
+  background-color: none;
+  padding: 2px;
   border: 0;
-  outline: 0;
-  font-size: 24px;
-  vertical-align: middle;
+  vertical-align: bottom;
+  word-wrap: break-word;
+  word-break: break-all;
+  outline: none;
   text-align: left;
-  padding-left: 4px;
-  display: table-cell;
+  user-select: inherit;
 }
 
-.polca_out_wrapper > .polca_btn {
-  background: #dfc0a0;
-  height: 100%;
-  display: table-cell;
+input
+{ color: #000; }
+
+input:focus
+{
+  margin-left: -8px;
+  border-left: 8px #f00 solid;
 }
 
-.polca_out_wrapper.failed {
-  background: #ffC0C0;
+output
+{ color:#bf8040; }
+
+section
+{
+  display:flex;
+  flex-direction: row;
 }
 
-.polca_out_wrapper.failed > .polca_btn {
-  background: #ffC0C0;
-}
-
-.polca_section:only-child .polca_delete_btn {
-  display: none;
-}
-
-.polca_section:only-child .polca_in {
-  width: 464px;
+@media (max-width: 512px)
+{
+  section
+  { flex-direction: column; }
 }
