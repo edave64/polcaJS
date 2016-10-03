@@ -74,7 +74,6 @@ module Polca {
                 this.prev.next = this.next;
                 if (this.next) {
                     this.next.prev = this.prev;
-                    this.next.exec();
                 }
             }
 
@@ -227,8 +226,26 @@ module Polca {
                         }
                         break;
 
+                    case Keys.Left:
+                        if (e.shiftKey) break;
+                        if (sStart === 0 && this.prev instanceof Section) {
+                            this.prev.focus();
+                            this.prev.cursorEnd();
+                            e.preventDefault();
+                        }
+                        break;
+
+                    case Keys.Right:
+                        if (e.shiftKey) break;
+                        if (sEnd === this.input.value.length && this.next) {
+                            this.next.focus();
+                            this.next.cursorStart();
+                            e.preventDefault();
+                        }
+                        break;
+
                     case Keys.Home:
-                        if (e.ctrlKey) this.cursorStart();
+                        if (e.ctrlKey) this.focusFirst();
                         break;
 
                     case Keys.End:
@@ -246,9 +263,9 @@ module Polca {
                         if (sStart === 0 && sLen === 0 && this.prev instanceof Section) {
                             var prev = <Section>this.prev;
                             prev.append(this.input.value);
-                            prev.exec();
                             prev.focus();
                             this.remove();
+                            prev.exec();
                             e.preventDefault();
                             return false;
                         }
@@ -259,6 +276,7 @@ module Polca {
                             this.append(this.next.input.value);
                             this.next.remove();
                             this.exec();
+                            e.preventDefault();
                             return false;
                         }
                 }
