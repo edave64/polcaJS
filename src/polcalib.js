@@ -9,6 +9,7 @@ polcaLib = (function () {
         floor: Math.floor,
         ceil: Math.ceil,
         pow: Math.pow,
+        '^' : Math.pow,
 
         rt: function (a, b) {
             return polcaLib.pow(a, 1 / b)
@@ -58,7 +59,7 @@ polcaLib = (function () {
                 proc.call(this);
             }
         },
-
+        
         '?else': function (proc, else_, number) {
             if (number > 0)
                 for (; number > 0; number--) {
@@ -167,12 +168,12 @@ polcaLib = (function () {
             } else {
                 throw new Error("Type Error: cat needs two functions")
             }
-
         },
 
         compare: function (a, b) {
             return a < b ? -1 : a > b ? 1 : 0;
-        }
+        },
+        
     };
 
     Number.prototype.type = 'number';
@@ -187,37 +188,20 @@ polcaLib = (function () {
         return true
     });
 
-    polcaLib['^'] = function (a, b) {
-        return Math.pow(a, b);
-    }
+    // Same for comparisons 
+    ['<', '<=', '=', '>=', '>', '!='].every(function (op) {
+        polcaLib[op] = eval('(function (a,b) {' +
+            'return Number(a ' + op + ' b)' +
+            '})');
+        return true
+    });
 
-    polcaLib['='] = function (a, b) {
-        return Number(polcaLib.compare(a, b) === 0)
-    };
-    polcaLib['<'] = function (a, b) {
-        return Number(polcaLib.compare(a, b) < 0)
-    };
-    polcaLib['>'] = function (a, b) {
-        return Number(polcaLib.compare(a, b) > 0)
-    };
-    polcaLib['<='] = function (a, b) {
-        return Number(polcaLib.compare(a, b) <= 0)
-    };
-    polcaLib['>='] = function (a, b) {
-        return Number(polcaLib.compare(a, b) >= 0)
-    };
-    polcaLib['!='] = function (a, b) {
-        return Number(polcaLib.compare(a, b) != 0)
-    };
-    polcaLib['<>'] = polcaLib['compare'];
+    polcaLib['<>'] = polcaLib.compare;
 
     // Constants
     polcaLib.π = polcaLib.pi = Math.PI;
     polcaLib.e = Math.E;
     polcaLib.tau = polcaLib.τ = Math.PI * 2;
-
-    /* Alias methods and Operators */
-    polcaLib['?'] = polcaLib.times;
 
     /* Unicode symbols */
     polcaLib['≠'] = polcaLib['!='];
@@ -226,6 +210,7 @@ polcaLib = (function () {
     polcaLib['.'] = polcaLib['get'];
     polcaLib[':'] = polcaLib['set'];
     polcaLib[';'] = polcaLib['dropall'];
+    polcaLib['?'] = polcaLib.times;
 
     return polcaLib;
 }());
