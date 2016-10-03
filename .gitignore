@@ -11,3 +11,5 @@ src/lib/ratio.js.map
 src/polca.js.map
 src/polca.htmlextension.js.map
 src/polca.htmlextension.js
+.project
+polcaJS.iml
