@@ -49,20 +49,24 @@ input, output
 input
 { color: #000; }
 
-input:focus
-{
-  margin-left: -8px;
-  border-left: 8px #f00 solid;
-}
-
 output
 { color: #C08040; }
+
+output.failed
+{ color: #f00}
 
 section
 {
   display:flex;
   flex-direction: row;
 }
+
+section.active
+{
+  margin-left: -8px;
+  border-left: 8px #f00 solid;
+}
+
 
 @media (max-width: 512px)
 {
