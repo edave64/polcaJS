@@ -3,7 +3,7 @@ html
   font-family: "Source Code Pro", "Consolas", "Inconsolata", "DejaVu Sans Mono", "Lucida Console", monospace;
   font-size: 24px;
   min-height: 100vh;
-  background: #bf8040 url('backflower.svg') no-repeat fixed center;
+  background: #c08040 url('backflower.svg') no-repeat fixed center;
   background-size: 256px 256px;
 }
 
@@ -35,7 +35,7 @@ input, output
   min-width: 50%;
   min-height: 1em;
   box-sizing: border-box;
-  background-color: none;
+  background-color: #fff;
   padding: 2px;
   border: 0;
   vertical-align: bottom;
@@ -56,7 +56,7 @@ input:focus
 }
 
 output
-{ color:#bf8040; }
+{ color: #C08040; }
 
 section
 {
@@ -69,3 +69,16 @@ section
   section
   { flex-direction: column; }
 }
+
+/* dark style */
+
+html.dark
+{
+  background-color: #604020;
+}
+
+html.dark input
+{ color: #E0C0A0}
+
+html.dark #polca_content, html.dark output, html.dark input
+{ background-color: #000 }
