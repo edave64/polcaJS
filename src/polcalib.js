@@ -12,7 +12,7 @@ polcaLib = (function () {
         '^' : Math.pow,
 
         rt: function (a, b) {
-            return polcaLib.pow(a, 1 / b)
+            return Math.pow(a, 1 / b)
         },
 
         drop: function (a) {
@@ -188,10 +188,10 @@ polcaLib = (function () {
         return true
     });
 
-    // Same for comparisons 
+    // Same for comparisons
     ['<', '<=', '=', '>=', '>', '!='].every(function (op) {
         polcaLib[op] = eval('(function (a,b) {' +
-            'return Number(a ' + op + ' b)' +
+            'return Number(polcaLib.compare(a, b)' + op + '0)' +
             '})');
         return true
     });
@@ -203,13 +203,15 @@ polcaLib = (function () {
     polcaLib.e = Math.E;
     polcaLib.tau = polcaLib.τ = Math.PI * 2;
 
-    /* Unicode symbols */
+    // Unicode symbols
     polcaLib['≠'] = polcaLib['!='];
     polcaLib['≦'] = polcaLib['<='];
     polcaLib['≧'] = polcaLib['>='];
-    polcaLib['.'] = polcaLib['get'];
-    polcaLib[':'] = polcaLib['set'];
-    polcaLib[';'] = polcaLib['dropall'];
+
+    // Other shorthand symbols
+    polcaLib['.'] = polcaLib.get;
+    polcaLib[':'] = polcaLib.set;
+    polcaLib[';'] = polcaLib.dropall;
     polcaLib['?'] = polcaLib.times;
 
     return polcaLib;
