@@ -1,7 +1,5 @@
 /// <reference path="polca.ts"/>
 
-declare var polcaLib;
-
 module Polca {
     export module UI {
         enum Keys {
@@ -16,7 +14,6 @@ module Polca {
             Down = 40,
             Del = 46
         }
-
 
         var firstSection: Section;
         var mainArea: HTMLDivElement;
@@ -182,8 +179,8 @@ module Polca {
 
             protected insertLine () {
                 var input = this.input;
-                var newThisLine = input.value.substr(0, input.selectionStart);
-                var nextLine = input.value.substr(input.selectionEnd);
+                var newThisLine = input.value.substr(0, input.selectionStart).replace(/\s+$/, "");
+                var nextLine = input.value.substr(input.selectionEnd).trim();
                 input.value = newThisLine;
                 this.exec();
                 new Section(this);
