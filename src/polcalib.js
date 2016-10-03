@@ -131,26 +131,26 @@ polcaLib = (function () {
         },
         /* } Based on JavaCalc 1.6  ©1996-2000 Ken Kikuchi */
 
-        '++': function (o) {
-            return polcaLib['+'](o, 1)
+        '++': function (x) {
+            return x - 1
         },
 
-        '--': function (o) {
-            return polcaLib['-'](o, 1)
+        '--': function (x) {
+            return x + 1
         },
 
         ln: Math.log, /* The way it should be */
 
         log: function (x, base) {
-            return polcaLib.ln(x) / polcaLib.ln(base);
+            return Math.ln(x) / Math.ln(base);
         },
 
         l10: function (x) {
-            return polcaLib.ln(x) / polcaLib.LN10;
+            return Math.ln(x) / Math.LN10;
         },
 
         l2: function (x) {
-            return polcaLib.ln(x) / polcaLib.LN2;
+            return Math.log(x) / Math.LN2;
         },
 
         div: function (x, y) {
@@ -180,14 +180,15 @@ polcaLib = (function () {
     Function.prototype.type = 'procedure';
 
     // Push operator methods to polcaLib module
-    ['+', '-', '*', '/', '%', '&', '|'].every(function (opp) {
-        polcaLib[opp] = eval('(function (a,b) {' +
-            'return a ' + opp + ' b' +
+    ['+', '-', '*', '/', '%', '&', '|'].every(function (op) {
+        polcaLib[op] = eval('(function (a,b) {' +
+            'return a ' + op + ' b' +
             '})');
         return true
     });
+
     polcaLib['^'] = function (a, b) {
-        return polcaLib.pow(a, b);
+        return Math.pow(a, b);
     }
 
     polcaLib['='] = function (a, b) {
@@ -208,12 +209,12 @@ polcaLib = (function () {
     polcaLib['!='] = function (a, b) {
         return Number(polcaLib.compare(a, b) != 0)
     };
-    polcaLib['<>'] = polcaLib['!='];
+    polcaLib['<>'] = polcaLib['compare'];
 
     // Constants
-    polcaLib.π = polcaLib.pi = polcaLib.PI = Math.PI;
-    polcaLib.e = polcaLib.E = Math.E;
-    polcaLib.tau = polcaLib.τ = polcaLib.π * 2;
+    polcaLib.π = polcaLib.pi = Math.PI;
+    polcaLib.e = Math.E;
+    polcaLib.tau = polcaLib.τ = Math.PI * 2;
 
     /* Alias methods and Operators */
     polcaLib['?'] = polcaLib.times;
