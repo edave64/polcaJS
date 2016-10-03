@@ -1,4 +1,4 @@
-// These use browser apis, so the are not part of polcalib
+// These use browser apis, so they are not part of polcalib
 (function () {
     "use strict";
 
