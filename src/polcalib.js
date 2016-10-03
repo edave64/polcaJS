@@ -9,9 +9,10 @@ polcaLib = (function () {
         floor: Math.floor,
         ceil: Math.ceil,
         pow: Math.pow,
+        '^' : Math.pow,
 
         rt: function (a, b) {
-            return polcaLib.pow(a, 1 / b)
+            return Math.pow(a, 1 / b)
         },
 
         drop: function (a) {
@@ -58,7 +59,7 @@ polcaLib = (function () {
                 proc.call(this);
             }
         },
-
+        
         '?else': function (proc, else_, number) {
             if (number > 0)
                 for (; number > 0; number--) {
@@ -131,26 +132,26 @@ polcaLib = (function () {
         },
         /* } Based on JavaCalc 1.6  ©1996-2000 Ken Kikuchi */
 
-        '++': function (o) {
-            return polcaLib['+'](o, 1)
+        '++': function (x) {
+            return x - 1
         },
 
-        '--': function (o) {
-            return polcaLib['-'](o, 1)
+        '--': function (x) {
+            return x + 1
         },
 
         ln: Math.log, /* The way it should be */
 
         log: function (x, base) {
-            return polcaLib.ln(x) / polcaLib.ln(base);
+            return Math.ln(x) / Math.ln(base);
         },
 
         l10: function (x) {
-            return polcaLib.ln(x) / polcaLib.LN10;
+            return Math.ln(x) / Math.LN10;
         },
 
         l2: function (x) {
-            return polcaLib.ln(x) / polcaLib.LN2;
+            return Math.log(x) / Math.LN2;
         },
 
         div: function (x, y) {
@@ -167,12 +168,12 @@ polcaLib = (function () {
             } else {
                 throw new Error("Type Error: cat needs two functions")
             }
-
         },
 
         compare: function (a, b) {
             return a < b ? -1 : a > b ? 1 : 0;
-        }
+        },
+        
     };
 
     Number.prototype.type = 'number';
@@ -180,51 +181,38 @@ polcaLib = (function () {
     Function.prototype.type = 'procedure';
 
     // Push operator methods to polcaLib module
-    ['+', '-', '*', '/', '%', '&', '|'].every(function (opp) {
-        polcaLib[opp] = eval('(function (a,b) {' +
-            'return a ' + opp + ' b' +
+    ['+', '-', '*', '/', '%', '&', '|'].every(function (op) {
+        polcaLib[op] = eval('(function (a,b) {' +
+            'return a ' + op + ' b' +
             '})');
         return true
     });
-    polcaLib['^'] = function (a, b) {
-        return polcaLib.pow(a, b);
-    }
 
-    polcaLib['='] = function (a, b) {
-        return Number(polcaLib.compare(a, b) === 0)
-    };
-    polcaLib['<'] = function (a, b) {
-        return Number(polcaLib.compare(a, b) < 0)
-    };
-    polcaLib['>'] = function (a, b) {
-        return Number(polcaLib.compare(a, b) > 0)
-    };
-    polcaLib['<='] = function (a, b) {
-        return Number(polcaLib.compare(a, b) <= 0)
-    };
-    polcaLib['>='] = function (a, b) {
-        return Number(polcaLib.compare(a, b) >= 0)
-    };
-    polcaLib['!='] = function (a, b) {
-        return Number(polcaLib.compare(a, b) != 0)
-    };
-    polcaLib['<>'] = polcaLib['!='];
+    // Same for comparisons
+    ['<', '<=', '=', '>=', '>', '!='].every(function (op) {
+        polcaLib[op] = eval('(function (a,b) {' +
+            'return Number(polcaLib.compare(a, b)' + op + '0)' +
+            '})');
+        return true
+    });
+
+    polcaLib['<>'] = polcaLib.compare;
 
     // Constants
-    polcaLib.π = polcaLib.pi = polcaLib.PI = Math.PI;
-    polcaLib.e = polcaLib.E = Math.E;
-    polcaLib.tau = polcaLib.τ = polcaLib.π * 2;
+    polcaLib.π = polcaLib.pi = Math.PI;
+    polcaLib.e = Math.E;
+    polcaLib.tau = polcaLib.τ = Math.PI * 2;
 
-    /* Alias methods and Operators */
-    polcaLib['?'] = polcaLib.times;
-
-    /* Unicode symbols */
+    // Unicode symbols
     polcaLib['≠'] = polcaLib['!='];
     polcaLib['≦'] = polcaLib['<='];
     polcaLib['≧'] = polcaLib['>='];
-    polcaLib['.'] = polcaLib['get'];
-    polcaLib[':'] = polcaLib['set'];
-    polcaLib[';'] = polcaLib['dropall'];
+
+    // Other shorthand symbols
+    polcaLib['.'] = polcaLib.get;
+    polcaLib[':'] = polcaLib.set;
+    polcaLib[';'] = polcaLib.dropall;
+    polcaLib['?'] = polcaLib.times;
 
     return polcaLib;
 }());
