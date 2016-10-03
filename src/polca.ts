@@ -2,16 +2,24 @@ module Polca {
     export var helpCache = {};
     export var version = "0.9";
 
+    enum TokenType {
+        None, SingleString, DoubleString
+    }
+
     export function compile(str: string) {
-        var char_, i, word = '', currentTokenKind = '', escape = false,
-            currentContainer, containerStack = [];
+        var char_, i,
+            word = '',
+            currentContainer,
+            currentTokenKind = TokenType.None,
+            escape = false,
+            containerStack = [];
 
         var root = (currentContainer = new Structures.CustomFunc("", true));
 
         function finishWord() {
-            if (currentTokenKind === "'string")
+            if (currentTokenKind === TokenType.SingleString)
                 currentContainer.elements.push(word);
-            else if (currentTokenKind === '"string') {
+            else if (currentTokenKind === TokenType.DoubleString) {
                 if (char_ !== '"')
                     throw new Exceptions.SyntaxError("Unclosed string");
                 else
@@ -23,12 +31,12 @@ module Polca {
                     currentContainer.elements.push(new Structures.ID(word));
             }
             word = '';
-            currentTokenKind = '';
+            currentTokenKind = TokenType.None;
         }
 
         for (i = 0; i < str.length; i++) {
             char_ = str[i];
-            if (currentTokenKind === '"string') {
+            if (currentTokenKind === TokenType.DoubleString) {
                 if (escape) {
                     word += char_;
                     escape = false;
@@ -46,11 +54,11 @@ module Polca {
                         break;
                     case "'":
                         finishWord();
-                        currentTokenKind = "'string";
+                        currentTokenKind = TokenType.SingleString;
                         break;
                     case '"':
                         finishWord();
-                        currentTokenKind = '"string';
+                        currentTokenKind = TokenType.DoubleString;
                         break;
                     case '(':
                         finishWord();
@@ -273,7 +281,7 @@ module Polca {
         }
 
         export class Exception extends Error {
-            constructor(public message: string) {
+            constructor(message: string) {
                 super(message);
                 this.message = message;
                 this.stack = (<any>new Error()).stack;

@@ -1,21 +1,18 @@
 /// <reference path="polca.ts"/>
 
-declare var polcaLib;
-
 module Polca {
     export module UI {
-        module Keys {
-            export const
-                Backspace = 8,
-                Enter = 13,
-                Space = 32,
-                End = 35,
-                Home = 36,
-                Left = 37,
-                Up = 38,
-                Right = 39,
-                Down = 40,
-                Del = 46;
+        enum Keys {
+            Backspace = 8,
+            Enter = 13,
+            Space = 32,
+            End = 35,
+            Home = 36,
+            Left = 37,
+            Up = 38,
+            Right = 39,
+            Down = 40,
+            Del = 46
         }
 
         var firstSection: Section;
@@ -182,8 +179,8 @@ module Polca {
 
             protected insertLine () {
                 var input = this.input;
-                var newThisLine = input.value.substr(0, input.selectionStart);
-                var nextLine = input.value.substr(input.selectionEnd);
+                var newThisLine = input.value.substr(0, input.selectionStart).replace(/\s+$/, "");
+                var nextLine = input.value.substr(input.selectionEnd).trim();
                 input.value = newThisLine;
                 this.exec();
                 new Section(this);
