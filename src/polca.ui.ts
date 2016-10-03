@@ -4,19 +4,19 @@ declare var polcaLib;
 
 module Polca {
     export module UI {
-        module Keys {
-            export const
-                Backspace = 8,
-                Enter = 13,
-                Space = 32,
-                End = 35,
-                Home = 36,
-                Left = 37,
-                Up = 38,
-                Right = 39,
-                Down = 40,
-                Del = 46;
+        enum Keys {
+            Backspace = 8,
+            Enter = 13,
+            Space = 32,
+            End = 35,
+            Home = 36,
+            Left = 37,
+            Up = 38,
+            Right = 39,
+            Down = 40,
+            Del = 46
         }
+
 
         var firstSection: Section;
         var mainArea: HTMLDivElement;
