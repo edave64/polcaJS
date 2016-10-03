@@ -158,7 +158,7 @@ polcaLib = (function () {
         },
 
         rand: function () {
-            return polcaLib.random();
+            return Math.random();
         },
 
         cat: function (a, b) {
