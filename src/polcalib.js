@@ -54,6 +54,10 @@ polcaLib = (function () {
             return this.scope.get(name);
         },
 
+        info: function (str) {
+            this.info.push(str);
+        },
+
         times: function (proc, number) {
             for (; number > 0; number--) {
                 proc.call(this);
