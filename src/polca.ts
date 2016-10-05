@@ -93,6 +93,8 @@ module Polca {
     }
 
     export class Context {
+        public info: string[] = [];
+
         constructor(
             public scope: Scope = new Scope(),
             public stack: Stack = new Stack()
