@@ -48,6 +48,7 @@ module Polca {
             private container: HTMLElement;
             private input: HTMLInputElement;
             private output: HTMLElement;
+            private infos: HTMLDivElement[] = [];
 
             private code: string;
             private compiled: Polca.Structures.CustomFunc;
@@ -145,7 +146,22 @@ module Polca {
                 this.container.appendChild(this.output);
             }
 
+            protected addInfo (str) {
+                var ele = document.createElement("div");
+                ele.innerHTML = str;
+                ele.classList.add("info");
+                this.container.appendChild(ele);
+                this.infos.push(ele);
+            }
+
+            protected removeInfo () {
+                this.infos.forEach((ele) => ele.parentElement.removeChild(ele));
+                this.infos = [];
+            }
+
             protected exec (autoexec: boolean = false) {
+                this.removeInfo();
+
                 var value = this.input.value;
                 try {
                     if (this.prev.failed) {
@@ -159,6 +175,7 @@ module Polca {
                         var result = Polca.exec(this.compiled, this.prev.context);
                         this.context = result;
                         this.output.innerHTML = result.stack.toString();
+                        this.context.info.forEach((infoStr) => this.addInfo(infoStr));
                         if (this.failed) {
                             this.output.classList.remove("failed");
                         }
@@ -226,8 +243,8 @@ module Polca {
                     case Keys.Left:
                         if (e.shiftKey) break;
                         if (sStart === 0 && this.prev instanceof Section) {
-                            this.prev.focus();
-                            this.prev.cursorEnd();
+                            (<Section>this.prev).focus();
+                            (<Section>this.prev).cursorEnd();
                             e.preventDefault();
                         }
                         break;
