@@ -1,6 +1,4 @@
 polcaLib = (function () {
-    "use strict";
-
     var polcaLib = {
         version: "0.9",
 
@@ -176,7 +174,7 @@ polcaLib = (function () {
 
         compare: function (a, b) {
             return a < b ? -1 : a > b ? 1 : 0;
-        },
+        }
         
     };
 
