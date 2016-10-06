@@ -93,11 +93,10 @@ module Polca {
     }
 
     export class Context {
-        public info: string[] = [];
-
         constructor(
             public scope: Scope = new Scope(),
-            public stack: Stack = new Stack()
+            public stack: Stack = new Stack(),
+            public info: string[] = []
         ) {}
 
         fork() {
@@ -105,7 +104,7 @@ module Polca {
         }
 
         subContext(scope: Scope = this.scope) {
-            return new Context(scope.fork(), this.stack);
+            return new Context(scope.fork(), this.stack, this.info);
         }
     }
 
