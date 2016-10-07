@@ -114,7 +114,7 @@ polcaLib.number = function (a) {
         return oldNumber(a)
 };
 
-polcaLib.ratio = function (a,b) {
+polcaLib['ratio'] = function (a,b) {
     return new Ratio (a,b)
 };
 
