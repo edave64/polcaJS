@@ -1,7 +1,3 @@
-declare module polcaLib {
-    export function get (name: string);
-}
-
 // These use browser apis, so the are not part of polcalib
 module polcaLib {
     export function storeVal (val, name) {
