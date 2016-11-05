@@ -81,7 +81,7 @@ polcaLib = (function () {
         },
 
         forLength: function (proc, rest) {
-            while (this.stack.length > rest) {
+            while (this.stack.ary.length > rest) {
                 proc.call(this);
             }
         },
@@ -191,12 +191,15 @@ polcaLib = (function () {
     });
 
     // Same for comparisons
-    ['<', '<=', '=', '>=', '>', '!='].every(function (op) {
+    ['<', '<=', '>=', '>', '!='].every(function (op) {
         polcaLib[op] = eval('(function (a,b) {' +
             'return Number(polcaLib.compare(a, b)' + op + '0)' +
             '})');
         return true
     });
+    polcaLib["="] = function (a,b) {
+        return Number(polcaLib.compare(a, b) == 0);
+    };
 
     polcaLib['<>'] = polcaLib.compare;
 
