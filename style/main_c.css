@@ -59,6 +59,15 @@ section
 {
   display:flex;
   flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.info
+{
+  padding: 8px;
+  font-family: "Source Serif Pro", Times, serif;
+  background-color: #f0f0f0;
+  width: 100%;
 }
 
 section.active
@@ -86,3 +95,9 @@ html.dark input
 
 html.dark #polca_content, html.dark output, html.dark input
 { background-color: #000 }
+
+html.dark .info
+{
+  color: #FFF;
+  background-color: #101010;
+}
