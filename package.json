@@ -1,0 +1,10 @@
+{
+  "name": "polcaJS",
+  "version": "0.9.0",
+  "dependencies": {
+    "typescript": "^2.5.3"
+  },
+  "scripts": {
+    "build": "./node_modules/.bin/tsc"
+  }
+}
