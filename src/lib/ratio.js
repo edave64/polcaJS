@@ -40,8 +40,7 @@ var Ratio = /** @class */ (function () {
         return this.numerator / this.denominator;
     };
     Ratio.prototype.toString = function () {
-        return 'ratio ' + this.numerator.toString() + ' ' +
-            this.denominator.toString();
+        return this.numerator.toString() + " " + this.denominator.toString() + " ratio";
     };
     return Ratio;
 }());
