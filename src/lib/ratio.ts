@@ -4,13 +4,13 @@ class Ratio {
     public denominator;
 
     constructor(num, denom?) {
-        var tens, gcd;
+        let tens, gcd;
         if (!denom && typeof num == 'number' && !isNaN(num) && isFinite(num)) {
             tens = 1;
             // find numbers after comma to make flat numbers
             if (num % 1 != 0) tens = Math.pow(10, (num % 1).toString().length - 2);
             num = num * tens;
-            denom = tens
+            denom = tens;
         } else if (typeof num == 'number' && typeof denom == 'number'
                 && !isNaN(num) && !isNaN(denom) && isFinite(num) && isFinite(denom)) {
             if (!(num % 1 == 0 && denom % 1 == 0)) {
@@ -21,7 +21,7 @@ class Ratio {
                 ));
 
                 num = num * tens;
-                denom = denom * tens
+                denom = denom * tens;
             }
         } else {
             throw 'numerator and denominator have to be numbers'
@@ -42,18 +42,17 @@ class Ratio {
         while (b != 0) {
             r = a % b;
             a = b;
-            b = r
+            b = r;
         }
-        return a
+        return a;
     }
 
     toNumber() {
-        return this.numerator / this.denominator
+        return this.numerator / this.denominator;
     }
 
     toString() {
-        return 'ratio ' + this.numerator.toString() + ' ' +
-            this.denominator.toString()
+        return `${this.numerator.toString()} ${this.denominator.toString()} ratio`
     }
 }
 (function () {
@@ -106,7 +105,7 @@ class Ratio {
 }());
 
 /* extend number method */
-var oldNumber = polcaLib.number;
+const oldNumber = polcaLib.number;
 polcaLib.number = function (a) {
     if (a['toNumber'])
         return a.toNumber();
