@@ -15,8 +15,8 @@ module Polca {
             Del = 46
         }
 
-        var firstSection: Section;
-        var mainArea: HTMLDivElement;
+        let firstSection: Section;
+        let mainArea: HTMLDivElement;
 
         //noinspection JSUnusedLocalSymbols
         export function reset () {
@@ -80,9 +80,9 @@ module Polca {
             }
 
             public append (str: string) {
-                var str = str.trim();
-                var oldText = this.input.value.replace(/\s+$/, "");
-                var separator = (str != "" && oldText != "") ? " " : "";
+                str = str.trim();
+                const oldText = this.input.value.replace(/\s+$/, "");
+                const separator = (str != "" && oldText != "") ? " " : "";
                 this.input.value = oldText + separator + str;
                 this.setCursor(oldText.length);
             }
@@ -135,7 +135,7 @@ module Polca {
             }
 
             protected createInputField () {
-                var input = this.input = document.createElement('input');
+                const input = this.input = document.createElement('input');
                 input.addEventListener("change", () => this.exec());
                 input.addEventListener("keydown", (e) => this.keydownHandler(<KeyboardEvent>e));
                 this.container.appendChild(input);
@@ -147,7 +147,7 @@ module Polca {
             }
 
             protected addInfo (str) {
-                var ele = document.createElement("div");
+                const ele = document.createElement("div");
                 ele.innerHTML = str;
                 ele.classList.add("info");
                 this.container.appendChild(ele);
@@ -162,7 +162,7 @@ module Polca {
             protected exec (autoexec: boolean = false) {
                 this.removeInfo();
 
-                var value = this.input.value;
+                const value = this.input.value;
                 try {
                     if (this.prev.failed) {
                         this.failed = true;
@@ -172,7 +172,7 @@ module Polca {
                             this.code = value;
                             this.compiled = Polca.compile(value);
                         }
-                        var result = Polca.exec(this.compiled, this.prev.context);
+                        const result = Polca.exec(this.compiled, this.prev.context);
                         this.context = result;
                         this.output.innerHTML = result.stack.toString();
                         this.context.info.forEach((infoStr) => this.addInfo(infoStr));
@@ -195,9 +195,9 @@ module Polca {
             }
 
             protected insertLine () {
-                var input = this.input;
-                var newThisLine = input.value.substr(0, input.selectionStart).replace(/\s+$/, "");
-                var nextLine = input.value.substr(input.selectionEnd).trim();
+                const input = this.input;
+                const newThisLine = input.value.substr(0, input.selectionStart).replace(/\s+$/, "");
+                const nextLine = input.value.substr(input.selectionEnd).trim();
                 input.value = newThisLine;
                 this.exec();
                 new Section(this);
@@ -216,7 +216,7 @@ module Polca {
             }
 
             protected keydownHandler (e: KeyboardEvent) {
-                var sStart = this.input.selectionStart,
+                const sStart = this.input.selectionStart,
                     sEnd = this.input.selectionEnd,
                     sLen = sEnd - sStart;
                 switch (e.keyCode) {
@@ -275,7 +275,7 @@ module Polca {
 
                     case Keys.Backspace:
                         if (sStart === 0 && sLen === 0 && this.prev instanceof Section) {
-                            var prev = <Section>this.prev;
+                            const prev = <Section>this.prev;
                             prev.append(this.input.value);
                             prev.focus();
                             this.remove();

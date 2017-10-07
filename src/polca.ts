@@ -7,14 +7,14 @@ module Polca {
     }
 
     export function compile(str: string) {
-        var char_, i,
+        let char_, i,
             word = '',
             currentContainer,
             currentTokenKind = TokenType.None,
-            escape = false,
-            containerStack = [];
+            escape = false;
+        const containerStack = [];
 
-        var root = (currentContainer = new Structures.CustomFunc("", true));
+        const root = (currentContainer = new Structures.CustomFunc("", true));
 
         function finishWord() {
             if (currentTokenKind === TokenType.SingleString)
@@ -62,7 +62,7 @@ module Polca {
                         break;
                     case '(':
                         finishWord();
-                        var newContainer = new Structures.CustomFunc ("");
+                        const newContainer = new Structures.CustomFunc("");
                         currentContainer.elements.push(newContainer);
                         containerStack.push(currentContainer);
                         currentContainer = newContainer;
@@ -85,7 +85,7 @@ module Polca {
 
     export function exec (structure: Structures.Structure, parentContext: Context): Context {
         if (!parentContext) parentContext = new Context();
-        var context = parentContext.fork();
+        const context = parentContext.fork();
 
         structure.call(context);
 
@@ -112,7 +112,7 @@ module Polca {
         private obj = {};
 
         get(name:string) {
-            var val = this.obj[name];
+            const val = this.obj[name];
             if (val === undefined)
                 throw new Exceptions.ReferenceError (name);
             else if (val instanceof Function)
@@ -130,7 +130,7 @@ module Polca {
         }
 
         static from(source:Object) {
-            var newValue = new Scope();
+            const newValue = new Scope();
             newValue.obj = Object.create(source);
             return newValue;
         }
@@ -154,7 +154,7 @@ module Polca {
         }
 
         fork(): Stack {
-            var newStack = new Stack();
+            const newStack = new Stack();
             newStack.ary = this.ary.slice();
             return newStack;
         }
@@ -168,7 +168,7 @@ module Polca {
         }
 
         toString(): string {
-            return this.ary.reduce(function (sum, element, i) {
+            return this.ary.reduce((sum, element, i) => {
                 if (i != 0) sum += ' ';
                 if (typeof element === 'string')
                     return sum + '"' + Polca.Stack.maskString(element) + '"';
@@ -192,7 +192,7 @@ module Polca {
             }
 
             call(context: Context) {
-                var val = context.scope.get(this.name);
+                const val = context.scope.get(this.name);
                 return val.call ? val.call(context) : val;
             }
 
@@ -213,20 +213,20 @@ module Polca {
 
             call(context: Context) {
                 if (!this.root) context = context.subContext(this.binding);
-                this.elements.every(function (element) {
+                this.elements.forEach((element) => {
                     if (element instanceof ID) {
                         context.stack.push(element.call(context));
                     } else if (element instanceof CustomFunc) {
                         context.stack.push(element.bind(context.scope));
-                    } else
+                    } else {
                         context.stack.push(element);
-                    return true;
+                    }
                 })
             }
 
             toString(): string {
-                var result = '(', first = true;
-                this.elements.every(function (element) {
+                let result = '(', first = true;
+                this.elements.forEach((element) => {
                     if (first)
                         first = false;
                     else
@@ -236,20 +236,18 @@ module Polca {
                         result += '"' + element + '"';
                     else
                         result += element.toString();
-
-                    return true;
                 });
                 return result + ')';
             }
 
             cat(other: CustomFunc) {
-                var newFunc = new Polca.Structures.CustomFunc ("(" + this.name + " " + other.name + ")");
+                const newFunc = new Polca.Structures.CustomFunc("(" + this.name + " " + other.name + ")");
                 newFunc.elements = this.elements.concat(other.elements);
                 return newFunc;
             }
 
             bind(scope: Scope) {
-                var newFunc = new CustomFunc (this.name, this.root);
+                const newFunc = new CustomFunc(this.name, this.root);
                 newFunc.elements = this.elements;
                 newFunc.binding = scope;
                 return newFunc;
@@ -263,7 +261,7 @@ module Polca {
             ) {}
 
             call(context: Context) {
-                var args = context.stack.pull(this.func.length);
+                const args = context.stack.pull(this.func.length);
                 context.stack.push(this.func.apply(context, args));
             }
 
