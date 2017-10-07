@@ -183,19 +183,13 @@ polcaLib = (function () {
     Function.prototype.type = 'procedure';
 
     // Push operator methods to polcaLib module
-    ['+', '-', '*', '/', '%', '&', '|'].every(function (op) {
-        polcaLib[op] = eval('(function (a,b) {' +
-            'return a ' + op + ' b' +
-            '})');
-        return true
+    ['+', '-', '*', '/', '%', '&', '|'].forEach(function (op) {
+        polcaLib[op] = new Function ('a,b', 'return a' + op + 'b');
     });
 
     // Same for comparisons
-    ['<', '<=', '>=', '>', '!='].every(function (op) {
-        polcaLib[op] = eval('(function (a,b) {' +
-            'return Number(polcaLib.compare(a, b)' + op + '0)' +
-            '})');
-        return true
+    ['<', '<=', '>=', '>', '!='].forEach(function (op) {
+        polcaLib[op] = new Function ('a,b', 'return polcaLib.compare(a, b)' + op + '0');
     });
     polcaLib["="] = function (a,b) {
         return Number(polcaLib.compare(a, b) === 0);
