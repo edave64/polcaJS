@@ -95,9 +95,9 @@ polcaLib = (function () {
             switch (true) {
                 case n < 0:                     /* if negative */
                     return polcaLib.gamma(n + 1);
-                case n == 0 || n == 1:
+                case n === 0 || n === 1:
                     return 1;
-                case polcaLib.abs(n) - polcaLib.floor(abs(n)) == 0: /* if positive integer */
+                case polcaLib.abs(n) - polcaLib.floor(polcaLib.abs(n)) === 0: /* if positive integer */
                     return n * polcaLib.factorial(n - 1);
                 default:                      /* if non-integer */
                     return polcaLib.gamma(n + 1);
@@ -106,7 +106,7 @@ polcaLib = (function () {
 
         gamma: function (x) {
             if (x <= 0) {
-                if (polcaLib.abs(x) - polcaLib.floor(abs(x)) == 0)
+                if (polcaLib.abs(x) - polcaLib.floor(polcaLib.abs(x)) === 0)
                     throw "Complex Infinity";
                 else return polcaLib.PI /
                     (polcaLib.sin(polcaLib.PI * x) * polcaLib.exp(polcaLib.loggamma(1 - x)));
@@ -198,7 +198,7 @@ polcaLib = (function () {
         return true
     });
     polcaLib["="] = function (a,b) {
-        return Number(polcaLib.compare(a, b) == 0);
+        return Number(polcaLib.compare(a, b) === 0);
     };
 
     polcaLib['<>'] = polcaLib.compare;
