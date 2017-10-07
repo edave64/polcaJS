@@ -25,7 +25,7 @@ var polcaLib;
     polcaLib.trash = trash;
 })(polcaLib || (polcaLib = {}));
 polcaLib['import'] = function (filename) {
-    if (!filename.match(/http(s)?\:\\\\/))
+    if (!filename.match(/http(s)?:\\\\/))
         filename = 'src/lib/' + filename + '.js';
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function () {

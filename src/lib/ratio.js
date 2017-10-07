@@ -20,7 +20,7 @@ var Ratio = /** @class */ (function () {
             }
         }
         else {
-            throw 'numerator and denominator have to be numbers';
+            throw 'Numerator and denominator have to be numbers.';
         }
         gcd = Ratio.gcd(num, denom);
         this.numerator = num / gcd;
@@ -52,7 +52,7 @@ var Ratio = /** @class */ (function () {
             return new Ratio(a);
     }
     function binaryRatioWrap(oldFunc, alternative) {
-        var func = function (a, b) {
+        function func(a, b) {
             if (a instanceof Ratio || b instanceof Ratio) {
                 a = convert(a);
                 b = convert(b);
@@ -60,7 +60,7 @@ var Ratio = /** @class */ (function () {
             }
             else
                 return oldFunc(a, b);
-        };
+        }
         func['name'] = oldFunc.name;
         return func;
     }
@@ -70,28 +70,28 @@ var Ratio = /** @class */ (function () {
     polcaLib['/'] = binaryRatioWrap(polcaLib['/'], function (a, b) { return new Ratio(a.numerator * b.denominator, a.denominator * b.numerator); });
     polcaLib.pow = binaryRatioWrap(polcaLib.pow, function (a, b) { return polcaLib.pow(a.toNumber(), b.toNumber()); });
     polcaLib.compare = binaryRatioWrap(polcaLib.compare, function (a, b) { return polcaLib.compare(a.toNumber(), b.toNumber()); });
-}());
-/* extend number method */
-var oldNumber = polcaLib.number;
-polcaLib.number = function (a) {
-    if (a['toNumber'])
-        return a.toNumber();
-    else
-        return oldNumber(a);
-};
-polcaLib['ratio'] = function (a, b) {
-    return new Ratio(a, b);
-};
-polcaLib['ratio/numerator'] = function (ratio) {
-    if (ratio instanceof Ratio)
-        return ratio.numerator;
-    else
-        return (new Ratio(ratio)).numerator;
-};
-polcaLib['ratio/denominator'] = function (ratio) {
-    if (ratio instanceof Ratio)
-        return ratio.denominator;
-    else
-        return (new Ratio(ratio)).denominator;
-};
+    /* extend number method */
+    var oldNumber = polcaLib.number;
+    polcaLib.number = function (a) {
+        if (a['toNumber'])
+            return a.toNumber();
+        else
+            return oldNumber(a);
+    };
+    polcaLib['ratio'] = function (a, b) {
+        return new Ratio(a, b);
+    };
+    polcaLib['ratio/numerator'] = function (ratio) {
+        if (ratio instanceof Ratio)
+            return ratio.numerator;
+        else
+            return (new Ratio(ratio)).numerator;
+    };
+    polcaLib['ratio/denominator'] = function (ratio) {
+        if (ratio instanceof Ratio)
+            return ratio.denominator;
+        else
+            return (new Ratio(ratio)).denominator;
+    };
+})();
 //# sourceMappingURL=ratio.js.map

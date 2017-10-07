@@ -19,7 +19,8 @@ var Polca;
         TokenType[TokenType["DoubleString"] = 2] = "DoubleString";
     })(TokenType || (TokenType = {}));
     function compile(str) {
-        var char_, i, word = '', currentContainer, currentTokenKind = TokenType.None, escape = false, containerStack = [];
+        var char_, i, word = '', currentContainer, currentTokenKind = TokenType.None, escape = false;
+        var containerStack = [];
         var root = (currentContainer = new Structures.CustomFunc("", true));
         function finishWord() {
             if (currentTokenKind === TokenType.SingleString)
@@ -215,21 +216,21 @@ var Polca;
             CustomFunc.prototype.call = function (context) {
                 if (!this.root)
                     context = context.subContext(this.binding);
-                this.elements.every(function (element) {
+                this.elements.forEach(function (element) {
                     if (element instanceof ID) {
                         context.stack.push(element.call(context));
                     }
                     else if (element instanceof CustomFunc) {
                         context.stack.push(element.bind(context.scope));
                     }
-                    else
+                    else {
                         context.stack.push(element);
-                    return true;
+                    }
                 });
             };
             CustomFunc.prototype.toString = function () {
                 var result = '(', first = true;
-                this.elements.every(function (element) {
+                this.elements.forEach(function (element) {
                     if (first)
                         first = false;
                     else
@@ -238,7 +239,6 @@ var Polca;
                         result += '"' + element + '"';
                     else
                         result += element.toString();
-                    return true;
                 });
                 return result + ')';
             };

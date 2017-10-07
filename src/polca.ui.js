@@ -74,7 +74,7 @@ var Polca;
                 this.input.focus();
             };
             Section.prototype.append = function (str) {
-                var str = str.trim();
+                str = str.trim();
                 var oldText = this.input.value.replace(/\s+$/, "");
                 var separator = (str != "" && oldText != "") ? " " : "";
                 this.input.value = oldText + separator + str;
