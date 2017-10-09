@@ -28,9 +28,11 @@ var Polca;
         })(Keys || (Keys = {}));
         var firstSection;
         var mainArea;
-        //noinspection JSUnusedLocalSymbols
+        var textSizeTester = document.createElement("div");
         function reset() {
             firstSection = null;
+            textSizeTester.style.visibility = "false";
+            textSizeTester.style.display = "inline";
             mainArea = document.getElementById('polca_content');
             mainArea.innerHTML = "";
             addSection();
@@ -127,6 +129,7 @@ var Polca;
                 var input = this.input = document.createElement('input');
                 input.addEventListener("change", function () { return _this.exec(); });
                 input.addEventListener("keydown", function (e) { return _this.keydownHandler(e); });
+                input.addEventListener("input", function (e) { return _this.inputHandler(e); });
                 this.container.appendChild(input);
             };
             Section.prototype.createOutputField = function () {
@@ -199,6 +202,15 @@ var Polca;
             };
             Section.prototype.blurHandler = function () {
                 this.container.classList.remove("active");
+            };
+            Section.prototype.inputHandler = function (e) {
+                var computed = getComputedStyle(this.input);
+                textSizeTester.style.font = computed.font;
+                document.body.appendChild(textSizeTester);
+                textSizeTester.innerHTML = this.input.value.replace(/[&<> ]/g, function (mark) { return Section.entityReplacer[mark]; });
+                var width = textSizeTester.offsetWidth;
+                textSizeTester.parentElement.removeChild(textSizeTester);
+                this.input.style.width = width + "px";
             };
             Section.prototype.keydownHandler = function (e) {
                 var _this = this;
@@ -273,6 +285,12 @@ var Polca;
                             return false;
                         }
                 }
+            };
+            Section.entityReplacer = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                ' ': '&nbsp;'
             };
             return Section;
         }(BaseSection));
