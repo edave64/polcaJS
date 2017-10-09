@@ -17,10 +17,12 @@ module Polca {
 
         let firstSection: Section;
         let mainArea: HTMLDivElement;
+        const textSizeTester: HTMLDivElement = document.createElement("div");
 
-        //noinspection JSUnusedLocalSymbols
         export function reset () {
             firstSection = null;
+            textSizeTester.style.visibility = "false";
+            textSizeTester.style.display = "inline";
             mainArea = <HTMLDivElement>document.getElementById('polca_content');
             mainArea.innerHTML = "";
             addSection();
@@ -138,6 +140,7 @@ module Polca {
                 const input = this.input = document.createElement('input');
                 input.addEventListener("change", () => this.exec());
                 input.addEventListener("keydown", (e) => this.keydownHandler(<KeyboardEvent>e));
+                input.addEventListener("input", (e) => this.inputHandler(<TextEvent>e));
                 this.container.appendChild(input);
             }
 
@@ -213,6 +216,24 @@ module Polca {
 
             protected blurHandler () {
                 this.container.classList.remove("active");
+            }
+
+            protected static entityReplacer = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                ' ': '&nbsp;'
+            };
+
+            protected inputHandler (e: TextEvent) {
+                const computed = getComputedStyle(this.input);
+                textSizeTester.style.font = computed.font;
+                document.body.appendChild(textSizeTester);
+                textSizeTester.innerHTML = this.input.value.replace(/[&<> ]/g, (mark) => Section.entityReplacer[mark]);
+                const width = textSizeTester.offsetWidth;
+                textSizeTester.parentElement.removeChild(textSizeTester);
+
+                this.input.style.width = width + "px";
             }
 
             protected keydownHandler (e: KeyboardEvent) {
