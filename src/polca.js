@@ -70,13 +70,30 @@ var Polca;
                         break;
                     case '(':
                         finishWord();
-                        var newContainer = new Structures.CustomFunc("");
-                        currentContainer.elements.push(newContainer);
+                        var functionContainer = new Structures.CustomFunc("");
+                        currentContainer.elements.push(functionContainer);
                         containerStack.push(currentContainer);
-                        currentContainer = newContainer;
+                        currentContainer = functionContainer;
                         break;
                     case ')':
                         finishWord();
+                        if (!(currentContainer instanceof Structures.CustomFunc)) {
+                            throw new Exceptions.SyntaxError("Unexpected symbol ')'");
+                        }
+                        currentContainer = containerStack.pop();
+                        break;
+                    case '[':
+                        finishWord();
+                        var subStackContainer = new Structures.SubStack();
+                        currentContainer.elements.push(subStackContainer);
+                        containerStack.push(currentContainer);
+                        currentContainer = subStackContainer;
+                        break;
+                    case ']':
+                        finishWord();
+                        if (!(currentContainer instanceof Structures.SubStack)) {
+                            throw new Exceptions.SyntaxError("Unexpected symbol ']'");
+                        }
                         currentContainer = containerStack.pop();
                         break;
                     default:
@@ -114,6 +131,9 @@ var Polca;
         Context.prototype.subContext = function (scope) {
             if (scope === void 0) { scope = this.scope; }
             return new Context(scope.fork(), this.stack, this.info);
+        };
+        Context.prototype.subStackContext = function () {
+            return new Context(this.scope.fork(), new Polca.SubStack(), this.info);
         };
         return Context;
     }());
@@ -161,7 +181,7 @@ var Polca;
                 this.ary.push(val);
         };
         Stack.prototype.fork = function () {
-            var newStack = new Stack();
+            var newStack = new this.constructor();
             newStack.ary = this.ary.slice();
             return newStack;
         };
@@ -184,6 +204,28 @@ var Polca;
         return Stack;
     }());
     Polca.Stack = Stack;
+    var SubStack = /** @class */ (function (_super) {
+        __extends(SubStack, _super);
+        function SubStack() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        SubStack.prototype.toString = function () {
+            return "[" + _super.prototype.toString.call(this) + "]";
+        };
+        SubStack.prototype.libPush = function (value) {
+            var newStack = new SubStack();
+            newStack.ary = this.ary.slice(0);
+            newStack.ary.push(value);
+            return newStack;
+        };
+        SubStack.prototype.libPop = function () {
+            var newStack = new SubStack();
+            newStack.ary = this.ary.slice(0, this.ary.length - 1);
+            return [this.ary[this.ary.length - 1], newStack];
+        };
+        return SubStack;
+    }(Stack));
+    Polca.SubStack = SubStack;
     var Structures;
     (function (Structures) {
         var ID = /** @class */ (function () {
@@ -200,6 +242,29 @@ var Polca;
             return ID;
         }());
         Structures.ID = ID;
+        var SubStack = /** @class */ (function () {
+            function SubStack() {
+                this.elements = [];
+            }
+            SubStack.prototype.call = function (context) {
+                var subcontext = context.subStackContext();
+                var substack = subcontext.stack;
+                this.elements.forEach(function (element) {
+                    if (element instanceof ID) {
+                        substack.push(element.call(subcontext));
+                    }
+                    else if (element instanceof CustomFunc) {
+                        substack.push(element.bind(subcontext.scope));
+                    }
+                    else {
+                        substack.push(element);
+                    }
+                });
+                context.stack.push(substack);
+            };
+            return SubStack;
+        }());
+        Structures.SubStack = SubStack;
         var Func = /** @class */ (function () {
             function Func() {
             }
@@ -222,6 +287,9 @@ var Polca;
                     }
                     else if (element instanceof CustomFunc) {
                         context.stack.push(element.bind(context.scope));
+                    }
+                    else if (element instanceof SubStack) {
+                        context.stack.push(element.call(context));
                     }
                     else {
                         context.stack.push(element);
