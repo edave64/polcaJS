@@ -1,6 +1,6 @@
 module Polca {
-    export var helpCache = {};
-    export var version = "0.9";
+    export const helpCache = {};
+    export const version = "0.9";
 
     enum TokenType {
         None, SingleString, DoubleString
@@ -62,13 +62,30 @@ module Polca {
                         break;
                     case '(':
                         finishWord();
-                        const newContainer = new Structures.CustomFunc("");
-                        currentContainer.elements.push(newContainer);
+                        const functionContainer = new Structures.CustomFunc("");
+                        currentContainer.elements.push(functionContainer);
                         containerStack.push(currentContainer);
-                        currentContainer = newContainer;
+                        currentContainer = functionContainer;
                         break;
                     case ')':
                         finishWord();
+                        if (!(currentContainer instanceof Structures.CustomFunc)) {
+                            throw new Exceptions.SyntaxError("Unexpected symbol ')'")
+                        }
+                        currentContainer = containerStack.pop();
+                        break;
+                    case '[':
+                        finishWord();
+                        const subStackContainer = new Structures.SubStack();
+                        currentContainer.elements.push(subStackContainer);
+                        containerStack.push(currentContainer);
+                        currentContainer = subStackContainer;
+                        break;
+                    case ']':
+                        finishWord();
+                        if (!(currentContainer instanceof Structures.SubStack)) {
+                            throw new Exceptions.SyntaxError("Unexpected symbol ']'")
+                        }
                         currentContainer = containerStack.pop();
                         break;
                     default:
@@ -106,6 +123,10 @@ module Polca {
         subContext(scope: Scope = this.scope) {
             return new Context(scope.fork(), this.stack, this.info);
         }
+
+        subStackContext() {
+            return new Context (this.scope.fork(), new Polca.SubStack(), this.info);
+        }
     }
 
     export class Scope {
@@ -137,7 +158,7 @@ module Polca {
     }
 
     export class Stack {
-        private ary = [];
+        public ary = [];
 
         pull(num) {
             if (this.ary.length < num)
@@ -154,7 +175,7 @@ module Polca {
         }
 
         fork(): Stack {
-            const newStack = new Stack();
+            const newStack = new (<any>this.constructor)();
             newStack.ary = this.ary.slice();
             return newStack;
         }
@@ -175,6 +196,25 @@ module Polca {
                 else
                     return sum + element.toString();
             }, "");
+        }
+    }
+
+    export class SubStack extends Stack {
+        toString(): string {
+            return "[" + super.toString() + "]";
+        }
+
+        libPush(value: any) {
+            const newStack = new SubStack();
+            newStack.ary = this.ary.slice(0);
+            newStack.ary.push(value);
+            return newStack;
+        }
+
+        libPop() {
+            const newStack = new SubStack();
+            newStack.ary = this.ary.slice(0, this.ary.length - 1);
+            return [this.ary[this.ary.length - 1], newStack];
         }
     }
 
@@ -201,6 +241,27 @@ module Polca {
             }
         }
 
+        export class SubStack implements Structure {
+            private elements = [];
+
+            constructor() {}
+
+            call(context: Polca.Context) {
+                const subcontext = context.subStackContext();
+                const substack = subcontext.stack;
+                this.elements.forEach((element) => {
+                    if (element instanceof ID) {
+                        substack.push(element.call(subcontext));
+                    } else if (element instanceof CustomFunc) {
+                        substack.push(element.bind(subcontext.scope));
+                    } else {
+                        substack.push(element);
+                    }
+                });
+                context.stack.push(substack);
+            }
+        }
+
         export abstract class Func implements Structure {
             abstract call(context: Context);
         }
@@ -218,6 +279,8 @@ module Polca {
                         context.stack.push(element.call(context));
                     } else if (element instanceof CustomFunc) {
                         context.stack.push(element.bind(context.scope));
+                    } else if (element instanceof SubStack) {
+                        context.stack.push(element.call(context));
                     } else {
                         context.stack.push(element);
                     }
