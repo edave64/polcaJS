@@ -90,35 +90,6 @@ polcaLib = (function () {
             throw new Error ("length is not implemented for this type");
         },
 
-        push: function (value, substack) {
-            if (!(substack instanceof Polca.SubStack)) throw new Error ("push is not implemented for this type");
-
-            return substack.libPush(value);
-        },
-
-        pull: function (substack) {
-            return substack.libPop();
-        },
-
-        pullAll: function (substack) {
-            if (!(substack instanceof Polca.SubStack)) throw new Error ("pullAll is not implemented for this type");
-
-            return substack.ary;
-        },
-
-        /**
-         * @param {Polca.Structures.Func} callback
-         * @param {Polca.SubStack} substack
-         */
-        execIn: function (callback, substack) {
-            if (!(callback instanceof Polca.Structures.CustomFunc)) throw new Error ("execIn is not implemented for this type");
-            if (!(substack instanceof Polca.SubStack)) throw new Error ("execIn is not implemented for this type");
-
-            var execStack = substack.fork();
-            callback.call(new Polca.Context (this.scope, execStack, this.info));
-            return execStack;
-        },
-
         forLength: function (proc, rest) {
             while (this.stack.ary.length > rest) {
                 proc.call(this);
@@ -213,8 +184,38 @@ polcaLib = (function () {
 
         compare: function (a, b) {
             return a < b ? -1 : a > b ? 1 : 0;
+        },
+
+        push: function (value, substack) {
+            if (!(substack instanceof Polca.SubStack)) throw new Error ("push is not implemented for this type");
+
+            return substack.libPush(value);
+        },
+
+        pop: function (substack) {
+            if (!(substack instanceof Polca.SubStack)) throw new Error ("pop is not implemented for this type");
+
+            return substack.libPop();
+        },
+
+        dissolve: function (substack) {
+            if (!(substack instanceof Polca.SubStack)) throw new Error ("integrate is not implemented for this type");
+
+            return substack.ary;
+        },
+
+        /**
+         * @param {Polca.Structures.Func} callback
+         * @param {Polca.SubStack} substack
+         */
+        execIn: function (callback, substack) {
+            if (!(callback instanceof Polca.Structures.CustomFunc)) throw new Error ("execIn is not implemented for this type");
+            if (!(substack instanceof Polca.SubStack)) throw new Error ("execIn is not implemented for this type");
+
+            var execStack = substack.fork();
+            callback.call(new Polca.Context (this.scope, execStack, this.info));
+            return execStack;
         }
-        
     };
 
     Number.prototype.type = 'number';
@@ -251,6 +252,8 @@ polcaLib = (function () {
     polcaLib[':'] = polcaLib.set;
     polcaLib[';'] = polcaLib.dropall;
     polcaLib['?'] = polcaLib.times;
+    polcaLib['|>'] = polcaLib.pop;
+    polcaLib['|<'] = polcaLib.push;
 
     return polcaLib;
 }());
