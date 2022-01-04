@@ -229,6 +229,11 @@ polcaLib = (function () {
         return Number(polcaLib.compare(a, b) === 0);
     };
 
+    const synonym = (syn, meaning) =>
+        [syn].flat ().forEach (
+            symbol => polcaLib[symbol] = polcaLib[meaning] || meaning
+        )
+
     polcaLib['<>'] = polcaLib.compare;
 
     // Constants
