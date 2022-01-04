@@ -188,6 +188,10 @@ var Polca;
     }
     Polca.Stack = Stack;
     class SubStack extends Stack {
+        constructor() {
+            super(...arguments);
+            this.type = "Substack";
+        }
         toString() {
             return "[" + super.toString() + "]";
         }
@@ -243,11 +247,23 @@ var Polca;
         }
         Structures.SubStack = SubStack;
         class Func {
+            constructor(name) {
+                this.name = name;
+                this.type = "Function";
+            }
+            cat(other) {
+                const newFunc = new Polca.Structures.CustomFunc("(" + this.name + " " + other.name + ")", false);
+                newFunc.elements = [
+                    ...(this instanceof CustomFunc ? this.elements : [new Structures.ID(this.name)]),
+                    ...(other instanceof CustomFunc ? other.elements : [new Structures.ID(other.name)])
+                ];
+                return newFunc;
+            }
         }
         Structures.Func = Func;
-        class CustomFunc {
+        class CustomFunc extends Func {
             constructor(name, root = false) {
-                this.name = name;
+                super(name);
                 this.root = root;
                 this.elements = [];
             }
@@ -283,11 +299,6 @@ var Polca;
                 });
                 return result + ')';
             }
-            cat(other) {
-                const newFunc = new Polca.Structures.CustomFunc("(" + this.name + " " + other.name + ")");
-                newFunc.elements = this.elements.concat(other.elements);
-                return newFunc;
-            }
             bind(scope) {
                 const newFunc = new CustomFunc(this.name, this.root);
                 newFunc.elements = this.elements;
@@ -296,10 +307,11 @@ var Polca;
             }
         }
         Structures.CustomFunc = CustomFunc;
-        class NativeFunc {
+        class NativeFunc extends Func {
             constructor(func, name) {
+                super(name);
                 this.func = func;
-                this.name = name;
+                this.type = "Function";
             }
             call(context) {
                 const args = context.stack.pull(this.func.length);

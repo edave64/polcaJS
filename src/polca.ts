@@ -200,6 +200,8 @@ module Polca {
     }
 
     export class SubStack extends Stack {
+        readonly type = "Substack";
+
         toString(): string {
             return "[" + super.toString() + "]";
         }
@@ -264,14 +266,31 @@ module Polca {
         }
 
         export abstract class Func implements Structure {
+            readonly type = "Function";
+
+            protected constructor (protected name: string) {}
             abstract call(context: Context);
+
+            cat(other: Func) {
+                const newFunc = new Polca.Structures.CustomFunc(
+                    "(" + this.name + " " + other.name + ")",
+                    false
+                );
+                newFunc.elements = [
+                    ...(this instanceof CustomFunc ? this.elements : [new Structures.ID(this.name)]),
+                    ...(other instanceof CustomFunc ? other.elements : [new Structures.ID(other.name)])
+                ];
+                return newFunc;
+            }
         }
 
-        export class CustomFunc implements Func {
-            private elements = [];
+        export class CustomFunc extends Func {
+            public elements = []
             private binding: Scope;
 
-            constructor(private name: string, private root: boolean = false) {}
+            constructor(name: string, private root: boolean = false) {
+                super(name);
+            }
 
             call(context: Context) {
                 if (!this.root) context = context.subContext(this.binding);
@@ -304,12 +323,6 @@ module Polca {
                 return result + ')';
             }
 
-            cat(other: CustomFunc) {
-                const newFunc = new Polca.Structures.CustomFunc("(" + this.name + " " + other.name + ")");
-                newFunc.elements = this.elements.concat(other.elements);
-                return newFunc;
-            }
-
             bind(scope: Scope) {
                 const newFunc = new CustomFunc(this.name, this.root);
                 newFunc.elements = this.elements;
@@ -318,11 +331,15 @@ module Polca {
             }
         }
 
-        export class NativeFunc implements Func {
+        export class NativeFunc extends Func {
+            readonly type = "Function";
+
             constructor(
                 private func: Function,
-                private name: string
-            ) {}
+                name: string
+            ) {
+                super(name);
+            }
 
             call(context: Context) {
                 const args = context.stack.pull(this.func.length);

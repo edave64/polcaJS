@@ -16,7 +16,9 @@ polcaLib = (function () {
             this.stack.dropAll();
         },
         dup: (a) => [a, a],
-        exec: (func) => func.call(this),
+        exec(func) {
+            return func.call(this);
+        },
         swap: (a, b) => [b, a],
         pick: function (from) {
             return this.stack.ary[this.stack.ary.length - from];
