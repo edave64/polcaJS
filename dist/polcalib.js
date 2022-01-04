@@ -197,8 +197,8 @@ polcaLib = (function () {
     polcaLib.tau = polcaLib.τ = Math.PI * 2;
     // Unicode symbols
     polcaLib['≠'] = polcaLib['!='];
-    polcaLib['≦'] = polcaLib['<='];
-    polcaLib['≧'] = polcaLib['>='];
+    polcaLib['≤'] = polcaLib['<='];
+    polcaLib['≥'] = polcaLib['>='];
     // Other shorthand symbols
     polcaLib['.'] = polcaLib.get;
     polcaLib[':'] = polcaLib.set;
