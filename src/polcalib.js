@@ -21,7 +21,9 @@ polcaLib = (function () {
         },
 
         dup: (a) => [a, a],
-        exec: (func) => func.call(this),
+        exec(func) {
+            return func.call(this)
+        },
         swap: (a, b) => [b, a],
 
         pick: function (from) {
