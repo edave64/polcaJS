@@ -96,7 +96,7 @@ table tr:nth-child(odd) {
     text-align: left
 }
 
-#result *: first-child{
+#result * :first-child{
     margin-top: 32px
 }
 
