@@ -9,6 +9,9 @@ polcaLib = (function () {
         pow: Math.pow,
         '^' : Math.pow,
 
+        min: (a, b) => Math.min (a, b),
+        max: (a, b) => Math.max (a, b),
+
         rt: function (a, b) {
             return Math.pow(a, 1 / b)
         },
@@ -249,6 +252,8 @@ polcaLib = (function () {
     polcaLib['><'] = polcaLib.swap;
     polcaLib['😺'] = polcaLib[','] = polcaLib.cat;
     polcaLib['#'] = polcaLib.length;
+    polcaLib['⌊'] = polcaLib.min;
+    polcaLib['⌈'] = polcaLib.max;
 
     return polcaLib;
 }());
