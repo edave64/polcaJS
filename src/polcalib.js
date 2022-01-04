@@ -145,11 +145,11 @@ polcaLib = (function () {
         ln: Math.log, /* The way it should be */
 
         log: function (x, base) {
-            return Math.ln(x) / Math.ln(base);
+            return Math.log(x) / Math.log(base);
         },
 
         l10: function (x) {
-            return Math.ln(x) / Math.LN10;
+            return Math.log(x) / Math.LN10;
         },
 
         l2: function (x) {
