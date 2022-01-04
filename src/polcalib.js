@@ -33,7 +33,7 @@ polcaLib = (function () {
         },
 
         pick: function (from) {
-            return this.stack[this.stack.length - from];
+            return this.stack.ary[this.stack.ary.length - from];
         },
 
         rot: function (a, b, c) {
