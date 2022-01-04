@@ -1,19 +1,9 @@
 /// <reference path="polca.ts"/>
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var Polca;
 (function (Polca) {
-    var UI;
+    let UI;
     (function (UI) {
-        var Keys;
+        let Keys;
         (function (Keys) {
             Keys[Keys["Backspace"] = 8] = "Backspace";
             Keys[Keys["Enter"] = 13] = "Enter";
@@ -26,9 +16,9 @@ var Polca;
             Keys[Keys["Down"] = 40] = "Down";
             Keys[Keys["Del"] = 46] = "Del";
         })(Keys || (Keys = {}));
-        var firstSection;
-        var mainArea;
-        var textSizeTester = document.createElement("div");
+        let firstSection;
+        let mainArea;
+        const textSizeTester = document.createElement("div");
         function reset() {
             firstSection = null;
             textSizeTester.style.visibility = "false";
@@ -43,55 +33,52 @@ var Polca;
             firstSection.focus();
         }
         /* Invisible Sections that hold the polcaLib-Scope */
-        var BaseSection = /** @class */ (function () {
-            function BaseSection() {
+        class BaseSection {
+            constructor() {
                 this.failed = false;
                 this.context = new Polca.Context(Polca.Scope.from(polcaLib), new Polca.Stack());
             }
-            return BaseSection;
-        }());
-        var Section = /** @class */ (function (_super) {
-            __extends(Section, _super);
-            function Section(prev) {
-                var _this = _super.call(this) || this;
-                _this.infos = [];
+        }
+        class Section extends BaseSection {
+            constructor(prev) {
+                super();
+                this.infos = [];
                 if (prev.next) {
-                    _this.next = prev.next;
-                    _this.next.prev = _this;
+                    this.next = prev.next;
+                    this.next.prev = this;
                 }
-                _this.prev = prev;
-                prev.next = _this;
-                _this.createUI();
-                _this.exec();
-                return _this;
+                this.prev = prev;
+                prev.next = this;
+                this.createUI();
+                this.exec();
             }
-            Section.prototype.remove = function () {
+            remove() {
                 this.container.remove();
                 this.prev.next = this.next;
                 if (this.next) {
                     this.next.prev = this.prev;
                 }
-            };
-            Section.prototype.focus = function () {
+            }
+            focus() {
                 this.input.focus();
-            };
-            Section.prototype.append = function (str) {
+            }
+            append(str) {
                 str = str.trim();
-                var oldText = this.input.value.replace(/\s+$/, "");
-                var separator = (str != "" && oldText != "") ? " " : "";
+                const oldText = this.input.value.replace(/\s+$/, "");
+                const separator = (str != "" && oldText != "") ? " " : "";
                 this.input.value = oldText + separator + str;
                 this.setCursor(oldText.length);
-            };
-            Section.prototype.setCursor = function (pos) {
+            }
+            setCursor(pos) {
                 this.input.selectionStart = this.input.selectionEnd = pos;
-            };
-            Section.prototype.cursorStart = function () {
+            }
+            cursorStart() {
                 this.setCursor(0);
-            };
-            Section.prototype.cursorEnd = function () {
+            }
+            cursorEnd() {
                 this.setCursor(this.input.value.length);
-            };
-            Section.prototype.focusFirst = function () {
+            }
+            focusFirst() {
                 if (this.prev instanceof Section) {
                     return this.prev.focusFirst();
                 }
@@ -99,8 +86,8 @@ var Polca;
                     this.focus();
                     return this;
                 }
-            };
-            Section.prototype.focusLast = function () {
+            }
+            focusLast() {
                 if (this.next) {
                     return this.next.focusLast();
                 }
@@ -108,50 +95,46 @@ var Polca;
                     this.focus();
                     return this;
                 }
-            };
-            Section.prototype.createUI = function () {
+            }
+            createUI() {
                 this.createContainer();
                 this.createInputField();
                 this.createOutputField();
-            };
-            Section.prototype.createContainer = function () {
-                var _this = this;
+            }
+            createContainer() {
                 this.container = document.createElement('section');
-                this.container.addEventListener("focus", function (e) { return _this.focusHandler(); }, true);
-                this.container.addEventListener("blur", function (e) { return _this.blurHandler(); }, true);
+                this.container.addEventListener("focus", (e) => this.focusHandler(), true);
+                this.container.addEventListener("blur", (e) => this.blurHandler(), true);
                 if (this.next)
                     mainArea.insertBefore(this.container, this.next.container);
                 else
                     mainArea.appendChild(this.container);
-            };
-            Section.prototype.createInputField = function () {
-                var _this = this;
-                var input = this.input = document.createElement('input');
-                input.addEventListener("change", function () { return _this.exec(); });
-                input.addEventListener("keydown", function (e) { return _this.keydownHandler(e); });
-                input.addEventListener("input", function (e) { return _this.inputHandler(e); });
+            }
+            createInputField() {
+                const input = this.input = document.createElement('input');
+                input.addEventListener("change", () => this.exec());
+                input.addEventListener("keydown", (e) => this.keydownHandler(e));
+                input.addEventListener("input", (e) => this.inputHandler(e));
                 this.container.appendChild(input);
-            };
-            Section.prototype.createOutputField = function () {
+            }
+            createOutputField() {
                 this.output = document.createElement('output');
                 this.container.appendChild(this.output);
-            };
-            Section.prototype.addInfo = function (str) {
-                var ele = document.createElement("div");
+            }
+            addInfo(str) {
+                const ele = document.createElement("div");
                 ele.innerHTML = str;
                 ele.classList.add("info");
                 this.container.appendChild(ele);
                 this.infos.push(ele);
-            };
-            Section.prototype.removeInfo = function () {
-                this.infos.forEach(function (ele) { return ele.parentElement.removeChild(ele); });
+            }
+            removeInfo() {
+                this.infos.forEach((ele) => ele.parentElement.removeChild(ele));
                 this.infos = [];
-            };
-            Section.prototype.exec = function (autoexec) {
-                var _this = this;
-                if (autoexec === void 0) { autoexec = false; }
+            }
+            exec(autoexec = false) {
                 this.removeInfo();
-                var value = this.input.value;
+                const value = this.input.value;
                 try {
                     if (this.prev.failed) {
                         this.failed = true;
@@ -162,10 +145,10 @@ var Polca;
                             this.code = value;
                             this.compiled = Polca.compile(value);
                         }
-                        var result = Polca.exec(this.compiled, this.prev.context);
+                        const result = Polca.exec(this.compiled, this.prev.context);
                         this.context = result;
                         this.output.innerHTML = result.stack.toString();
-                        this.context.info.forEach(function (infoStr) { return _this.addInfo(infoStr); });
+                        this.context.info.forEach((infoStr) => this.addInfo(infoStr));
                         if (this.failed) {
                             this.output.classList.remove("failed");
                         }
@@ -184,11 +167,11 @@ var Polca;
                     if (this.next && !autoexec)
                         this.next.exec();
                 }
-            };
-            Section.prototype.insertLine = function () {
-                var input = this.input;
-                var newThisLine = input.value.substr(0, input.selectionStart).replace(/\s+$/, "");
-                var nextLine = input.value.substr(input.selectionEnd).trim();
+            }
+            insertLine() {
+                const input = this.input;
+                const newThisLine = input.value.substr(0, input.selectionStart).replace(/\s+$/, "");
+                const nextLine = input.value.substr(input.selectionEnd).trim();
                 input.value = newThisLine;
                 this.exec();
                 new Section(this);
@@ -196,28 +179,27 @@ var Polca;
                 this.next.focus();
                 this.next.cursorStart();
                 this.next.exec();
-            };
-            Section.prototype.focusHandler = function () {
+            }
+            focusHandler() {
                 this.container.classList.add("active");
-            };
-            Section.prototype.blurHandler = function () {
+            }
+            blurHandler() {
                 this.container.classList.remove("active");
-            };
-            Section.prototype.inputHandler = function (e) {
-                var computed = getComputedStyle(this.input);
+            }
+            inputHandler(e) {
+                const computed = getComputedStyle(this.input);
                 textSizeTester.style.font = computed.font;
                 document.body.appendChild(textSizeTester);
-                textSizeTester.innerHTML = this.input.value.replace(/[&<> ]/g, function (mark) { return Section.entityReplacer[mark]; });
-                var width = textSizeTester.offsetWidth;
+                textSizeTester.innerHTML = this.input.value.replace(/[&<> ]/g, (mark) => Section.entityReplacer[mark]);
+                const width = textSizeTester.offsetWidth;
                 textSizeTester.parentElement.removeChild(textSizeTester);
                 this.input.style.width = width + "px";
-            };
-            Section.prototype.keydownHandler = function (e) {
-                var _this = this;
-                var sStart = this.input.selectionStart, sEnd = this.input.selectionEnd, sLen = sEnd - sStart;
+            }
+            keydownHandler(e) {
+                const sStart = this.input.selectionStart, sEnd = this.input.selectionEnd, sLen = sEnd - sStart;
                 switch (e.keyCode) {
                     case Keys.Space:
-                        window.setTimeout(function () { return _this.exec(true); }, 0);
+                        window.setTimeout(() => this.exec(true), 0);
                         break;
                     case Keys.Up:
                         if (this.prev instanceof Section) {
@@ -267,7 +249,7 @@ var Polca;
                         break;
                     case Keys.Backspace:
                         if (sStart === 0 && sLen === 0 && this.prev instanceof Section) {
-                            var prev = this.prev;
+                            const prev = this.prev;
                             prev.append(this.input.value);
                             prev.focus();
                             this.remove();
@@ -285,15 +267,14 @@ var Polca;
                             return false;
                         }
                 }
-            };
-            Section.entityReplacer = {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                ' ': '&nbsp;'
-            };
-            return Section;
-        }(BaseSection));
+            }
+        }
+        Section.entityReplacer = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            ' ': '&nbsp;'
+        };
     })(UI = Polca.UI || (Polca.UI = {}));
 })(Polca || (Polca = {}));
 //# sourceMappingURL=polca.ui.js.map

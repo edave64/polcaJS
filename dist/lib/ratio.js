@@ -1,7 +1,7 @@
-var Ratio = /** @class */ (function () {
-    function Ratio(num, denom) {
+class Ratio {
+    constructor(num, denom) {
         this.type = 'ratio';
-        var tens, gcd;
+        let tens, gcd;
         if (!denom && typeof num == 'number' && !isNaN(num) && isFinite(num)) {
             tens = 1;
             // find numbers after comma to make flat numbers
@@ -27,24 +27,23 @@ var Ratio = /** @class */ (function () {
         this.denominator = denom / gcd;
     }
     /* Calculates the greatest common divisor */
-    Ratio.gcd = function (num, denom) {
-        var a = num, b = denom, r = 0;
+    static gcd(num, denom) {
+        let a = num, b = denom, r = 0;
         while (b != 0) {
             r = a % b;
             a = b;
             b = r;
         }
         return a;
-    };
-    Ratio.prototype.toNumber = function () {
+    }
+    toNumber() {
         return this.numerator / this.denominator;
-    };
-    Ratio.prototype.toString = function () {
-        return this.numerator.toString() + " " + this.denominator.toString() + " ratio";
-    };
-    return Ratio;
-}());
-(function () {
+    }
+    toString() {
+        return `${this.numerator.toString()} ${this.denominator.toString()} ratio`;
+    }
+}
+(() => {
     function convert(a) {
         if (a instanceof Ratio)
             return a;
@@ -64,14 +63,14 @@ var Ratio = /** @class */ (function () {
         func['name'] = oldFunc.name;
         return func;
     }
-    polcaLib['+'] = binaryRatioWrap(polcaLib['+'], function (a, b) { return new Ratio(a.numerator * b.denominator + b.numerator * a.denominator, a.denominator * b.denominator); });
-    polcaLib['-'] = binaryRatioWrap(polcaLib['-'], function (a, b) { return new Ratio(a.numerator * b.denominator - b.numerator * a.denominator, a.denominator * b.denominator); });
-    polcaLib['*'] = binaryRatioWrap(polcaLib['*'], function (a, b) { return new Ratio(a.numerator * b.numerator, a.denominator * b.denominator); });
-    polcaLib['/'] = binaryRatioWrap(polcaLib['/'], function (a, b) { return new Ratio(a.numerator * b.denominator, a.denominator * b.numerator); });
-    polcaLib.pow = binaryRatioWrap(polcaLib.pow, function (a, b) { return polcaLib.pow(a.toNumber(), b.toNumber()); });
-    polcaLib.compare = binaryRatioWrap(polcaLib.compare, function (a, b) { return polcaLib.compare(a.toNumber(), b.toNumber()); });
+    polcaLib['+'] = binaryRatioWrap(polcaLib['+'], (a, b) => new Ratio(a.numerator * b.denominator + b.numerator * a.denominator, a.denominator * b.denominator));
+    polcaLib['-'] = binaryRatioWrap(polcaLib['-'], (a, b) => new Ratio(a.numerator * b.denominator - b.numerator * a.denominator, a.denominator * b.denominator));
+    polcaLib['*'] = binaryRatioWrap(polcaLib['*'], (a, b) => new Ratio(a.numerator * b.numerator, a.denominator * b.denominator));
+    polcaLib['/'] = binaryRatioWrap(polcaLib['/'], (a, b) => new Ratio(a.numerator * b.denominator, a.denominator * b.numerator));
+    polcaLib.pow = binaryRatioWrap(polcaLib.pow, (a, b) => polcaLib.pow(a.toNumber(), b.toNumber()));
+    polcaLib.compare = binaryRatioWrap(polcaLib.compare, (a, b) => polcaLib.compare(a.toNumber(), b.toNumber()));
     /* extend number method */
-    var oldNumber = polcaLib.number;
+    const oldNumber = polcaLib.number;
     polcaLib.number = function (a) {
         if (a['toNumber'])
             return a.toNumber();

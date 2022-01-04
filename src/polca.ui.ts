@@ -140,7 +140,7 @@ module Polca {
                 const input = this.input = document.createElement('input');
                 input.addEventListener("change", () => this.exec());
                 input.addEventListener("keydown", (e) => this.keydownHandler(<KeyboardEvent>e));
-                input.addEventListener("input", (e) => this.inputHandler(<TextEvent>e));
+                input.addEventListener("input", (e) => this.inputHandler(<Event>e));
                 this.container.appendChild(input);
             }
 
@@ -225,7 +225,7 @@ module Polca {
                 ' ': '&nbsp;'
             };
 
-            protected inputHandler (e: TextEvent) {
+            protected inputHandler (e: Event) {
                 const computed = getComputedStyle(this.input);
                 textSizeTester.style.font = computed.font;
                 document.body.appendChild(textSizeTester);
