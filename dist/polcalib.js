@@ -185,28 +185,28 @@ polcaLib = (function () {
         return Number(polcaLib.compare(a, b) === 0);
     };
     const synonym = (syn, meaning) => [syn].flat().forEach(symbol => polcaLib[symbol] = polcaLib[meaning] || meaning);
-    polcaLib['<>'] = polcaLib.compare;
+    synonym('<>', 'compare');
     // Constants
-    polcaLib.π = polcaLib.pi = Math.PI;
-    polcaLib.e = Math.E;
-    polcaLib.tau = polcaLib.τ = Math.PI * 2;
+    synonym(['π', 'pi'], Math.PI);
+    synonym('e', Math.E);
+    synonym(['τ', 'tau'], Math.PI * 2);
     // Unicode symbols
-    polcaLib['≠'] = polcaLib['!='];
-    polcaLib['≤'] = polcaLib['<='];
-    polcaLib['≥'] = polcaLib['>='];
+    synonym('≠', '!=');
+    synonym('≤', '<=');
+    synonym('≥', '>=');
     // Other shorthand symbols
-    polcaLib['.'] = polcaLib.get;
-    polcaLib[':'] = polcaLib.set;
-    polcaLib[';'] = polcaLib.dropall;
-    polcaLib['?'] = polcaLib.times;
-    polcaLib['|>'] = polcaLib.pop;
-    polcaLib['|<'] = polcaLib.push;
-    polcaLib['!'] = polcaLib.exec;
-    polcaLib['><'] = polcaLib.swap;
-    polcaLib['😺'] = polcaLib[','] = polcaLib.cat;
-    polcaLib['#'] = polcaLib.length;
-    polcaLib['⌊'] = polcaLib.min;
-    polcaLib['⌈'] = polcaLib.max;
+    synonym('.', 'get');
+    synonym(':', 'set');
+    synonym(';', 'dropall');
+    synonym('?', 'times');
+    synonym('|>', 'pop');
+    synonym('|<', 'push');
+    synonym('!', 'exec');
+    synonym('><', 'swap');
+    synonym(['😺', ','], 'cat');
+    synonym('#', 'length');
+    synonym('⌊', 'min');
+    synonym('⌈', 'max');
     return polcaLib;
 }());
 //# sourceMappingURL=polcalib.js.map
