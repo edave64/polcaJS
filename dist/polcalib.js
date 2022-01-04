@@ -199,6 +199,7 @@ polcaLib = (function () {
     polcaLib['!'] = polcaLib.exec;
     polcaLib['><'] = polcaLib.swap;
     polcaLib['😺'] = polcaLib[','] = polcaLib.cat;
+    polcaLib['#'] = polcaLib.length;
     return polcaLib;
 }());
 //# sourceMappingURL=polcalib.js.map
