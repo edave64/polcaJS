@@ -129,7 +129,7 @@ polcaLib = (function () {
             return Math.random();
         },
         cat: function (a, b) {
-            if (a.type === a.type && a.cat) {
+            if (a.type === b.type && a.cat) {
                 return a.cat(b);
             }
             else {
