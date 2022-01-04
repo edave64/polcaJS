@@ -244,8 +244,8 @@ polcaLib = (function () {
 
     // Unicode symbols
     polcaLib['≠'] = polcaLib['!='];
-    polcaLib['≦'] = polcaLib['<='];
-    polcaLib['≧'] = polcaLib['>='];
+    polcaLib['≤'] = polcaLib['<='];
+    polcaLib['≥'] = polcaLib['>='];
 
     // Other shorthand symbols
     polcaLib['.'] = polcaLib.get;
