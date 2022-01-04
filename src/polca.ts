@@ -158,7 +158,7 @@ module Polca {
     }
 
     export class Stack {
-        public ary = [];
+        constructor(public ary = []) {}
 
         pull(num) {
             if (this.ary.length < num)
@@ -205,21 +205,17 @@ module Polca {
         }
 
         libPush(value: any) {
-            const newStack = new SubStack();
-            newStack.ary = this.ary.slice(0);
-            newStack.ary.push(value);
-            return newStack;
+            return new SubStack([...this.ary, value]);
         }
 
         libPop() {
-            const newStack = new SubStack();
-            newStack.ary = this.ary.slice(0, this.ary.length - 1);
-            return [this.ary[this.ary.length - 1], newStack];
+            return [
+                this.ary[this.ary.length - 1],
+                new SubStack (this.ary.slice(0, this.ary.length - 1))
+            ];
         }
         cat (other : SubStack) {
-            const newStack = new SubStack ()
-            newStack.ary = [...this.ary, ...other.ary]
-            return newStack
+            return new SubStack ([...this.ary, ...other.ary])
         }
     }
 
