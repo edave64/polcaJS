@@ -216,6 +216,11 @@ module Polca {
             newStack.ary = this.ary.slice(0, this.ary.length - 1);
             return [this.ary[this.ary.length - 1], newStack];
         }
+        cat (other : SubStack) {
+            const newStack = new SubStack ()
+            newStack.ary = [...this.ary, ...other.ary]
+            return newStack
+        }
     }
 
     export module Structures {

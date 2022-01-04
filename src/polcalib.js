@@ -163,10 +163,11 @@ polcaLib = (function () {
         },
 
         cat: function (a, b) {
-            if (a.cat && b.cat) {
+            if (a.type === a.type && a.cat) {
                 return a.cat(b);
-            } else {
-                throw new Error("Type Error: cat needs two functions")
+            }
+            else {
+                throw new Error("Type Error: can only concatenate two functions or substacks");
             }
         },
 
