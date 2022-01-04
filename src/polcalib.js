@@ -242,6 +242,8 @@ polcaLib = (function () {
     polcaLib['?'] = polcaLib.times;
     polcaLib['|>'] = polcaLib.pop;
     polcaLib['|<'] = polcaLib.push;
+    polcaLib['!'] = polcaLib.exec;
+    polcaLib['><'] = polcaLib.swap;
 
     return polcaLib;
 }());
