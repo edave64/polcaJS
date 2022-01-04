@@ -207,6 +207,7 @@ polcaLib = (function () {
     polcaLib['|>'] = polcaLib.pop;
     polcaLib['|<'] = polcaLib.push;
     polcaLib['!'] = polcaLib.exec;
+    polcaLib['><'] = polcaLib.swap;
     return polcaLib;
 }());
 //# sourceMappingURL=polcalib.js.map
