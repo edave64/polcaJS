@@ -4,6 +4,7 @@
         "module": "commonjs",
         "sourceMap": true,
         "outDir": "dist",
+        "target": "ES2021",
         "allowJs": true
     }
 }

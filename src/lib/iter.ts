@@ -1,13 +1,13 @@
-abstract class Iterator {
-    public abstract next(context): [any, Iterator];
+abstract class PolcaIterator {
+    public abstract next(context): [any, PolcaIterator];
     public hasNext() {
         return 1;
     }
-    public abstract skip (context, by: number): Iterator;
+    public abstract skip (context, by: number): PolcaIterator;
     public abstract toString(): string;
 }
 
-const emptyIterator: Iterator = {
+const emptyIterator: PolcaIterator = {
     next: function(context) {
         throw new Error ("Cannot get element from an empty iterator");
     },
@@ -25,7 +25,7 @@ const emptyIterator: Iterator = {
     }
 };
 
-const SubStack: Iterator = <Iterator><any>Polca.SubStack.prototype;
+const SubStack: PolcaIterator = <PolcaIterator><any>Polca.SubStack.prototype;
 
 SubStack.next = function (context) {
     if (this.ary.length === 0) {
@@ -36,7 +36,7 @@ SubStack.next = function (context) {
     }
     const newS = new Polca.SubStack ();
     newS.ary = this.ary.slice(1);
-    return [this.ary[0], <Iterator><any>newS];
+    return [this.ary[0], <PolcaIterator><any>newS];
 };
 
 SubStack.skip = function (context, by: number) {
@@ -45,14 +45,14 @@ SubStack.skip = function (context, by: number) {
     }
     const newS = new Polca.SubStack ();
     newS.ary = this.ary.slice(by);
-    return <Iterator><any>newS;
+    return <PolcaIterator><any>newS;
 };
 
 SubStack.hasNext = function () {
     return Number(this.ary.length !== 0);
 };
 
-class SubstackIterator extends Iterator {
+class SubstackIterator extends PolcaIterator {
     public static create (substack: Polca.SubStack, pos = 0) {
         if (substack.ary.length <= pos) {
             return emptyIterator;
@@ -76,7 +76,7 @@ class SubstackIterator extends Iterator {
     }
 }
 
-class RangeIterator extends Iterator {
+class RangeIterator extends PolcaIterator {
     public static create (start: number, end: number) {
         if (start > end) {
             return emptyIterator;
@@ -91,7 +91,7 @@ class RangeIterator extends Iterator {
         return [this.start, RangeIterator.create(this.start + 1, this.end)];
     }
 
-    skip(context, by: number): Iterator {
+    skip(context, by: number): PolcaIterator {
         return RangeIterator.create(this.start + by, this.end);
     }
 
@@ -113,8 +113,8 @@ function execTransformFunction (context, callback, value) {
     return stack.ary[0];
 }
 
-class MapIterator extends Iterator {
-    public static create (subEnum: Iterator, callback) {
+class MapIterator extends PolcaIterator {
+    public static create (subEnum: PolcaIterator, callback) {
         if (subEnum === emptyIterator) {
             return emptyIterator;
         } else {
@@ -122,14 +122,14 @@ class MapIterator extends Iterator {
         }
     }
 
-    private constructor(private subEnum: Iterator, private callback) { super() }
+    private constructor(private subEnum: PolcaIterator, private callback) { super() }
 
     next(context) {
         let [val, nextSubEnumerator] = this.subEnum.next(context);
         return [execTransformFunction(context, this.callback, val), MapIterator.create(nextSubEnumerator, this.callback)];
     }
 
-    skip(context, by: number): Iterator {
+    skip(context, by: number): PolcaIterator {
         return MapIterator.create(this.subEnum.skip(context, by), this.callback);
     }
 
@@ -138,8 +138,8 @@ class MapIterator extends Iterator {
     }
 }
 
-class FilterIterator extends Iterator {
-    public static create (context, subEnum: Iterator, callback) {
+class FilterIterator extends PolcaIterator {
+    public static create (context, subEnum: PolcaIterator, callback) {
         while (subEnum.hasNext() > 0) {
             let [nextVal, nextIterator] = subEnum.next(context);
             if (execTransformFunction(context, callback, nextVal) > 0) {
@@ -151,14 +151,14 @@ class FilterIterator extends Iterator {
         return emptyIterator;
     }
 
-    private constructor(private subEnum: Iterator, private callback) { super() }
+    private constructor(private subEnum: PolcaIterator, private callback) { super() }
 
     next(context) {
         const [nextVal, nextIter] = this.subEnum.next(context);
         return [nextVal, FilterIterator.create(context, nextIter, this.callback)];
     }
 
-    skip(context, by: number): Iterator {
+    skip(context, by: number): PolcaIterator {
         return FilterIterator.create(context, this.subEnum.skip(context, by), this.callback);
     }
 

@@ -10,7 +10,7 @@ var polcaLib;
     }
     polcaLib.store = store;
     function loadVal(name) {
-        var context = new Polca.Context();
+        const context = new Polca.Context();
         Polca.compile(localStorage.getItem(name)).call(context);
         return context.stack.pull(0);
     }
@@ -27,8 +27,8 @@ var polcaLib;
 polcaLib['import'] = function (filename) {
     if (!filename.match(/http(s)?:\\\\/))
         filename = 'src/lib/' + filename + '.js';
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function () {
+    const xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = () => {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
             eval(xmlHttp.responseText);
     };

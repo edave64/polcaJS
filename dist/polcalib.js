@@ -15,24 +15,14 @@ polcaLib = (function () {
         dropall: function () {
             this.stack.dropAll();
         },
-        dup: function (a) {
-            return [a, a];
-        },
-        exec: function (func) {
-            return func.call(this);
-        },
-        swap: function (a, b) {
-            return [b, a];
-        },
+        dup: (a) => [a, a],
+        exec: (func) => func.call(this),
+        swap: (a, b) => [b, a],
         pick: function (from) {
             return this.stack.ary[this.stack.ary.length - from];
         },
-        rot: function (a, b, c) {
-            return [b, c, a];
-        },
-        'typeof': function (v) {
-            return v.type;
-        },
+        rot: (a, b, c) => [b, c, a],
+        'typeof': (v) => v.type,
         set: function (value, name) {
             this.scope.set(name, value);
         },
