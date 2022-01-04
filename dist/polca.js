@@ -150,8 +150,8 @@ var Polca;
     }
     Polca.Scope = Scope;
     class Stack {
-        constructor() {
-            this.ary = [];
+        constructor(ary = []) {
+            this.ary = ary;
         }
         pull(num) {
             if (this.ary.length < num)
@@ -192,20 +192,16 @@ var Polca;
             return "[" + super.toString() + "]";
         }
         libPush(value) {
-            const newStack = new SubStack();
-            newStack.ary = this.ary.slice(0);
-            newStack.ary.push(value);
-            return newStack;
+            return new SubStack([...this.ary, value]);
         }
         libPop() {
-            const newStack = new SubStack();
-            newStack.ary = this.ary.slice(0, this.ary.length - 1);
-            return [this.ary[this.ary.length - 1], newStack];
+            return [
+                this.ary[this.ary.length - 1],
+                new SubStack(this.ary.slice(0, this.ary.length - 1))
+            ];
         }
         cat(other) {
-            const newStack = new SubStack();
-            newStack.ary = [...this.ary, ...other.ary];
-            return newStack;
+            return new SubStack([...this.ary, ...other.ary]);
         }
     }
     Polca.SubStack = SubStack;
