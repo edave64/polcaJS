@@ -263,6 +263,24 @@ module Polca {
                 });
                 context.stack.push(substack);
             }
+
+            toString() {
+                let result = '[';
+                let first = true;
+
+                for (const element of this.elements) {
+                    if (first)
+                        first = false;
+                    else
+                        result += ' ';
+
+                    if (typeof element === 'string')
+                        result += `"${element}"`;
+                    else
+                        result += element.toString();
+                }
+                return result + "]";
+            }
         }
 
         export abstract class Func implements Structure {
