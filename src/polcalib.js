@@ -130,8 +130,8 @@ polcaLib = (function () {
         },
         /* } Based on JavaCalc 1.6  ©1996-2000 Ken Kikuchi */
 
-        '++': x => x - 1,
-        '--': x => x + 1,
+        '++': x => x + 1,
+        '--': x => x - 1,
 
         ln: Math.log, /* The way it should be */
         log: (x, base) => Math.log(x) / Math.log(base),
