@@ -32,7 +32,6 @@ polcaLib = (function () {
         },
         // others
         'exec !'(arg) {
-            console.log(arg, typeof arg);
             if (arg.type == 'Function')
                 return arg.call(this);
             else if (arg instanceof Polca.SubStack) {
@@ -144,6 +143,16 @@ polcaLib = (function () {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error("pop is not implemented for this type");
             return substack.libPop();
+        },
+        'unshift >|'(value, substack) {
+            if (!(substack instanceof Polca.SubStack))
+                throw new Error("push is not implemented for this type");
+            return substack.unshift(value);
+        },
+        'shift <|'(substack) {
+            if (!(substack instanceof Polca.SubStack))
+                throw new Error("pop is not implemented for this type");
+            return substack.shift();
         },
         dissolve: function (substack) {
             if (!(substack instanceof Polca.SubStack))
