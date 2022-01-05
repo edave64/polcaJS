@@ -19,10 +19,12 @@ polcaLib = (function () {
         '_': x => -x,
         div: (x, y) => (x - x % y) / y,
         // Forth stack operations
-        'drop Đ': a => { },
-        'dup |\\': (a) => [a, a],
-        'swap ><': (a, b) => [b, a],
-        'rot ><<': (a, b, c) => [b, c, a],
+        'drop Đ': a => { }, '2drop 2Đ': (a, b) => { },
+        'dup |\\': a => [a, a], '2dup 2|\\': (a, b) => [a, b, a, b],
+        'swap ><': (a, b) => [b, a], '2swap >><<': (a, b, c, d) => [c, d, a, b],
+        'rot ><<': (a, b, c) => [b, c, a], '-rot >><': (a, b, c) => [c, a, b],
+        'over': (a, b) => [a, b, a], 'tuck': (a, b) => [b, a, b],
+        'nip': (a, b) => [b],
         // various stack operations
         'pick @>': function (from) {
             return this.stack.ary[from < 0 ? this.stack.ary.length + from : from];
