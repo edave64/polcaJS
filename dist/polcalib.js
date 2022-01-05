@@ -1,25 +1,37 @@
 polcaLib = (function () {
     const dict = {
         version: "0.9",
+        // imports from Math
         abs: Math.abs, 'sign ±': Math.sign,
         exp: Math.exp,
         'floor ⌋': Math.floor, 'ceil ⌉': Math.ceil,
         'pow ^': Math.pow,
         'min ⌊': Math.min, 'max ⌈': Math.max,
+        rand: Math.random,
+        ln: Math.log,
+        // various mathematical
         'rt': (a, b) => Math.pow(a, 1 / b),
+        log: (x, base) => Math.log(x) / Math.log(base),
+        l10: x => Math.log(x) / Math.LN10,
+        l2: x => Math.log(x) / Math.LN2,
+        'inc ++': x => x + 1, 'dec --': x => x - 1,
+        div: (x, y) => (x - x % y) / y,
+        // Forth stack operations
         drop: a => { },
-        'dropall ;': function () {
-            this.stack.dropAll();
-        },
         dup: (a) => [a, a],
-        'exec !'(func) {
-            return func.call(this);
-        },
         'swap ><': (a, b) => [b, a],
+        rot: (a, b, c) => [b, c, a],
+        // various stack operations
         pick: function (from) {
             return this.stack.ary[this.stack.ary.length - from];
         },
-        rot: (a, b, c) => [b, c, a],
+        'dropall ;': function () {
+            this.stack.dropAll();
+        },
+        // others
+        'exec !'(func) {
+            return func.call(this);
+        },
         'typeof': (v) => v.type,
         'set :': function (value, name) {
             this.scope.set(name, value);
@@ -102,14 +114,6 @@ polcaLib = (function () {
             return ((((((((-3617 / 122400) * w + 7 / 1092) * w - 691 / 360360) * w + 5 / 5940) * w - 1 / 1680) * w + 1 / 1260) * w - 1 / 360) * w + 1 / 12) / x + 0.5 * polcaLib.ln(2 * polcaLib.PI) - polcaLib.ln(v) - x + (x - 0.5) * polcaLib.ln(x);
         },
         /* } Based on JavaCalc 1.6  ©1996-2000 Ken Kikuchi */
-        '++': x => x + 1,
-        '--': x => x - 1,
-        ln: Math.log,
-        log: (x, base) => Math.log(x) / Math.log(base),
-        l10: x => Math.log(x) / Math.LN10,
-        l2: x => Math.log(x) / Math.LN2,
-        div: (x, y) => (x - x % y) / y,
-        rand: Math.random,
         'cat , 😺': function (a, b) {
             if (a.type === b.type && a.cat) {
                 return a.cat(b);
