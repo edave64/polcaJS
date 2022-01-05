@@ -174,23 +174,26 @@ polcaLib = (function () {
 
         // substack operations
         'push |<' (value, substack) {
-            if (!(substack instanceof Polca.SubStack)) throw new Error ("push is not implemented for this type");
-
-            return substack.libPush(value);
+            if (!(substack instanceof Polca.SubStack))
+                throw new Error ("push is not implemented for this type");
+            else return substack.libPush(value);
         },
 
         'pop |>' (substack) {
-            if (!(substack instanceof Polca.SubStack)) throw new Error ("pop is not implemented for this type");
-
-            return substack.libPop();
+            if (!(substack instanceof Polca.SubStack))
+                throw new Error ("pop is not implemented for this type");
+            else return substack.libPop();
         },
         'unshift >|' (value, substack) {
-            if (!(substack instanceof Polca.SubStack)) throw new Error ("push is not implemented for this type");
-
-            return substack.unshift(value);
+            if (!(substack instanceof Polca.SubStack))
+                throw new Error ("push is not implemented for this type");
+            else return substack.unshift(value);
         },
         'shift <|' (substack) {
-            if (!(substack instanceof Polca.SubStack)) throw new Error ("pop is not implemented for this type");
+            if (!(substack instanceof Polca.SubStack))
+            throw new Error ("pop is not implemented for this type");
+            else return substack.shift();
+        },
 
             return substack.shift();
         },
