@@ -33,18 +33,18 @@ polcaLib = (function () {
         'over': (a, b) => [a, b, a], 'tuck': (a, b) => [b, a, b],
         'nip': (a, b) => [b],
 
-        'pick @>': function (from) {return this.stack.ary[
+        'pick @>' (from) {return this.stack.ary[
             from < 0 ? this.stack.ary.length + from : from
         ];},
-        'roll @><': function (position) {
+        'roll @><' (position) {
             return this.stack.ary.splice (-1 -position, 1)
         },
 
         // various stack operations
-        'dropall ;': function () {
+        'dropall ;' () {
             this.stack.dropAll();
         },
-        'nroll @n><': function (position, amount) {
+        'nroll @n><' (position, amount) {
             return this.stack.ary.splice (-1 -position, amount)
         },
 
@@ -61,25 +61,25 @@ polcaLib = (function () {
 
         'typeof': (v) => v.type,
 
-        'set :': function (value, name) {
+        'set :' (value, name) {
             this.scope.set(name, value);
         },
 
-        'get .': function (name) {
+        'get .' (name) {
             return this.scope.get(name);
         },
 
-        info: function (str) {
+        info (str) {
             this.info.push(str);
         },
 
-        'times ?': function (proc, number) {
+        'times ?' (proc, number) {
             for (; number > 0; number--) {
                 proc.call(this);
             }
         },
         
-        '?else': function (proc, else_, number) {
+        '?else' (proc, else_, number) {
             if (number > 0)
                 for (; number > 0; number--) {
                     proc.call(this);
@@ -90,14 +90,14 @@ polcaLib = (function () {
                 }
         },
 
-        timesI: function (proc, number) {
+        timesI (proc, number) {
             for (; number > 0; number--) {
                 this.stack.push(number);
                 proc.call(this);
             }
         },
 
-        'length #': function (obj) {
+        'length #' (obj) {
             if (obj instanceof String) {
                 return obj.length;
             }
@@ -107,18 +107,18 @@ polcaLib = (function () {
             throw new Error ("length is not implemented for this type");
         },
 
-        forLength: function (proc, rest) {
+        forLength (proc, rest) {
             while (this.stack.ary.length > rest) {
                 proc.call(this);
             }
         },
 
-        number: function (x) {
+        number (x) {
             return Number(x)
         },
 
         /* Based on JavaCalc 1.6  ©1996-2000 Ken Kikuchi { */
-        factorial: function (n) { /* factorial */
+        factorial (n) { /* factorial */
             switch (true) {
                 case n < 0:                     /* if negative */
                     return polcaLib.gamma(n + 1);
@@ -131,7 +131,7 @@ polcaLib = (function () {
             }
         },
 
-        'gamma γ': function (x) {
+        'gamma γ' (x) {
             if (x <= 0) {
                 if (polcaLib.abs(x) - polcaLib.floor(polcaLib.abs(x)) === 0)
                     throw "Complex Infinity";
@@ -142,7 +142,7 @@ polcaLib = (function () {
                 return polcaLib.exp(polcaLib.loggamma(x));
         },
 
-        loggamma: function (x) { /* log gamma */
+        loggamma (x) { /* log gamma */
             var v = 1, w;
             while (x < 8) {
                 v *= x;
@@ -161,7 +161,7 @@ polcaLib = (function () {
         },
         /* } Based on JavaCalc 1.6  ©1996-2000 Ken Kikuchi */
 
-        'cat , 😺': function (a, b) {
+        'cat , 😺' (a, b) {
             if (a.type === b.type && a.cat) {
                 return a.cat(b);
             }
@@ -173,13 +173,13 @@ polcaLib = (function () {
         'compare <>': (a, b) => a < b ? -1 : a > b ? 1 : 0,
 
         // substack operations
-        'push |<': function (value, substack) {
+        'push |<' (value, substack) {
             if (!(substack instanceof Polca.SubStack)) throw new Error ("push is not implemented for this type");
 
             return substack.libPush(value);
         },
 
-        'pop |>': function (substack) {
+        'pop |>' (substack) {
             if (!(substack instanceof Polca.SubStack)) throw new Error ("pop is not implemented for this type");
 
             return substack.libPop();
@@ -195,12 +195,12 @@ polcaLib = (function () {
             return substack.shift();
         },
 
-        dissolve: function (substack) {
+        dissolve (substack) {
             if (!(substack instanceof Polca.SubStack)) throw new Error ("dissolve is not implemented for this type");
 
             return substack.ary;
         },
-        box: function name() {
+        box () {
             return new Polca.SubStack (this.stack.ary.splice (0))
         },
 
@@ -208,7 +208,7 @@ polcaLib = (function () {
          * @param {Polca.Structures.Func} callback
          * @param {Polca.SubStack} substack
          */
-        execIn: function (callback, substack) {
+        execIn (callback, substack) {
             if (!(callback instanceof Polca.Structures.CustomFunc)) throw new Error ("execIn is not implemented for this type");
             if (!(substack instanceof Polca.SubStack)) throw new Error ("execIn is not implemented for this type");
 
