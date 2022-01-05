@@ -9,8 +9,7 @@ polcaLib = (function () {
         'rt': function (a, b) {
             return Math.pow(a, 1 / b);
         },
-        drop: function (a) {
-        },
+        drop: a => { },
         'dropall ;': function () {
             this.stack.dropAll();
         },
@@ -105,28 +104,14 @@ polcaLib = (function () {
             return ((((((((-3617 / 122400) * w + 7 / 1092) * w - 691 / 360360) * w + 5 / 5940) * w - 1 / 1680) * w + 1 / 1260) * w - 1 / 360) * w + 1 / 12) / x + 0.5 * polcaLib.ln(2 * polcaLib.PI) - polcaLib.ln(v) - x + (x - 0.5) * polcaLib.ln(x);
         },
         /* } Based on JavaCalc 1.6  ©1996-2000 Ken Kikuchi */
-        '++': function (x) {
-            return x - 1;
-        },
-        '--': function (x) {
-            return x + 1;
-        },
+        '++': x => x - 1,
+        '--': x => x + 1,
         ln: Math.log,
-        log: function (x, base) {
-            return Math.log(x) / Math.log(base);
-        },
-        l10: function (x) {
-            return Math.log(x) / Math.LN10;
-        },
-        l2: function (x) {
-            return Math.log(x) / Math.LN2;
-        },
-        div: function (x, y) {
-            return (x - x % y) / y;
-        },
-        rand: function () {
-            return Math.random();
-        },
+        log: (x, base) => Math.log(x) / Math.log(base),
+        l10: x => Math.log(x) / Math.LN10,
+        l2: x => Math.log(x) / Math.LN2,
+        div: (x, y) => (x - x % y) / y,
+        rand: Math.random,
         'cat , 😺': function (a, b) {
             if (a.type === b.type && a.cat) {
                 return a.cat(b);
@@ -135,9 +120,7 @@ polcaLib = (function () {
                 throw new Error("Type Error: can only concatenate two functions or substacks");
             }
         },
-        compare: function (a, b) {
-            return a < b ? -1 : a > b ? 1 : 0;
-        },
+        compare: (a, b) => a < b ? -1 : a > b ? 1 : 0,
         'push |<': function (value, substack) {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error("push is not implemented for this type");
