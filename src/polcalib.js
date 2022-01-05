@@ -23,10 +23,10 @@ polcaLib = (function () {
         div: (x, y) => (x - x % y) / y,
 
         // Forth stack operations
-        drop: a => {},
-        dup: (a) => [a, a],
+        'drop Đ': a => {},
+        'dup |\\': (a) => [a, a],
         'swap ><': (a, b) => [b, a],
-        rot: (a, b, c) => [b, c, a],
+        'rot ><<': (a, b, c) => [b, c, a],
 
         // various stack operations
         pick: function (from) {
