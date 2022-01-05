@@ -30,9 +30,9 @@ polcaLib = (function () {
         'rot ><<': (a, b, c) => [b, c, a],
 
         // various stack operations
-        pick: function (from) {
-            return this.stack.ary[this.stack.ary.length - from];
-        },
+        'pick @>': function (from) {return this.stack.ary[
+            from < 0 ? this.stack.ary.length - from : from
+        ];},
 
         'dropall ;': function () {
             this.stack.dropAll();
