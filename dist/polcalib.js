@@ -28,6 +28,9 @@ polcaLib = (function () {
         'pick @>': function (from) {
             return this.stack.ary[from < 0 ? this.stack.ary.length + from : from];
         },
+        'roll @><': function (position) {
+            return this.stack.ary.splice(-1 - position, 1);
+        },
         // various stack operations
         'dropall ;': function () {
             this.stack.dropAll();
