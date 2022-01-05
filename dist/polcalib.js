@@ -9,11 +9,12 @@ polcaLib = (function () {
         'min ⌊': Math.min, 'max ⌈': Math.max,
         rand: Math.random,
         ln: Math.log,
+        'pi π': Math.PI, 'tau τ': Math.PI * 2,
+        e: Math.E,
         // various mathematical
         'rt': (a, b) => Math.pow(a, 1 / b),
         log: (x, base) => Math.log(x) / Math.log(base),
-        l10: x => Math.log(x) / Math.LN10,
-        l2: x => Math.log(x) / Math.LN2,
+        l10: x => Math.log(x) / Math.LN10, l2: x => Math.log(x) / Math.LN2,
         'inc ++': x => x + 1, 'dec --': x => x - 1,
         div: (x, y) => (x - x % y) / y,
         // Forth stack operations
@@ -123,6 +124,7 @@ polcaLib = (function () {
             }
         },
         compare: (a, b) => a < b ? -1 : a > b ? 1 : 0,
+        // substack operations
         'push |<': function (value, substack) {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error("push is not implemented for this type");
@@ -172,10 +174,6 @@ polcaLib = (function () {
     };
     const synonym = (syn, meaning) => [syn].flat().forEach(symbol => polcaLib[symbol] = polcaLib[meaning] || meaning);
     synonym('<>', 'compare');
-    // Constants
-    synonym(['π', 'pi'], Math.PI);
-    synonym('e', Math.E);
-    synonym(['τ', 'tau'], Math.PI * 2);
     // Unicode symbols
     synonym('≠', '!=');
     synonym('≤', '<=');
