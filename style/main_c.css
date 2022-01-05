@@ -1,8 +1,13 @@
 html
 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
   font-family: "Source Code Pro", "Consolas", "Inconsolata", "DejaVu Sans Mono", "Lucida Console", monospace;
   font-size: 24px;
   min-height: 100vh;
+  min-width: 100vw;
   background: #c08040 url('backflower.svg') no-repeat fixed center;
   background-size: calc((50vh + 50vw) / 3);
 }
