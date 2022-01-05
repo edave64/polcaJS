@@ -147,22 +147,32 @@ polcaLib = (function () {
         'push |<'(value, substack) {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error("push is not implemented for this type");
-            return substack.libPush(value);
+            else
+                return substack.libPush(value);
         },
         'pop |>'(substack) {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error("pop is not implemented for this type");
-            return substack.libPop();
+            else
+                return substack.libPop();
         },
         'unshift >|'(value, substack) {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error("push is not implemented for this type");
-            return substack.unshift(value);
+            else
+                return substack.unshift(value);
         },
         'shift <|'(substack) {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error("pop is not implemented for this type");
+            else
                 return substack.shift();
+        },
+        'first car 1st'(substack) {
+            if (!(substack instanceof Polca.SubStack))
+                throw new Error("'first' is not implemented for this type");
+            else
+                return substack.ary[0];
         },
         dissolve(substack) {
             if (!(substack instanceof Polca.SubStack))
