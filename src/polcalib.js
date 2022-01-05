@@ -198,6 +198,9 @@ polcaLib = (function () {
 
             return substack.ary;
         },
+        box: function name() {
+            return new Polca.SubStack (this.stack.ary.splice (0))
+        },
 
         /**
          * @param {Polca.Structures.Func} callback
