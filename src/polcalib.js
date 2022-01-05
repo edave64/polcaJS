@@ -3,7 +3,7 @@ polcaLib = (function () {
         version: "0.9",
 
         // imports from Math
-        abs : Math.abs, 'sign ±': Math.sign,
+        'abs ||' : Math.abs, 'sign ±': Math.sign,
         exp: Math.exp,
         'floor ⌋': Math.floor, 'ceil ⌉': Math.ceil,
         'pow ^': Math.pow,
@@ -114,7 +114,7 @@ polcaLib = (function () {
             }
         },
 
-        gamma: function (x) {
+        'gamma γ': function (x) {
             if (x <= 0) {
                 if (polcaLib.abs(x) - polcaLib.floor(polcaLib.abs(x)) === 0)
                     throw "Complex Infinity";
@@ -153,7 +153,7 @@ polcaLib = (function () {
             }
         },
 
-        compare: (a, b) => a < b ? -1 : a > b ? 1 : 0,
+        'compare <>': (a, b) => a < b ? -1 : a > b ? 1 : 0,
 
         // substack operations
         'push |<': function (value, substack) {
@@ -215,8 +215,6 @@ polcaLib = (function () {
         [syn].flat ().forEach (
             symbol => polcaLib[symbol] = polcaLib[meaning] || meaning
         )
-
-    synonym ('<>', 'compare');
 
     // Unicode symbols
     synonym ('≠', '!=');
