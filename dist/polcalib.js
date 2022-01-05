@@ -162,7 +162,7 @@ polcaLib = (function () {
         'shift <|'(substack) {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error("pop is not implemented for this type");
-            return substack.shift();
+                return substack.shift();
         },
         dissolve(substack) {
             if (!(substack instanceof Polca.SubStack))
