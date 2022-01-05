@@ -8,6 +8,7 @@ polcaLib = (function () {
         ceil: Math.ceil,
         pow: Math.pow,
         '^' : Math.pow,
+        sign : Math.sign,
 
         min: (a, b) => Math.min (a, b),
         max: (a, b) => Math.max (a, b),
@@ -261,6 +262,7 @@ polcaLib = (function () {
     synonym ('⌈', 'max');
     synonym ('⌋', 'floor');
     synonym ('⌉', 'ceil');
+    synonym ('±', 'sign');
 
     return polcaLib;
 }());
