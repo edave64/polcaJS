@@ -53,7 +53,7 @@ polcaLib = (function () {
             if (arg.type == 'Function')
                 return arg.call(this)
             else if (arg instanceof Polca.SubStack) {
-                const param = this.stack.ary.pop ()
+                const param = this.stack.ary.pop()
                 const {ary} = arg
                 return ary [param < 0 ? ary.length + param : param]
             } else throw '"!" only works on arrays and functions'
@@ -207,7 +207,7 @@ polcaLib = (function () {
             return substack.ary;
         },
         box () {
-            return new Polca.SubStack (this.stack.ary.splice (0))
+            return new Polca.SubStack (this.stack.ary.splice(0))
         },
 
         /**
@@ -227,7 +227,7 @@ polcaLib = (function () {
     const polcaLib = {}
 
     for (const name in dict ) {
-        name.split (' ').forEach (symbol => polcaLib[symbol] = dict[name])
+        name.split(' ').forEach(symbol => polcaLib[symbol] = dict[name])
     }
 
     Number.prototype.type = 'number';
@@ -248,14 +248,14 @@ polcaLib = (function () {
     };
 
     const synonym = (syn, meaning) =>
-        [syn].flat ().forEach (
+        [syn].flat().forEach(
             symbol => polcaLib[symbol] = polcaLib[meaning] || meaning
         )
 
     // Unicode symbols
-    synonym ('≠', '!=');
-    synonym ('≤', '<=');
-    synonym ('≥', '>=');
+    synonym('≠', '!=');
+    synonym('≤', '<=');
+    synonym('≥', '>=');
 
     return polcaLib;
 }());
