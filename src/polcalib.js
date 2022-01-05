@@ -8,9 +8,7 @@ polcaLib = (function () {
         'pow ^': Math.pow,
         'min ⌊': Math.min, 'max ⌈': Math.max,
 
-        'rt': function (a, b) {
-            return Math.pow(a, 1 / b)
-        },
+        'rt': (a, b) => Math.pow(a, 1 / b),
 
         drop: a => {},
 

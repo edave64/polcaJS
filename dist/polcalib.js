@@ -6,9 +6,7 @@ polcaLib = (function () {
         'floor ⌋': Math.floor, 'ceil ⌉': Math.ceil,
         'pow ^': Math.pow,
         'min ⌊': Math.min, 'max ⌈': Math.max,
-        'rt': function (a, b) {
-            return Math.pow(a, 1 / b);
-        },
+        'rt': (a, b) => Math.pow(a, 1 / b),
         drop: a => { },
         'dropall ;': function () {
             this.stack.dropAll();
