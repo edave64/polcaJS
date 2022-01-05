@@ -14,7 +14,7 @@ polcaLib = (function () {
         e: Math.E,
 
         // various mathematical
-        'rt': (a, b) => Math.pow(a, 1 / b),
+        'root rt √': (a, b) => Math.pow(a, 1 / b),
 
         log: (x, base) => Math.log(x) / Math.log(base),
         l10: x => Math.log(x) / Math.LN10, l2: x => Math.log(x) / Math.LN2,
