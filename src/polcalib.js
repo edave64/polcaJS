@@ -12,8 +12,7 @@ polcaLib = (function () {
             return Math.pow(a, 1 / b)
         },
 
-        drop: function (a) {
-        },
+        drop: a => {},
 
         'dropall ;': function () {
             this.stack.dropAll();
@@ -133,35 +132,17 @@ polcaLib = (function () {
         },
         /* } Based on JavaCalc 1.6  ©1996-2000 Ken Kikuchi */
 
-        '++': function (x) {
-            return x - 1
-        },
-
-        '--': function (x) {
-            return x + 1
-        },
+        '++': x => x - 1,
+        '--': x => x + 1,
 
         ln: Math.log, /* The way it should be */
+        log: (x, base) => Math.log(x) / Math.log(base),
+        l10: x => Math.log(x) / Math.LN10,
+        l2: x => Math.log(x) / Math.LN2,
 
-        log: function (x, base) {
-            return Math.log(x) / Math.log(base);
-        },
+        div: (x, y) => (x - x % y) / y,
 
-        l10: function (x) {
-            return Math.log(x) / Math.LN10;
-        },
-
-        l2: function (x) {
-            return Math.log(x) / Math.LN2;
-        },
-
-        div: function (x, y) {
-            return (x - x % y) / y;
-        },
-
-        rand: function () {
-            return Math.random();
-        },
+        rand: Math.random,
 
         'cat , 😺': function (a, b) {
             if (a.type === b.type && a.cat) {
@@ -172,9 +153,7 @@ polcaLib = (function () {
             }
         },
 
-        compare: function (a, b) {
-            return a < b ? -1 : a > b ? 1 : 0;
-        },
+        compare: (a, b) => a < b ? -1 : a > b ? 1 : 0,
 
         'push |<': function (value, substack) {
             if (!(substack instanceof Polca.SubStack)) throw new Error ("push is not implemented for this type");
