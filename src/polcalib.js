@@ -259,6 +259,8 @@ polcaLib = (function () {
     synonym ('#', 'length');
     synonym ('⌊', 'min');
     synonym ('⌈', 'max');
+    synonym ('⌋', 'floor');
+    synonym ('⌉', 'ceil');
 
     return polcaLib;
 }());
