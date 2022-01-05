@@ -168,7 +168,7 @@ polcaLib = (function () {
             else
                 return substack.shift();
         },
-        'first car 1st'(substack) {
+        'first car head 1st'(substack) {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error("'first' is not implemented for this type");
             else
