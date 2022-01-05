@@ -31,11 +31,11 @@ polcaLib = (function () {
         'over': (a, b) => [a, b, a], 'tuck': (a, b) => [b, a, b],
         'nip': (a, b) => [b],
 
-        // various stack operations
         'pick @>': function (from) {return this.stack.ary[
             from < 0 ? this.stack.ary.length + from : from
         ];},
 
+        // various stack operations
         'dropall ;': function () {
             this.stack.dropAll();
         },
