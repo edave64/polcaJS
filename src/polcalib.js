@@ -40,7 +40,6 @@ polcaLib = (function () {
 
         // others
         'exec !'(arg) {
-            console.log (arg, typeof arg)
             if (arg.type == 'Function')
                 return arg.call(this)
             else if (arg instanceof Polca.SubStack) {
