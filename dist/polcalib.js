@@ -31,8 +31,17 @@ polcaLib = (function () {
             this.stack.dropAll();
         },
         // others
-        'exec !'(func) {
-            return func.call(this);
+        'exec !'(arg) {
+            console.log(arg, typeof arg);
+            if (arg.type == 'Function')
+                return arg.call(this);
+            else if (arg instanceof Polca.SubStack) {
+                const param = this.stack.ary.pop();
+                const { ary } = arg;
+                return ary[param < 0 ? ary.length + param : param];
+            }
+            else
+                throw '"!" only works on arrays and functions';
         },
         'typeof': (v) => v.type,
         'set :': function (value, name) {
