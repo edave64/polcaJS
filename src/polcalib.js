@@ -20,6 +20,7 @@ polcaLib = (function () {
         l10: x => Math.log(x) / Math.LN10, l2: x => Math.log(x) / Math.LN2,
 
         'inc ++': x => x + 1, 'dec --': x => x - 1,
+        '_': x => -x,
         div: (x, y) => (x - x % y) / y,
 
         // Forth stack operations
