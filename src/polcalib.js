@@ -194,7 +194,7 @@ polcaLib = (function () {
         },
 
         dissolve: function (substack) {
-            if (!(substack instanceof Polca.SubStack)) throw new Error ("integrate is not implemented for this type");
+            if (!(substack instanceof Polca.SubStack)) throw new Error ("dissolve is not implemented for this type");
 
             return substack.ary;
         },
