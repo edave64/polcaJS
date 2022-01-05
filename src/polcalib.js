@@ -1,34 +1,33 @@
 polcaLib = (function () {
-    var polcaLib = {
+    const dict = {
         version: "0.9",
 
         abs: Math.abs,
         exp: Math.exp,
-        floor: Math.floor,
-        ceil: Math.ceil,
-        pow: Math.pow,
-        '^' : Math.pow,
-        sign : Math.sign,
+        'floor ⌋': Math.floor,
+        'ceil ⌉': Math.ceil,
+        'pow ^': Math.pow,
+        'sign ±': Math.sign,
 
-        min: (a, b) => Math.min (a, b),
-        max: (a, b) => Math.max (a, b),
+        'min ⌊': (a, b) => Math.min (a, b),
+        'max ⌈': (a, b) => Math.max (a, b),
 
-        rt: function (a, b) {
+        'rt': function (a, b) {
             return Math.pow(a, 1 / b)
         },
 
         drop: function (a) {
         },
 
-        dropall: function () {
+        'dropall ;': function () {
             this.stack.dropAll();
         },
 
         dup: (a) => [a, a],
-        exec(func) {
+        'exec !'(func) {
             return func.call(this)
         },
-        swap: (a, b) => [b, a],
+        'swap ><': (a, b) => [b, a],
 
         pick: function (from) {
             return this.stack.ary[this.stack.ary.length - from];
@@ -38,11 +37,11 @@ polcaLib = (function () {
 
         'typeof': (v) => v.type,
 
-        set: function (value, name) {
+        'set :': function (value, name) {
             this.scope.set(name, value);
         },
 
-        get: function (name) {
+        'get .': function (name) {
             return this.scope.get(name);
         },
 
@@ -50,7 +49,7 @@ polcaLib = (function () {
             this.info.push(str);
         },
 
-        times: function (proc, number) {
+        'times ?': function (proc, number) {
             for (; number > 0; number--) {
                 proc.call(this);
             }
@@ -74,7 +73,7 @@ polcaLib = (function () {
             }
         },
 
-        length: function (obj) {
+        'length #': function (obj) {
             if (obj instanceof String) {
                 return obj.length;
             }
@@ -168,7 +167,7 @@ polcaLib = (function () {
             return Math.random();
         },
 
-        cat: function (a, b) {
+        'cat , 😺': function (a, b) {
             if (a.type === b.type && a.cat) {
                 return a.cat(b);
             }
@@ -181,13 +180,13 @@ polcaLib = (function () {
             return a < b ? -1 : a > b ? 1 : 0;
         },
 
-        push: function (value, substack) {
+        'push |<': function (value, substack) {
             if (!(substack instanceof Polca.SubStack)) throw new Error ("push is not implemented for this type");
 
             return substack.libPush(value);
         },
 
-        pop: function (substack) {
+        'pop |>': function (substack) {
             if (!(substack instanceof Polca.SubStack)) throw new Error ("pop is not implemented for this type");
 
             return substack.libPop();
@@ -212,6 +211,12 @@ polcaLib = (function () {
             return execStack;
         }
     };
+
+    const polcaLib = {}
+
+    for (const name in dict ) {
+        name.split (' ').forEach (symbol => polcaLib[symbol] = dict[name])
+    }
 
     Number.prototype.type = 'number';
     String.prototype.type = 'string';
@@ -246,23 +251,6 @@ polcaLib = (function () {
     synonym ('≠', '!=');
     synonym ('≤', '<=');
     synonym ('≥', '>=');
-
-    // Other shorthand symbols
-    synonym ('.', 'get');
-    synonym (':', 'set');
-    synonym (';', 'dropall');
-    synonym ('?', 'times');
-    synonym ('|>', 'pop');
-    synonym ('|<', 'push');
-    synonym ('!', 'exec');
-    synonym ('><', 'swap');
-    synonym (['😺', ','], 'cat');
-    synonym ('#', 'length');
-    synonym ('⌊', 'min');
-    synonym ('⌈', 'max');
-    synonym ('⌋', 'floor');
-    synonym ('⌉', 'ceil');
-    synonym ('±', 'sign');
 
     return polcaLib;
 }());
