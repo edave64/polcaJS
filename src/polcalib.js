@@ -2,15 +2,11 @@ polcaLib = (function () {
     const dict = {
         version: "0.9",
 
-        abs: Math.abs,
+        abs : Math.abs, 'sign ±': Math.sign,
         exp: Math.exp,
-        'floor ⌋': Math.floor,
-        'ceil ⌉': Math.ceil,
+        'floor ⌋': Math.floor, 'ceil ⌉': Math.ceil,
         'pow ^': Math.pow,
-        'sign ±': Math.sign,
-
-        'min ⌊': (a, b) => Math.min (a, b),
-        'max ⌈': (a, b) => Math.max (a, b),
+        'min ⌊': Math.min, 'max ⌈': Math.max,
 
         'rt': function (a, b) {
             return Math.pow(a, 1 / b)
