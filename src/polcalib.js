@@ -31,7 +31,7 @@ polcaLib = (function () {
 
         // various stack operations
         'pick @>': function (from) {return this.stack.ary[
-            from < 0 ? this.stack.ary.length - from : from
+            from < 0 ? this.stack.ary.length + from : from
         ];},
 
         'dropall ;': function () {
