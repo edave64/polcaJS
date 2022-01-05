@@ -209,11 +209,19 @@ module Polca {
         libPush(value: any) {
             return new SubStack([...this.ary, value]);
         }
-
+        unshift (value: any) {
+            return new SubStack([value, ...this.ary]);
+        }
         libPop() {
             return [
                 this.ary[this.ary.length - 1],
                 new SubStack (this.ary.slice(0, this.ary.length - 1))
+            ];
+        }
+        shift () {
+            return [
+                this.ary[0],
+                new SubStack (this.ary.slice(1, this.ary.length))
             ];
         }
         cat (other : SubStack) {
