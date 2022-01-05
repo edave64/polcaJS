@@ -35,6 +35,9 @@ polcaLib = (function () {
         'dropall ;': function () {
             this.stack.dropAll();
         },
+        'nroll @n><': function (position, amount) {
+            return this.stack.ary.splice(-1 - position, amount);
+        },
         // others
         'exec !'(arg) {
             if (arg.type == 'Function')
