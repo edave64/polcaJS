@@ -27,17 +27,17 @@ polcaLib = (function () {
         'rot ><<': (a, b, c) => [b, c, a], '-rot >><': (a, b, c) => [c, a, b],
         'over': (a, b) => [a, b, a], 'tuck': (a, b) => [b, a, b],
         'nip': (a, b) => [b],
-        'pick @>': function (from) {
+        'pick @>'(from) {
             return this.stack.ary[from < 0 ? this.stack.ary.length + from : from];
         },
-        'roll @><': function (position) {
+        'roll @><'(position) {
             return this.stack.ary.splice(-1 - position, 1);
         },
         // various stack operations
-        'dropall ;': function () {
+        'dropall ;'() {
             this.stack.dropAll();
         },
-        'nroll @n><': function (position, amount) {
+        'nroll @n><'(position, amount) {
             return this.stack.ary.splice(-1 - position, amount);
         },
         // others
@@ -53,21 +53,21 @@ polcaLib = (function () {
                 throw '"!" only works on arrays and functions';
         },
         'typeof': (v) => v.type,
-        'set :': function (value, name) {
+        'set :'(value, name) {
             this.scope.set(name, value);
         },
-        'get .': function (name) {
+        'get .'(name) {
             return this.scope.get(name);
         },
-        info: function (str) {
+        info(str) {
             this.info.push(str);
         },
-        'times ?': function (proc, number) {
+        'times ?'(proc, number) {
             for (; number > 0; number--) {
                 proc.call(this);
             }
         },
-        '?else': function (proc, else_, number) {
+        '?else'(proc, else_, number) {
             if (number > 0)
                 for (; number > 0; number--) {
                     proc.call(this);
@@ -77,13 +77,13 @@ polcaLib = (function () {
                     else_.call(this);
                 }
         },
-        timesI: function (proc, number) {
+        timesI(proc, number) {
             for (; number > 0; number--) {
                 this.stack.push(number);
                 proc.call(this);
             }
         },
-        'length #': function (obj) {
+        'length #'(obj) {
             if (obj instanceof String) {
                 return obj.length;
             }
@@ -92,16 +92,16 @@ polcaLib = (function () {
             }
             throw new Error("length is not implemented for this type");
         },
-        forLength: function (proc, rest) {
+        forLength(proc, rest) {
             while (this.stack.ary.length > rest) {
                 proc.call(this);
             }
         },
-        number: function (x) {
+        number(x) {
             return Number(x);
         },
         /* Based on JavaCalc 1.6  ©1996-2000 Ken Kikuchi { */
-        factorial: function (n) {
+        factorial(n) {
             switch (true) {
                 case n < 0: /* if negative */
                     return polcaLib.gamma(n + 1);
@@ -113,7 +113,7 @@ polcaLib = (function () {
                     return polcaLib.gamma(n + 1);
             }
         },
-        'gamma γ': function (x) {
+        'gamma γ'(x) {
             if (x <= 0) {
                 if (polcaLib.abs(x) - polcaLib.floor(polcaLib.abs(x)) === 0)
                     throw "Complex Infinity";
@@ -124,7 +124,7 @@ polcaLib = (function () {
             else
                 return polcaLib.exp(polcaLib.loggamma(x));
         },
-        loggamma: function (x) {
+        loggamma(x) {
             var v = 1, w;
             while (x < 8) {
                 v *= x;
@@ -134,7 +134,7 @@ polcaLib = (function () {
             return ((((((((-3617 / 122400) * w + 7 / 1092) * w - 691 / 360360) * w + 5 / 5940) * w - 1 / 1680) * w + 1 / 1260) * w - 1 / 360) * w + 1 / 12) / x + 0.5 * polcaLib.ln(2 * polcaLib.PI) - polcaLib.ln(v) - x + (x - 0.5) * polcaLib.ln(x);
         },
         /* } Based on JavaCalc 1.6  ©1996-2000 Ken Kikuchi */
-        'cat , 😺': function (a, b) {
+        'cat , 😺'(a, b) {
             if (a.type === b.type && a.cat) {
                 return a.cat(b);
             }
@@ -144,12 +144,12 @@ polcaLib = (function () {
         },
         'compare <>': (a, b) => a < b ? -1 : a > b ? 1 : 0,
         // substack operations
-        'push |<': function (value, substack) {
+        'push |<'(value, substack) {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error("push is not implemented for this type");
             return substack.libPush(value);
         },
-        'pop |>': function (substack) {
+        'pop |>'(substack) {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error("pop is not implemented for this type");
             return substack.libPop();
@@ -164,19 +164,19 @@ polcaLib = (function () {
                 throw new Error("pop is not implemented for this type");
             return substack.shift();
         },
-        dissolve: function (substack) {
+        dissolve(substack) {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error("dissolve is not implemented for this type");
             return substack.ary;
         },
-        box: function name() {
+        box() {
             return new Polca.SubStack(this.stack.ary.splice(0));
         },
         /**
          * @param {Polca.Structures.Func} callback
          * @param {Polca.SubStack} substack
          */
-        execIn: function (callback, substack) {
+        execIn(callback, substack) {
             if (!(callback instanceof Polca.Structures.CustomFunc))
                 throw new Error("execIn is not implemented for this type");
             if (!(substack instanceof Polca.SubStack))
