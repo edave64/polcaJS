@@ -7,6 +7,7 @@ polcaLib = (function () {
         'floor ⌋': Math.floor, 'ceil ⌉': Math.ceil,
         'pow ^': Math.pow,
         'min ⌊': Math.min, 'max ⌈': Math.max,
+        'sqrt 2√': Math.sqrt,
         rand: Math.random,
         ln: Math.log,
         'pi π': Math.PI, 'tau τ': Math.PI * 2,
