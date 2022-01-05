@@ -2,7 +2,7 @@ polcaLib = (function () {
     const dict = {
         version: "0.9",
         // imports from Math
-        abs: Math.abs, 'sign ±': Math.sign,
+        'abs ||': Math.abs, 'sign ±': Math.sign,
         exp: Math.exp,
         'floor ⌋': Math.floor, 'ceil ⌉': Math.ceil,
         'pow ^': Math.pow,
@@ -94,7 +94,7 @@ polcaLib = (function () {
                     return polcaLib.gamma(n + 1);
             }
         },
-        gamma: function (x) {
+        'gamma γ': function (x) {
             if (x <= 0) {
                 if (polcaLib.abs(x) - polcaLib.floor(polcaLib.abs(x)) === 0)
                     throw "Complex Infinity";
@@ -123,7 +123,7 @@ polcaLib = (function () {
                 throw new Error("Type Error: can only concatenate two functions or substacks");
             }
         },
-        compare: (a, b) => a < b ? -1 : a > b ? 1 : 0,
+        'compare <>': (a, b) => a < b ? -1 : a > b ? 1 : 0,
         // substack operations
         'push |<': function (value, substack) {
             if (!(substack instanceof Polca.SubStack))
@@ -173,7 +173,6 @@ polcaLib = (function () {
         return Number(polcaLib.compare(a, b) === 0);
     };
     const synonym = (syn, meaning) => [syn].flat().forEach(symbol => polcaLib[symbol] = polcaLib[meaning] || meaning);
-    synonym('<>', 'compare');
     // Unicode symbols
     synonym('≠', '!=');
     synonym('≤', '<=');
