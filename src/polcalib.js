@@ -37,7 +37,7 @@ polcaLib = (function () {
             from < 0 ? this.stack.ary.length + from : from
         ];},
         'roll @><' (position) {
-            return this.stack.ary.splice (-1 -position, 1)
+            return this.stack.ary.splice(-1 -position, 1)
         },
 
         // various stack operations
@@ -45,7 +45,7 @@ polcaLib = (function () {
             this.stack.dropAll();
         },
         'nroll @n><' (position, amount) {
-            return this.stack.ary.splice (-1 -position, amount)
+            return this.stack.ary.splice(-1 -position, amount)
         },
 
         // others
@@ -226,7 +226,7 @@ polcaLib = (function () {
 
     const polcaLib = {}
 
-    for (const name in dict ) {
+    for (const name in dict) {
         name.split(' ').forEach(symbol => polcaLib[symbol] = dict[name])
     }
 
