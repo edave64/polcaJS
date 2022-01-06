@@ -153,6 +153,10 @@ var Polca;
         constructor(ary = []) {
             this.ary = ary;
         }
+        get length() { return this.ary.length; }
+        at(pos) {
+            return this.ary[pos >= 0 ? pos : this.length + pos];
+        }
         pull(num) {
             if (this.ary.length < num)
                 throw new Exceptions.StackUnderflowError();
@@ -194,10 +198,6 @@ var Polca;
         }
         toString() {
             return "[" + super.toString() + "]";
-        }
-        get length() { return this.ary.length; }
-        at(pos) {
-            return this.ary[pos >= 0 ? pos : this.length + pos];
         }
         slice(...params) { return new SubStack(this.ary.slice(...params)); }
         insert(pos, value) {

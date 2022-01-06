@@ -160,6 +160,12 @@ module Polca {
     export class Stack {
         constructor(public ary = []) {}
 
+        get length() { return this.ary.length; }
+
+        at (pos : number) {
+            return this.ary[pos >= 0 ? pos : this.length + pos]
+        }
+
         pull(num) {
             if (this.ary.length < num)
                 throw new Exceptions.StackUnderflowError ();
@@ -204,12 +210,6 @@ module Polca {
 
         toString(): string {
             return "[" + super.toString() + "]";
-        }
-
-        get length() { return this.ary.length; }
-
-        at (pos : number) {
-            return this.ary[pos >= 0 ? pos : this.length + pos]
         }
 
         slice (...params) { return new SubStack (this.ary.slice(...params)) }
