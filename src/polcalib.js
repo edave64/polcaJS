@@ -199,7 +199,7 @@ polcaLib = (function () {
             else return substack.at(0);
         },
 
-        dissolve (substack) {
+        'dissolve …' (substack) {
             if (!(substack instanceof Polca.SubStack)) throw new Error ("dissolve is not implemented for this type");
 
             return substack.ary;
