@@ -215,11 +215,10 @@ var Polca;
                 throw 'can\'t extract: out of range';
             else
                 return [
-                    this.at(pos),
                     new SubStack([
                         ...this.ary.slice(0, pos),
                         ...this.ary.slice(pos + 1 || Infinity)
-                    ])
+                    ]), this.at(pos)
                 ];
         }
         cat(other) {
