@@ -199,6 +199,15 @@ var Polca;
         at(pos) {
             return this.ary[pos >= 0 ? pos : this.length + pos];
         }
+        slice(...params) { return new SubStack(this.ary.slice(...params)); }
+        insert(pos, value) {
+            const posOffset = pos >= 0 ? pos : this.length - pos + 1;
+            return new SubStack([
+                ...this.ary.slice(0, posOffset),
+                value,
+                ...this.ary.slice(posOffset)
+            ]);
+        }
         libPush(value) {
             return new SubStack([...this.ary, value]);
         }
