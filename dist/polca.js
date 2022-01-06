@@ -224,6 +224,7 @@ var Polca;
         cat(other) {
             return new SubStack([...this.ary, ...other.ary]);
         }
+        reverse() { return new SubStack(this.ary.reverse()); }
     }
     Polca.SubStack = SubStack;
     let Structures;

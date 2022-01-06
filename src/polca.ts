@@ -238,6 +238,8 @@ module Polca {
         cat (other : SubStack) {
             return new SubStack ([...this.ary, ...other.ary])
         }
+
+        reverse () { return new SubStack (this.ary.reverse ()) }
     }
 
     export module Structures {
