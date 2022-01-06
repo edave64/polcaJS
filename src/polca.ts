@@ -239,6 +239,13 @@ module Polca {
             return new SubStack ([...this.ary, ...other.ary])
         }
 
+        cut (pos: number) {
+            return [
+                new SubStack (this.ary.slice(0, pos)),
+                new SubStack (this.ary.slice(pos))
+            ]
+        }
+
         reverse () { return new SubStack (this.ary.reverse()) }
     }
 

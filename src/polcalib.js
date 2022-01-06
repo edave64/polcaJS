@@ -156,11 +156,12 @@ polcaLib = (function () {
         /* } Based on JavaCalc 1.6  ©1996-2000 Ken Kikuchi */
 
         'cat , 😺' (a, b) {
-            if (a.type === b.type && a.cat) {
+            if (a.type === b.type && a.cat)
                 return a.cat(b);
-            }
+            else if (typeof a == 'string' && typeof b == 'string')
+                return a + b
             else {
-                throw new Error("Type Error: can only concatenate two functions or substacks");
+                throw new Error("Type Error: can only concatenate two functions, substacks or strings");
             }
         },
 
@@ -192,7 +193,14 @@ polcaLib = (function () {
         'insert >|<' (substack, value, pos) { return substack.insert (pos, value) },
         'at @' (substack, pos) { return substack.at (pos) },
         'slice |/| 🔪' (substack, start, end) { return substack.slice (start, end) },
-        'reverse rev Я' (substack) { return substack.reverse() },
+        'reverse rev Я' (arg) {
+            if (arg instanceof Polca.SubStack)
+                return arg.reverse()
+            else if (typeof arg == 'string')
+                return arg.split('').reverse('').join('')
+            else throw Error ("'reverse' is not implemented for this type")
+        },
+        'cut </> ✂' (substack, pos) { return substack.cut (pos) },
 
         'first car head 1st' (substack) {
             if (!(substack instanceof Polca.SubStack))
