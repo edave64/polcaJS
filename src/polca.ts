@@ -167,10 +167,10 @@ module Polca {
         }
 
         pull(num) {
-            if (this.ary.length < num)
+            if (this.length < num)
                 throw new Exceptions.StackUnderflowError ();
 
-            return this.ary.splice(this.ary.length - num);
+            return this.ary.splice(this.length - num);
         }
 
         push(val) {
