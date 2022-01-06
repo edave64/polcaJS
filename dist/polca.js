@@ -158,9 +158,9 @@ var Polca;
             return this.ary[pos >= 0 ? pos : this.length + pos];
         }
         pull(num) {
-            if (this.ary.length < num)
+            if (this.length < num)
                 throw new Exceptions.StackUnderflowError();
-            return this.ary.splice(this.ary.length - num);
+            return this.ary.splice(this.length - num);
         }
         push(val) {
             if (val instanceof Array)
