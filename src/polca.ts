@@ -229,9 +229,6 @@ module Polca {
         unshift (value: any) {
             return new SubStack([value, ...this.ary]);
         }
-        shift () {
-            return [this.at(0),new SubStack (this.ary.slice(1))];
-        }
         cat (other : SubStack) {
             return new SubStack ([...this.ary, ...other.ary])
         }

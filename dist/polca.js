@@ -214,9 +214,6 @@ var Polca;
         unshift(value) {
             return new SubStack([value, ...this.ary]);
         }
-        shift() {
-            return [this.at(0), new SubStack(this.ary.slice(1))];
-        }
         cat(other) {
             return new SubStack([...this.ary, ...other.ary]);
         }
