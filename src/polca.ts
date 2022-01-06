@@ -206,6 +206,12 @@ module Polca {
             return "[" + super.toString() + "]";
         }
 
+        get length() { return this.ary.length }
+
+        at (pos : number) {
+            return this.ary[pos >= 0 ? pos : this.length + pos]
+        }
+
         push(value: any) {
             return new SubStack([...this.ary, value]);
         }
