@@ -176,7 +176,7 @@ polcaLib = (function () {
         'pop |>' (substack) {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error ("pop is not implemented for this type");
-            else return [substack.at (-1), substack.slice (0,-1) ];
+            else return substack.extract(-1);
         },
         'unshift >|' (value, substack) {
             if (!(substack instanceof Polca.SubStack))
@@ -186,7 +186,7 @@ polcaLib = (function () {
         'shift <|' (substack) {
             if (!(substack instanceof Polca.SubStack))
             throw new Error ("shift is not implemented for this type");
-            else return [substack.at (0), substack.slice (1)];
+            else return substack.extract(0);
         },
 
         'first car head 1st' (substack) {
