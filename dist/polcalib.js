@@ -27,9 +27,7 @@ polcaLib = (function () {
         'rot ><<': (a, b, c) => [b, c, a], '-rot >><': (a, b, c) => [c, a, b],
         'over': (a, b) => [a, b, a], 'tuck': (a, b) => [b, a, b],
         'nip': (a, b) => [b],
-        'pick @>'(from) {
-            return this.stack.ary[from < 0 ? this.stack.ary.length + from : from];
-        },
+        'pick @>'(from) { return this.stack.at(from); },
         'roll @><'(position) {
             return this.stack.ary.splice(-1 - position, 1);
         },
