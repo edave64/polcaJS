@@ -206,13 +206,13 @@ module Polca {
             return "[" + super.toString() + "]";
         }
 
-        libPush(value: any) {
+        push(value: any) {
             return new SubStack([...this.ary, value]);
         }
         unshift (value: any) {
             return new SubStack([value, ...this.ary]);
         }
-        libPop() {
+        pop() {
             return [
                 this.ary[this.ary.length - 1],
                 new SubStack (this.ary.slice(0, this.ary.length - 1))
