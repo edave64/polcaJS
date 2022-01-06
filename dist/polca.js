@@ -199,13 +199,13 @@ var Polca;
         at(pos) {
             return this.ary[pos >= 0 ? pos : this.length + pos];
         }
-        push(value) {
+        libPush(value) {
             return new SubStack([...this.ary, value]);
         }
         unshift(value) {
             return new SubStack([value, ...this.ary]);
         }
-        pop() {
+        libPop() {
             return [this.at(-1), new SubStack(this.ary.slice(0, -1))];
         }
         shift() {

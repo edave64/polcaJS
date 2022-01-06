@@ -212,13 +212,13 @@ module Polca {
             return this.ary[pos >= 0 ? pos : this.length + pos]
         }
 
-        push(value: any) {
+        libPush(value: any) {
             return new SubStack([...this.ary, value]);
         }
         unshift (value: any) {
             return new SubStack([value, ...this.ary]);
         }
-        pop() {
+        libPop() {
             return [this.at(-1), new SubStack (this.ary.slice(0, -1))];
         }
         shift () {
