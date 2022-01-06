@@ -82,16 +82,13 @@ polcaLib = (function () {
             }
         },
         'length #'(obj) {
-            if (obj instanceof String) {
+            if (obj instanceof String || obj instanceof Polca.SubStack)
                 return obj.length;
-            }
-            if (obj instanceof Polca.SubStack) {
-                return obj.ary.length;
-            }
-            throw new Error("length is not implemented for this type");
+            else
+                throw new Error("length is not implemented for this type");
         },
         forLength(proc, rest) {
-            while (this.stack.ary.length > rest) {
+            while (this.stack.length > rest) {
                 proc.call(this);
             }
         },
@@ -170,7 +167,7 @@ polcaLib = (function () {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error("'first' is not implemented for this type");
             else
-                return substack.ary[0];
+                return substack.at(0);
         },
         dissolve(substack) {
             if (!(substack instanceof Polca.SubStack))
