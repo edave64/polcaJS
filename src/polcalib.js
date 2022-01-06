@@ -204,7 +204,7 @@ polcaLib = (function () {
 
             return substack.ary;
         },
-        box () {
+        'box □' () {
             return new Polca.SubStack (this.stack.ary.splice(0))
         },
 
