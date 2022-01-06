@@ -191,7 +191,7 @@ polcaLib = (function () {
         'extract <|>' (substack, pos) { return substack.extract (pos) },
         'insert >|<' (substack, value, pos) { return substack.insert (pos, value) },
         'at @' (substack, pos) { return substack.at (pos) },
-        'slice |/|' (substack, start, end) { return substack.slice (start, end) },
+        'slice |/| 🔪' (substack, start, end) { return substack.slice (start, end) },
         'reverse rev Я' (substack) { return substack.reverse() },
 
         'first car head 1st' (substack) {
