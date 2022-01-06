@@ -195,6 +195,10 @@ var Polca;
         toString() {
             return "[" + super.toString() + "]";
         }
+        get length() { return this.ary.length; }
+        at(pos) {
+            return this.ary[pos >= 0 ? pos : this.length + pos];
+        }
         push(value) {
             return new SubStack([...this.ary, value]);
         }
