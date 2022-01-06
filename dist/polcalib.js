@@ -163,6 +163,10 @@ polcaLib = (function () {
             else
                 return substack.extract(0);
         },
+        'extract <|>'(substack, pos) { return substack.extract(pos); },
+        'insert >|<'(substack, value, pos) { return substack.insert(pos, value); },
+        'at @'(substack, pos) { return substack.at(pos); },
+        'slice |/|'(substack, start, end) { return substack.slice(start, end); },
         'first car head 1st'(substack) {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error("'first' is not implemented for this type");
