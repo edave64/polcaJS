@@ -208,6 +208,15 @@ var Polca;
                 ...this.ary.slice(posOffset)
             ]);
         }
+        extract(pos) {
+            return [
+                this.at(pos),
+                new SubStack([
+                    ...this.ary.slice(0, pos),
+                    ...this.ary.slice(pos + 1 || Infinity)
+                ])
+            ];
+        }
         cat(other) {
             return new SubStack([...this.ary, ...other.ary]);
         }

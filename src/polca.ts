@@ -223,6 +223,16 @@ module Polca {
             ])
         }
 
+        extract (pos: number) {
+            return [
+                this.at(pos),
+                new SubStack ([
+                    ...this.ary.slice(0, pos),
+                    ...this.ary.slice(pos + 1 || Infinity)
+                ])
+            ];
+        }
+
         cat (other : SubStack) {
             return new SubStack ([...this.ary, ...other.ary])
         }
