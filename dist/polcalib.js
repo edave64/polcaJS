@@ -166,7 +166,7 @@ polcaLib = (function () {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error("shift is not implemented for this type");
             else
-                return substack.shift();
+                return [substack.at(0), substack.slice(1)];
         },
         'first car head 1st'(substack) {
             if (!(substack instanceof Polca.SubStack))
