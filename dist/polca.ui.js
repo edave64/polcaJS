@@ -29,7 +29,11 @@ var Polca;
         }
         UI.reset = reset;
         function addSection() {
-            firstSection = new Section(new BaseSection());
+            const baseSection = new BaseSection();
+            if (typeof polcaStd !== 'undefined') {
+                polcaStd.call(baseSection.context);
+            }
+            firstSection = new Section(baseSection);
             firstSection.focus();
         }
         /* Invisible Sections that hold the polcaLib-Scope */

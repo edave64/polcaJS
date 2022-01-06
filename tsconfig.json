@@ -3,8 +3,14 @@
     "compilerOptions": {
         "module": "commonjs",
         "sourceMap": true,
+        "sourceRoot": "src",
+        "rootDir": "src",
         "outDir": "dist",
         "target": "ES2021",
         "allowJs": true
-    }
+    },
+    "include": [
+        "src/**/*.js",
+        "src/**/*.ts"
+    ]
 }
