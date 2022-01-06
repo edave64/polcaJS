@@ -178,13 +178,13 @@ polcaLib = (function () {
         'push |<' (value, substack) {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error ("push is not implemented for this type");
-            else return substack.push(value);
+            else return substack.libPush(value);
         },
 
         'pop |>' (substack) {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error ("pop is not implemented for this type");
-            else return substack.pop();
+            else return substack.libPop();
         },
         'unshift >|' (value, substack) {
             if (!(substack instanceof Polca.SubStack))
