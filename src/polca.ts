@@ -212,14 +212,22 @@ module Polca {
             return this.ary[pos >= 0 ? pos : this.length + pos]
         }
 
+        slice (...params) { return new SubStack (this.ary.slice(...params)) }
+
+        insert (pos: number, value : any) {
+            const posOffset = pos >= 0 ? pos : this.length - pos + 1
+            return new SubStack ([
+                ...this.ary.slice (0, posOffset),
+                value,
+                ...this.ary.slice (posOffset)
+            ])
+        }
+
         libPush(value: any) {
             return new SubStack([...this.ary, value]);
         }
         unshift (value: any) {
             return new SubStack([value, ...this.ary]);
-        }
-        libPop() {
-            return [this.at(-1), new SubStack (this.ary.slice(0, -1))];
         }
         shift () {
             return [this.at(0),new SubStack (this.ary.slice(1))];
