@@ -1,1 +1,1 @@
-polcaStd = Polca.compile(`1 'hasStd :`)
+//# sourceMappingURL=std.polca.js.map
