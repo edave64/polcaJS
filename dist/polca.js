@@ -208,12 +208,6 @@ var Polca;
                 ...this.ary.slice(posOffset)
             ]);
         }
-        libPush(value) {
-            return new SubStack([...this.ary, value]);
-        }
-        unshift(value) {
-            return new SubStack([value, ...this.ary]);
-        }
         cat(other) {
             return new SubStack([...this.ary, ...other.ary]);
         }

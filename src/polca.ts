@@ -223,12 +223,6 @@ module Polca {
             ])
         }
 
-        libPush(value: any) {
-            return new SubStack([...this.ary, value]);
-        }
-        unshift (value: any) {
-            return new SubStack([value, ...this.ary]);
-        }
         cat (other : SubStack) {
             return new SubStack ([...this.ary, ...other.ary])
         }
