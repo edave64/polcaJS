@@ -206,16 +206,10 @@ var Polca;
             return new SubStack([value, ...this.ary]);
         }
         pop() {
-            return [
-                this.ary[this.ary.length - 1],
-                new SubStack(this.ary.slice(0, this.ary.length - 1))
-            ];
+            return [this.at(-1), new SubStack(this.ary.slice(0, -1))];
         }
         shift() {
-            return [
-                this.ary[0],
-                new SubStack(this.ary.slice(1, this.ary.length))
-            ];
+            return [this.at(0), new SubStack(this.ary.slice(1))];
         }
         cat(other) {
             return new SubStack([...this.ary, ...other.ary]);
