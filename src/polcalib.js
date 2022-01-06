@@ -156,11 +156,12 @@ polcaLib = (function () {
         /* } Based on JavaCalc 1.6  ©1996-2000 Ken Kikuchi */
 
         'cat , 😺' (a, b) {
-            if (a.type === b.type && a.cat) {
+            if (a.type === b.type && a.cat)
                 return a.cat(b);
-            }
+            else if (typeof a == 'string' && typeof b == 'string')
+                return a + b
             else {
-                throw new Error("Type Error: can only concatenate two functions or substacks");
+                throw new Error("Type Error: can only concatenate two functions, substacks or strings");
             }
         },
 
