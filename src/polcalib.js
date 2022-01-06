@@ -178,7 +178,7 @@ polcaLib = (function () {
         'push |<' (value, substack) {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error ("push is not implemented for this type");
-            else return substack.libPush(value);
+            else return substack.insert(-1 ,value);
         },
 
         'pop |>' (substack) {
@@ -189,7 +189,7 @@ polcaLib = (function () {
         'unshift >|' (value, substack) {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error ("unshift is not implemented for this type");
-            else return substack.unshift(value);
+            else return substack.insert(0, value);
         },
         'shift <|' (substack) {
             if (!(substack instanceof Polca.SubStack))
