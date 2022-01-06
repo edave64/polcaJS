@@ -193,6 +193,7 @@ polcaLib = (function () {
         'at @' (substack, pos) { return substack.at (pos) },
         'slice |/| 🔪' (substack, start, end) { return substack.slice (start, end) },
         'reverse rev Я' (substack) { return substack.reverse() },
+        'cut </> ✂' (substack, pos) { return substack.cut (pos) },
 
         'first car head 1st' (substack) {
             if (!(substack instanceof Polca.SubStack))
