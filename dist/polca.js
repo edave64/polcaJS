@@ -214,9 +214,6 @@ var Polca;
         unshift(value) {
             return new SubStack([value, ...this.ary]);
         }
-        libPop() {
-            return [this.at(-1), new SubStack(this.ary.slice(0, -1))];
-        }
         shift() {
             return [this.at(0), new SubStack(this.ary.slice(1))];
         }

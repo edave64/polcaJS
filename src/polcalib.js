@@ -184,7 +184,7 @@ polcaLib = (function () {
         'pop |>' (substack) {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error ("pop is not implemented for this type");
-            else return substack.libPop();
+            else return [substack.at (-1), substack.slice (0,-1) ];
         },
         'unshift >|' (value, substack) {
             if (!(substack instanceof Polca.SubStack))
