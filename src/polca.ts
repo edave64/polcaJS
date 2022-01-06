@@ -224,7 +224,10 @@ module Polca {
         }
 
         extract (pos: number) {
-            return [
+            if (!this.length) throw 'can\'t extract: substack empty'
+            else if (pos >= this.length || pos < -this.length)
+                throw 'can\'t extract: out of range'
+            else return [
                 this.at(pos),
                 new SubStack ([
                     ...this.ary.slice(0, pos),
