@@ -193,7 +193,13 @@ polcaLib = (function () {
         'insert >|<' (substack, value, pos) { return substack.insert (pos, value) },
         'at @' (substack, pos) { return substack.at (pos) },
         'slice |/| 🔪' (substack, start, end) { return substack.slice (start, end) },
-        'reverse rev Я' (substack) { return substack.reverse() },
+        'reverse rev Я' (arg) {
+            if (arg instanceof Polca.SubStack)
+                return arg.reverse()
+            else if (typeof arg == 'string')
+                return arg.split('').reverse('').join('')
+            else throw Error ("'reverse' is not implemented for this type")
+        },
         'cut </> ✂' (substack, pos) { return substack.cut (pos) },
 
         'first car head 1st' (substack) {
