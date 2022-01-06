@@ -1,0 +1,1 @@
+polcaStd = Polca.compile(`1 'hasStd :`)

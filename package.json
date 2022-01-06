@@ -5,7 +5,7 @@
     "typescript": "^4.5.4"
   },
   "scripts": {
-    "build": "./node_modules/.bin/tsc",
-    "watch": "./node_modules/.bin/tsc --watch"
+    "build": "node ./scripts/export-std.js & ./node_modules/.bin/tsc",
+    "watch": "node ./scripts/export-std.js --watch & ./node_modules/.bin/tsc --watch"
   }
 }
