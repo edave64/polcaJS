@@ -201,7 +201,7 @@ var Polca;
         }
         equal(other) {
             if (this.length != other.length)
-                return 0;
+                return false;
             return this.ary.every((val, idx) => val instanceof SubStack ?
                 val.equal(other.at(idx)) :
                 val === other.at(idx));
