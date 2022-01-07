@@ -230,6 +230,12 @@ var Polca;
         removeSubstack(other) {
             return other.ary.reduce((prev, item) => prev.removeOne(item), this);
         }
+        substackIntersection(other) {
+            return this.removeSubstack(other.removeSubstack(this));
+        }
+        substackUnion(other) {
+            return this.cat(other.removeSubstack(this));
+        }
         slice(...params) { return new SubStack(this.ary.slice(...params)); }
         insert(pos, value) {
             const posOffset = pos >= 0 ? pos : this.length - pos + 1;
