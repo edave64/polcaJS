@@ -257,6 +257,11 @@ module Polca {
             return this.cat (other.removeSubstack (this)) 
         }
 
+        addIfNew (item : any) : SubStack {
+            return this.has (item) ? this :
+            new SubStack ([...this.ary, item]);
+        }
+
         slice (...params) : SubStack { return new SubStack (this.ary.slice(...params)) }
 
         insert (pos: number, value : any) : SubStack {
