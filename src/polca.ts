@@ -212,22 +212,22 @@ module Polca {
             return "[" + super.toString() + "]";
         }
 
-        equal (other: SubStack) : number {
+        equal (other: SubStack) : boolean {
             if (this.length != other.length) return 0
             return this.ary.every ((val, idx) => 
                 val instanceof SubStack ?
                 val.equal (other.at(idx)) :
                 val === other.at(idx)
-            ) ? 1 : 0
+            )
         }
 
-        has (item : any) {return this.ary.some(part =>
+        has (item : any) : boolean {return this.ary.some(part =>
             part instanceof SubStack ? part.equal (item) :
             part === item
         )}
 
         // removes item once, if present. (otherwise return identical SubStack)
-        removeOne (item) {
+        removeOne (item) : SubStack {
             let aleadyfound = false;
             const eq = (a, b) =>
                 a instanceof SubStack ? a.equal (b) :
@@ -242,16 +242,16 @@ module Polca {
         }
 
         // removes elements from other substack as a bag/set operation
-        removeSubstack (other : SubStack) {
+        removeSubstack (other : SubStack) : SubStack {
             return other.ary.reduce (
                 (prev, item) => prev.removeOne(item),
                 this
             )
         }
 
-        slice (...params) { return new SubStack (this.ary.slice(...params)) }
+        slice (...params) : SubStack { return new SubStack (this.ary.slice(...params)) }
 
-        insert (pos: number, value : any) {
+        insert (pos: number, value : any) : SubStack {
             const posOffset = pos >= 0 ? pos : this.length - pos + 1
             return new SubStack ([
                 ...this.ary.slice (0, posOffset),
@@ -283,7 +283,7 @@ module Polca {
             ]
         }
 
-        reverse () { return new SubStack (this.ary.reverse()) }
+        reverse () : SubStack { return new SubStack (this.ary.reverse()) }
     }
 
     export module Structures {
