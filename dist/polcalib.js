@@ -237,7 +237,10 @@ polcaLib = (function () {
         polcaLib[op] = new Function('a,b', 'return polcaLib.compare(a, b)' + op + '0');
     });
     polcaLib["="] = function (a, b) {
-        return Number(polcaLib.compare(a, b) === 0);
+        if (a instanceof Polca.SubStack && b instanceof Polca.SubStack)
+            return a.equal(b);
+        else
+            return Number(a === b);
     };
     const synonym = (syn, meaning) => [syn].flat().forEach(symbol => polcaLib[symbol] = polcaLib[meaning] || meaning);
     // Unicode symbols
