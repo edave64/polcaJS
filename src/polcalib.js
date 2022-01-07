@@ -76,7 +76,27 @@ polcaLib = (function () {
                 proc.call(this);
             }
         },
-        
+
+        '2map ¨' (vec1, vec2, fun) {
+            const {SubStack} = Polca
+            let count = 0;
+            const goal = Math.max (vec1.length ?? 1, vec2.length ?? 1);
+            let result = new SubStack ([])
+            const access = (vec, idx) =>
+                vec instanceof SubStack ? vec.at(idx % vec.length) :
+                typeof vec == 'string' ? vec [idx % vec.length] :
+                vec;
+            do {
+                result = result.cat (polcaLib.execIn (fun,
+                    new SubStack ([
+                        access(vec1, count),
+                        access(vec2, count)
+                    ])
+                ));
+            } while (++count < goal)
+            return result
+        },
+
         '?else' (proc, else_, number) {
             if (number > 0)
                 for (; number > 0; number--) {
