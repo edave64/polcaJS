@@ -249,6 +249,14 @@ module Polca {
             )
         }
 
+        substackIntersection (other : SubStack) : SubStack {
+            return this.removeSubstack (other.removeSubstack (this))
+        }
+
+        substackUnion (other : SubStack) : SubStack {
+            return this.cat (other.removeSubstack (this)) 
+        }
+
         slice (...params) : SubStack { return new SubStack (this.ary.slice(...params)) }
 
         insert (pos: number, value : any) : SubStack {
