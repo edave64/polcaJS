@@ -240,6 +240,9 @@ var Polca;
             return this.has(item) ? this :
                 new SubStack([...this.ary, item]);
         }
+        uniqify() {
+            return this.ary.reduce((prev, item) => prev.addIfNew(item), new SubStack([]));
+        }
         slice(...params) { return new SubStack(this.ary.slice(...params)); }
         insert(pos, value) {
             const posOffset = pos >= 0 ? pos : this.length - pos + 1;
