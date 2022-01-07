@@ -226,6 +226,20 @@ module Polca {
             part === item
         )}
 
+        removeOne (item) {
+            let aleadyfound = false;
+            const eq = (a, b) =>
+                a instanceof SubStack ? a.equal (b) :
+                a === b;
+            return new SubStack (this.ary.filter (part => {
+                if (aleadyfound) return true
+                else if (eq(part, item)) {
+                    aleadyfound = true;
+                    return false;
+                } else return true
+            }))
+        }
+
         slice (...params) { return new SubStack (this.ary.slice(...params)) }
 
         insert (pos: number, value : any) {
