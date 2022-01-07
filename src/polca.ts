@@ -213,7 +213,7 @@ module Polca {
         }
 
         equal (other: SubStack) : boolean {
-            if (this.length != other.length) return 0
+            if (this.length != other.length) return false
             return this.ary.every ((val, idx) => 
                 val instanceof SubStack ?
                 val.equal (other.at(idx)) :
