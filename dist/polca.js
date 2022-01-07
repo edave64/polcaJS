@@ -206,6 +206,10 @@ var Polca;
                 val.equal(other.at(idx)) :
                 val === other.at(idx)) ? 1 : 0;
         }
+        has(item) {
+            return this.ary.some(part => part instanceof SubStack ? part.equal(item) :
+                part === item);
+        }
         slice(...params) { return new SubStack(this.ary.slice(...params)); }
         insert(pos, value) {
             const posOffset = pos >= 0 ? pos : this.length - pos + 1;

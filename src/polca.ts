@@ -221,6 +221,11 @@ module Polca {
             ) ? 1 : 0
         }
 
+        has (item : any) {return this.ary.some(part =>
+            part instanceof SubStack ? part.equal (item) :
+            part === item
+        )}
+
         slice (...params) { return new SubStack (this.ary.slice(...params)) }
 
         insert (pos: number, value : any) {
