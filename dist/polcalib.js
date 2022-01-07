@@ -229,7 +229,7 @@ polcaLib = (function () {
     String.prototype.type = 'string';
     Function.prototype.type = 'procedure';
     // Push operator methods to polcaLib module
-    ['+', '-', '*', '/', '%', '&', '|'].forEach(function (op) {
+    ['+', '-', '*', '/', '%'].forEach(function (op) {
         polcaLib[op] = new Function('a,b', 'return a' + op + 'b');
     });
     // Same for comparisons
