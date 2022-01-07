@@ -241,6 +241,14 @@ module Polca {
             }))
         }
 
+        // removes elements from other substack as a bag/set operation
+        removeSubstack (other : SubStack) {
+            return other.ary.reduce (
+                (prev, item) => prev.removeOne(item),
+                this
+            )
+        }
+
         slice (...params) { return new SubStack (this.ary.slice(...params)) }
 
         insert (pos: number, value : any) {

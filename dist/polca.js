@@ -226,6 +226,10 @@ var Polca;
                     return true;
             }));
         }
+        // removes elements from other substack as a bag/set operation
+        removeSubstack(other) {
+            return other.ary.reduce((prev, item) => prev.removeOne(item), this);
+        }
         slice(...params) { return new SubStack(this.ary.slice(...params)); }
         insert(pos, value) {
             const posOffset = pos >= 0 ? pos : this.length - pos + 1;
