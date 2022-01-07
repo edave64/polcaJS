@@ -236,6 +236,10 @@ var Polca;
         substackUnion(other) {
             return this.cat(other.removeSubstack(this));
         }
+        addIfNew(item) {
+            return this.has(item) ? this :
+                new SubStack([...this.ary, item]);
+        }
         slice(...params) { return new SubStack(this.ary.slice(...params)); }
         insert(pos, value) {
             const posOffset = pos >= 0 ? pos : this.length - pos + 1;
