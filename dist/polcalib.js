@@ -245,11 +245,6 @@ polcaLib = (function () {
         else
             return Number(a === b);
     };
-    const synonym = (syn, meaning) => [syn].flat().forEach(symbol => polcaLib[symbol] = polcaLib[meaning] || meaning);
-    // Unicode symbols
-    synonym('≠', '!=');
-    synonym('≤', '<=');
-    synonym('≥', '>=');
     return polcaLib;
 }());
 //# sourceMappingURL=polcalib.js.map
