@@ -210,6 +210,10 @@ var Polca;
             return this.ary.some(part => part instanceof SubStack ? part.equal(item) :
                 part === item);
         }
+        count(item) {
+            return this.ary.reduce((prev, part) => prev + (part instanceof SubStack ? part.equal(item) :
+                part === item), 0);
+        }
         // removes item once, if present. (otherwise return identical SubStack)
         removeOne(item) {
             let aleadyfound = false;
