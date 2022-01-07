@@ -212,6 +212,15 @@ module Polca {
             return "[" + super.toString() + "]";
         }
 
+        equal (other: SubStack) : number {
+            if (this.length != other.length) return 0
+            return this.ary.every ((val, idx) => 
+                val instanceof SubStack ?
+                val.equal (other.at(idx)) :
+                val === other.at(idx)
+            ) ? 1 : 0
+        }
+
         slice (...params) { return new SubStack (this.ary.slice(...params)) }
 
         insert (pos: number, value : any) {

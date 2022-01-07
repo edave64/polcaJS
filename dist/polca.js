@@ -199,6 +199,13 @@ var Polca;
         toString() {
             return "[" + super.toString() + "]";
         }
+        equal(other) {
+            if (this.length != other.length)
+                return 0;
+            return this.ary.every((val, idx) => val instanceof SubStack ?
+                val.equal(other.at(idx)) :
+                val === other.at(idx)) ? 1 : 0;
+        }
         slice(...params) { return new SubStack(this.ary.slice(...params)); }
         insert(pos, value) {
             const posOffset = pos >= 0 ? pos : this.length - pos + 1;
