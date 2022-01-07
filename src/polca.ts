@@ -262,6 +262,13 @@ module Polca {
             new SubStack ([...this.ary, item]);
         }
 
+        uniqify () : SubStack {
+            return this.ary.reduce (
+                (prev, item) => prev.addIfNew(item),
+                new SubStack ([])
+            );
+        }
+
         slice (...params) : SubStack { return new SubStack (this.ary.slice(...params)) }
 
         insert (pos: number, value : any) : SubStack {
