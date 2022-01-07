@@ -63,6 +63,10 @@ polcaLib = (function () {
             this.scope.set(name, value);
         },
 
+        'setall ::' (value, names) {
+            names.ary.forEach (name => this.scope.set(name, value))
+        },
+
         'get .' (name) {
             return this.scope.get(name);
         },
@@ -267,7 +271,7 @@ polcaLib = (function () {
     });
 
     // Same for comparisons
-    ['<', '<=', '>=', '>', '!='].forEach(function (op) {
+    ['<', '<=', '>=', '>'].forEach(function (op) {
         polcaLib[op] = new Function ('a,b', 'return polcaLib.compare(a, b)' + op + '0');
     });
     polcaLib["="] = function (a,b) {
