@@ -226,6 +226,7 @@ module Polca {
             part === item
         )}
 
+        // removes item once, if present. (otherwise return identical SubStack)
         removeOne (item) {
             let aleadyfound = false;
             const eq = (a, b) =>
