@@ -197,8 +197,10 @@ module Polca {
         toString(): string {
             return this.ary.reduce((sum, element, i) => {
                 if (i != 0) sum += ' ';
-                if (typeof element === 'string')
-                    return sum + '"' + Polca.Stack.maskString(element) + '"';
+                if (typeof element === 'string') {
+                    const simple = !/\s/.test (element)
+                    return sum + (simple ? "'" : '"') + Polca.Stack.maskString(element) + (simple ? '' : '"')
+                }
                 else
                     return sum + element.toString();
             }, "");
