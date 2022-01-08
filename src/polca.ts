@@ -257,7 +257,7 @@ module Polca {
         }
 
         substackIntersection (other : SubStack) : SubStack {
-            return this.removeSubstack (other.removeSubstack (this))
+            return this.removeSubstack (this.removeSubstack (other))
         }
 
         substackUnion (other : SubStack) : SubStack {
