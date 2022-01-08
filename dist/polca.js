@@ -235,7 +235,7 @@ var Polca;
             return other.ary.reduce((prev, item) => prev.removeOne(item), this);
         }
         substackIntersection(other) {
-            return this.removeSubstack(other.removeSubstack(this));
+            return this.removeSubstack(this.removeSubstack(other));
         }
         substackUnion(other) {
             return this.cat(other.removeSubstack(this));
