@@ -202,6 +202,8 @@ polcaLib = (function () {
             else
                 return substack.at(0);
         },
+        'without ⯾': (substack1, substack2) => substack1.removeSubstack(substack2),
+        'union ∪': (substack1, substack2) => substack1.substackUnion(substack2),
         'dissolve …'(substack) {
             if (!(substack instanceof Polca.SubStack))
                 throw new Error("dissolve is not implemented for this type");
