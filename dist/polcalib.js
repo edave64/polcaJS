@@ -54,7 +54,7 @@ polcaLib = (function () {
             else
                 throw '"!" only works on arrays and functions';
         },
-        'typeof': (v) => v.type,
+        'typeof': (v) => v.type || typeof v,
         'set :'(value, name) { this.scope.set(name, value); },
         'get .'(name) { return this.scope.get(name); },
         'setall ::'(value, names) {
