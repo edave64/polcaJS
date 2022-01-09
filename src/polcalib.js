@@ -6,8 +6,6 @@ polcaLib = (function () {
         'abs ||' : Math.abs, 'sign ±': Math.sign,
         exp: Math.exp,
         'floor ⌋': Math.floor, 'ceil ⌉': Math.ceil,
-        round: Math.round,
-        'pow ^': Math.pow,
         'min ⌊': Math.min, 'max ⌈': Math.max,
         round: Math.round,
         'sqrt 2√': Math.sqrt,
@@ -22,7 +20,7 @@ polcaLib = (function () {
         tan: Math.tan, atan: Math.atan, tanh: Math.tanh, atanh: Math.atanh,
 
         // various mathematical
-        'root rt √': (a, b) => Math.pow(a, 1 / b),
+        'pow ^ **': (a, b) => a ** b, 'root rt √': (a, b) => a ** (1 / b),
 
         log: (x, base) => Math.log(x) / Math.log(base),
         l10: x => Math.log(x) / Math.LN10, l2: x => Math.log(x) / Math.LN2,
