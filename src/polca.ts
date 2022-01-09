@@ -208,8 +208,7 @@ module Polca {
     }
 
     export const equal = (a, b) : boolean =>
-        a instanceof SubStack ? a.equal(b) :
-        a === b;
+        a instanceof SubStack ? a.equal(b) : a === b;
 
     export class SubStack extends Stack {
         readonly type = "Substack";
