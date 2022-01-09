@@ -14,6 +14,7 @@ polcaLib = (function () {
         ln: Math.log,
         'pi π': Math.PI, 'tau τ': Math.PI * 2,
         e: Math.E,
+        hypot: (substack) => Math.hypot(...substack.ary),
 
         // various mathematical
         'root rt √': (a, b) => Math.pow(a, 1 / b),
