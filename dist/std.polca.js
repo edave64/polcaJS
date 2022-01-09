@@ -1,4 +1,4 @@
-polcaStd = Polca.compile(`(= _ 1 +) ['/= '!= '≠] ::
+polcaStd = Polca.compile(`(= _ ++) ['/= '!= '≠] ::
 
 (<=) '≤ :
 (>=) '≥ :`)
