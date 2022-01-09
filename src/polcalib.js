@@ -174,6 +174,13 @@ polcaLib = (function () {
         },
         /* } Based on JavaCalc 1.6  ©1996-2000 Ken Kikuchi */
 
+        'upto iota ⍳' (n) {
+            let result = [];
+            let count = 0;
+            while (result.length < n) result = [...result, count ++];
+            return new Polca.SubStack (result);
+        },
+
         'cat , 😺' (a, b) {
             if (a.type === b.type && a.cat)
                 return a.cat(b);
