@@ -24,6 +24,7 @@ polcaLib = (function () {
         'inc ++': x => x + 1, 'dec --': x => x - 1,
         '_': x => -x,
         div: (x, y) => (x - x % y) / y,
+        '=': (a, b) => Number(Polca.equal (a, b)),
 
         // Forth stack operations
         'drop Đ': a => {}, '2drop 2Đ': (a, b) => {},
@@ -280,11 +281,6 @@ polcaLib = (function () {
     ['<', '<=', '>=', '>'].forEach(function (op) {
         polcaLib[op] = new Function ('a,b', 'return polcaLib.compare(a, b)' + op + '0');
     });
-    polcaLib["="] = function (a,b) {
-        if (a instanceof Polca.SubStack && b instanceof Polca.SubStack)
-            return a.equal (b)
-        else return Number(a === b);
-    };
 
     return polcaLib;
 }());

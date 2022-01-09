@@ -207,7 +207,7 @@ module Polca {
         }
     }
 
-    const equal = (a, b) : boolean =>
+    export const equal = (a, b) : boolean =>
         a instanceof SubStack ? a.equal(b) :
         a === b;
 
