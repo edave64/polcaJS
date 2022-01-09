@@ -264,7 +264,9 @@ polcaLib = (function () {
             var execStack = substack.fork();
             callback.call(new Polca.Context (this.scope, execStack, this.info));
             return execStack;
-        }
+        },
+
+        cLog : x = console.log(x) 
     };
 
     const polcaLib = {}
