@@ -16,6 +16,10 @@ polcaLib = (function () {
         e: Math.E,
         hypot: (substack) => Math.hypot(...substack.ary),
 
+        sin: Math.sin, asin: Math.asin, sinh: Math.sinh, asinh: Math.asinh,
+        cos: Math.cos, acos: Math.acos, cosh: Math.cosh, acosh: Math.acosh,
+        tan: Math.tan, atan: Math.atan, tanh: Math.tanh, atanh: Math.atanh,
+
         // various mathematical
         'root rt √': (a, b) => Math.pow(a, 1 / b),
 
