@@ -25,6 +25,7 @@ polcaLib = (function () {
         'inc ++': x => x + 1, 'dec --': x => x - 1,
         '_': x => -x,
         div: (x, y) => (x - x % y) / y,
+        'mod %': (a, b) => ((a % b) + b) % b,
         '=': (a, b) => Number(Polca.equal(a, b)),
         // Forth stack operations
         'drop ;': a => { }, '2drop 2Đ': (a, b) => { },
