@@ -43,8 +43,6 @@ polcaLib = (function () {
             return this.stack.ary.splice(-1 -position, 1)
         },
 
-
-
         // various stack operations
         'dropall ;;' () {
             this.stack.dropAll();
@@ -73,9 +71,7 @@ polcaLib = (function () {
             names.ary.forEach (name => this.scope.set(name, value))
         },
 
-        info (str) {
-            this.info.push(str);
-        },
+        info (str) { this.info.push(str); },
 
         'times ?' (proc, number) {
             for (; number > 0; number--) {
@@ -133,9 +129,7 @@ polcaLib = (function () {
             }
         },
 
-        number (x) {
-            return Number(x)
-        },
+        number: x => Number(x),
 
         /* Based on JavaCalc 1.6  ©1996-2000 Ken Kikuchi { */
         factorial (n) { /* factorial */
@@ -217,8 +211,8 @@ polcaLib = (function () {
         },
         'extract <|>' (substack, pos) { return substack.extract (pos) },
         'insert >|<' (substack, value, pos) { return substack.insert (pos, value) },
-        'at @' (substack, pos) { return substack.at (pos) },
-        'slice |/| 🔪' (substack, start, end) { return substack.slice (start, end) },
+        'at @': (substack, pos) => substack.at (pos),
+        'slice |/| 🔪': (substack, start, end) => substack.slice (start, end),
         'reverse rev Я' (arg) {
             if (arg instanceof Polca.SubStack)
                 return arg.reverse()
