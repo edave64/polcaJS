@@ -109,6 +109,15 @@ module Polca {
         return context;
     }
 
+    function formatString (str: string) {
+        const simple = !(/['"\(\)\[\]\s]/.test(str));
+        if (simple) {
+            return `'${str}`;
+        } else {
+            return `"${str.replace("\\", "\\\\").replace('"', '\\"')}"`
+        }
+    }
+
     export class Context {
         constructor(
             public scope: Scope = new Scope(),
@@ -190,20 +199,32 @@ module Polca {
             this.ary = [];
         }
 
-        static maskString(str: string) {
-            return str.replace("\\", "\\\\").replace('"', '\\"');
-        }
-
         toString(): string {
             return this.ary.reduce((sum, element, i) => {
                 if (i != 0) sum += ' ';
                 if (typeof element === 'string') {
-                    const simple = ! /\(|\)|\{|\}|\[|\]|\s/.test(element)
-                    return sum + (simple ? "'" : '"') + Polca.Stack.maskString(element) + (simple ? '' : '"')
+                    return sum + formatString(element)
                 }
                 else
                     return sum + element.toString();
             }, "");
+        }
+
+        toHtml(): HTMLElement {
+            const out = document.createElement('span');
+            let first = true;
+            for (const ele of this.ary) {
+                if (!first) out.appendChild(document.createTextNode(' '))
+                if (typeof ele === 'string') {
+                    out.appendChild(document.createTextNode(formatString(ele)));
+                } else if (ele.toHtml) {
+                    out.appendChild(ele.toHtml());
+                } else {
+                    out.appendChild(document.createTextNode(ele.toString()));
+                }
+                first = false;
+            }
+            return out;
         }
     }
 
@@ -215,6 +236,17 @@ module Polca {
 
         toString(): string {
             return "[" + super.toString() + "]";
+        }
+
+        toHtml(): HTMLElement {
+            const out = super.toHtml();
+            if (out.firstChild) {
+                out.insertBefore(out.firstChild, document.createTextNode('['));
+            } else {
+                out.appendChild(document.createTextNode('['));
+            }
+            out.appendChild(document.createTextNode(']'));
+            return out;
         }
 
         // todo: recursive equality checking does not work correctly!
@@ -365,7 +397,7 @@ module Polca {
                         result += ' ';
 
                     if (typeof element === 'string')
-                        result += `"${element}"`;
+                        result += formatString(element);
                     else
                         result += element.toString();
                 }
@@ -423,8 +455,8 @@ module Polca {
                     else
                         result += ' ';
 
-                    if (typeof element == 'string')
-                        result += '"' + element + '"';
+                    if (typeof element === 'string')
+                        result += formatString(element);
                     else
                         result += element.toString();
                 });
