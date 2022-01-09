@@ -107,7 +107,7 @@ polcaLib = (function () {
             return result
         },
 
-        '?else' (proc, else_, number) {
+        '?else ?:' (proc, else_, number) {
             if (number > 0)
                 for (; number > 0; number--) {
                     proc.call(this);
