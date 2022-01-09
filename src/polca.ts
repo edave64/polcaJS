@@ -207,7 +207,7 @@ module Polca {
         }
     }
 
-    export const equal = (a, b) : boolean =>
+    export const equal = (a : any, b : any) : boolean =>
         a instanceof SubStack ? a.equal(b) : a === b;
 
     export class SubStack extends Stack {
@@ -235,7 +235,7 @@ module Polca {
         }
 
         // removes item once, if present. (otherwise return identical SubStack)
-        removeOne (item) : SubStack {
+        removeOne (item : any) : SubStack {
             let aleadyfound = false;
             return new SubStack (this.ary.filter (part => {
                 if (aleadyfound) return true
@@ -285,7 +285,7 @@ module Polca {
             ])
         }
 
-        extract (pos: number) {
+        extract (pos: number) : any {
             if (!this.length) throw 'can\'t extract: substack empty'
             else if (pos >= this.length || pos < -this.length)
                 throw 'can\'t extract: out of range'
@@ -297,7 +297,7 @@ module Polca {
             ];
         }
 
-        cat (other : SubStack) {
+        cat (other : SubStack) : SubStack {
             return new SubStack ([...this.ary, ...other.ary])
         }
 
