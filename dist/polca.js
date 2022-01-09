@@ -112,7 +112,7 @@ var Polca;
             return `'${str}`;
         }
         else {
-            return `"${str.replace("\\", "\\\\").replace('"', '\\"')}"`;
+            return `"${str.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
         }
     }
     class Context {
@@ -229,7 +229,7 @@ var Polca;
         toHtml() {
             const out = super.toHtml();
             if (out.firstChild) {
-                out.insertBefore(out.firstChild, document.createTextNode('['));
+                out.insertBefore(document.createTextNode('['), out.firstChild);
             }
             else {
                 out.appendChild(document.createTextNode('['));
