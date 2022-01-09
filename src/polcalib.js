@@ -64,8 +64,8 @@ polcaLib = (function () {
 
         'typeof': (v) => v.type,
 
-        'set :': (value, name) => this.scope.set(name, value),
-        'get .': (name) => this.scope.get(name),
+        'set :'(value, name) { this.scope.set(name, value) },
+        'get .'(name) { return this.scope.get(name) },
 
         'setall ::' (value, names) {
             names.ary.forEach (name => this.scope.set(name, value))
