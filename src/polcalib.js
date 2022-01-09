@@ -25,7 +25,6 @@ polcaLib = (function () {
         log: (x, base) => Math.log(x) / Math.log(base),
         l10: x => Math.log(x) / Math.LN10, l2: x => Math.log(x) / Math.LN2,
 
-        'inc ++': x => x + 1, 'dec --': x => x - 1,
         '_': x => -x,
         div: (x, y) => (x - x % y) / y,
         'mod %': (a, b) => ((a % b) + b) % b,
@@ -289,13 +288,13 @@ polcaLib = (function () {
     Function.prototype.type = 'procedure';
 
     // Push operator methods to polcaLib module
-    ['+', '-', '*', '/'].forEach(function (op) {
+    ['+', '*', '/'].forEach(function (op) {
         polcaLib[op] = new Function ('a,b', 'return a' + op + 'b');
     });
 
     // Same for comparisons
     ['<', '<=', '>=', '>'].forEach(function (op) {
-        polcaLib[op] = new Function ('a,b', 'return polcaLib.compare(a, b)' + op + '0');
+        polcaLib[op] = new Function ('a,b', 'return Number(polcaLib.compare(a, b)' + op + '0)');
     });
 
     return polcaLib;
