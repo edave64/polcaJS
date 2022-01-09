@@ -99,7 +99,7 @@ polcaLib = (function () {
             }
         },
         'length #'(obj) {
-            if (obj instanceof String || obj instanceof Polca.SubStack)
+            if (typeof obj == 'string' || obj instanceof Polca.SubStack)
                 return obj.length;
             else
                 throw new Error("length is not implemented for this type");
