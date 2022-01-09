@@ -43,6 +43,8 @@ polcaLib = (function () {
             return this.stack.ary.splice(-1 -position, 1)
         },
 
+
+
         // various stack operations
         'dropall ;;' () {
             this.stack.dropAll();
@@ -64,16 +66,11 @@ polcaLib = (function () {
 
         'typeof': (v) => v.type,
 
-        'set :' (value, name) {
-            this.scope.set(name, value);
-        },
+        'set :': (value, name) => this.scope.set(name, value),
+        'get .': (name) => this.scope.get(name),
 
         'setall ::' (value, names) {
             names.ary.forEach (name => this.scope.set(name, value))
-        },
-
-        'get .' (name) {
-            return this.scope.get(name);
         },
 
         info (str) {
