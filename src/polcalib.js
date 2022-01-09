@@ -27,7 +27,7 @@ polcaLib = (function () {
         '=': (a, b) => Number(Polca.equal (a, b)),
 
         // Forth stack operations
-        'drop Đ': a => {}, '2drop 2Đ': (a, b) => {},
+        'drop ;': a => {}, '2drop 2Đ': (a, b) => {},
         'dup |\\': a => [a, a], '2dup 2|\\': (a, b) => [a, b, a, b],
         'swap ><': (a, b) => [b, a], '2swap >><<': (a,b,c,d) => [c, d, a ,b],
         'rot ><<': (a, b, c) => [b, c, a], '-rot >><': (a, b, c) => [c, a, b],
@@ -40,7 +40,7 @@ polcaLib = (function () {
         },
 
         // various stack operations
-        'dropall ;' () {
+        'dropall ;;' () {
             this.stack.dropAll();
         },
         'nroll @n><' (position, amount) {
