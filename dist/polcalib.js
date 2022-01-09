@@ -1,6 +1,6 @@
 polcaLib = (function () {
     const dict = {
-        version: "0.9",
+        version: Polca.version,
         // imports from Math
         'abs ||': Math.abs, 'sign ±': Math.sign,
         exp: Math.exp,
