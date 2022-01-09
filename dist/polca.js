@@ -193,6 +193,8 @@ var Polca;
         }
     }
     Polca.Stack = Stack;
+    const equal = (a, b) => a instanceof SubStack ? a.equal(b) :
+        a === b;
     class SubStack extends Stack {
         constructor() {
             super(...arguments);
@@ -201,30 +203,25 @@ var Polca;
         toString() {
             return "[" + super.toString() + "]";
         }
+        // todo: recursive equality checking does not work correctly!
         equal(other) {
             if (this.length != other.length)
                 return false;
-            return this.ary.every((val, idx) => val instanceof SubStack ?
-                val.equal(other.at(idx)) :
-                val === other.at(idx));
+            return this.ary.every((val, idx) => equal(val, other.at(idx)));
         }
         has(item) {
-            return this.ary.some(part => part instanceof SubStack ? part.equal(item) :
-                part === item);
+            return this.ary.some(part => equal(part, item));
         }
         count(item) {
-            return this.ary.reduce((prev, part) => prev + (part instanceof SubStack ? part.equal(item) :
-                part === item), 0);
+            return this.ary.reduce((prev, part) => prev + equal(part, item), 0);
         }
         // removes item once, if present. (otherwise return identical SubStack)
         removeOne(item) {
             let aleadyfound = false;
-            const eq = (a, b) => a instanceof SubStack ? a.equal(b) :
-                a === b;
             return new SubStack(this.ary.filter(part => {
                 if (aleadyfound)
                     return true;
-                else if (eq(part, item)) {
+                else if (equal(part, item)) {
                     aleadyfound = true;
                     return false;
                 }

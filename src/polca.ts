@@ -207,6 +207,10 @@ module Polca {
         }
     }
 
+    const equal = (a, b) : boolean =>
+        a instanceof SubStack ? a.equal(b) :
+        a === b;
+
     export class SubStack extends Stack {
         readonly type = "Substack";
 
@@ -214,36 +218,29 @@ module Polca {
             return "[" + super.toString() + "]";
         }
 
+        // todo: recursive equality checking does not work correctly!
         equal (other: SubStack) : boolean {
             if (this.length != other.length) return false
-            return this.ary.every ((val, idx) => 
-                val instanceof SubStack ?
-                val.equal (other.at(idx)) :
-                val === other.at(idx)
+            return this.ary.every((val, idx) =>
+                equal(val, other.at(idx))
             )
         }
 
-        has (item : any) : boolean {return this.ary.some(part =>
-            part instanceof SubStack ? part.equal (item) :
-            part === item
+        has (item : any) : boolean {
+            return this.ary.some(part => equal(part, item)
         )}
 
-        count (item : any) : number {return this.ary.reduce((prev, part) =>
-            prev + (
-                part instanceof SubStack ? part.equal (item) :
-                part === item
-            ), 0);
+        count (item : any) : number {return this.ary.reduce(
+                (prev, part) => prev + equal(part, item)
+            , 0);
         }
 
         // removes item once, if present. (otherwise return identical SubStack)
         removeOne (item) : SubStack {
             let aleadyfound = false;
-            const eq = (a, b) =>
-                a instanceof SubStack ? a.equal (b) :
-                a === b;
             return new SubStack (this.ary.filter (part => {
                 if (aleadyfound) return true
-                else if (eq(part, item)) {
+                else if (equal(part, item)) {
                     aleadyfound = true;
                     return false;
                 } else return true
