@@ -241,6 +241,11 @@ polcaLib = (function () {
         'box □' () {
             return new Polca.SubStack (this.stack.ary.splice(0))
         },
+
+        'take' (amount) {
+            return new Polca.SubStack (this.stack.ary.splice(-amount))
+        },
+
         toast () {
             return {
                 toHtml() {
