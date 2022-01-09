@@ -193,8 +193,7 @@ var Polca;
         }
     }
     Polca.Stack = Stack;
-    Polca.equal = (a, b) => a instanceof SubStack ? a.equal(b) :
-        a === b;
+    Polca.equal = (a, b) => a instanceof SubStack ? a.equal(b) : a === b;
     class SubStack extends Stack {
         constructor() {
             super(...arguments);
