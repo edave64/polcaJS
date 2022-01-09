@@ -228,8 +228,20 @@ module Polca {
         }
     }
 
-    export const equal = (a : any, b : any) : boolean =>
-        a instanceof SubStack ? a.equal(b) : a === b;
+    export function equal (a: any, b: any) : boolean {
+        return a instanceof SubStack ? a.equal(b) : a === b;
+    }
+
+    export function ord (a: any, b: any) : number {
+        if (Polca.equal(a, b)) return 0;
+        if ((typeof a === 'number') && (typeof b === 'number')) {
+            return a < b ? -1 : 1;
+        }
+        if ((typeof a === 'string') && (typeof b === 'string')) {
+            return a < b ? -1 : 1;
+        }
+        throw new Error ("Comparison error: no sorting for the given elements is known.");
+    }
 
     export class SubStack extends Stack {
         readonly type = "Substack";
