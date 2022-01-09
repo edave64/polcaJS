@@ -193,7 +193,7 @@ var Polca;
         }
     }
     Polca.Stack = Stack;
-    const equal = (a, b) => a instanceof SubStack ? a.equal(b) :
+    Polca.equal = (a, b) => a instanceof SubStack ? a.equal(b) :
         a === b;
     class SubStack extends Stack {
         constructor() {
@@ -207,13 +207,13 @@ var Polca;
         equal(other) {
             if (this.length != other.length)
                 return false;
-            return this.ary.every((val, idx) => equal(val, other.at(idx)));
+            return this.ary.every((val, idx) => Polca.equal(val, other.at(idx)));
         }
         has(item) {
-            return this.ary.some(part => equal(part, item));
+            return this.ary.some(part => Polca.equal(part, item));
         }
         count(item) {
-            return this.ary.reduce((prev, part) => prev + equal(part, item), 0);
+            return this.ary.reduce((prev, part) => prev + Polca.equal(part, item), 0);
         }
         // removes item once, if present. (otherwise return identical SubStack)
         removeOne(item) {
@@ -221,7 +221,7 @@ var Polca;
             return new SubStack(this.ary.filter(part => {
                 if (aleadyfound)
                     return true;
-                else if (equal(part, item)) {
+                else if (Polca.equal(part, item)) {
                     aleadyfound = true;
                     return false;
                 }
