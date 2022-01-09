@@ -230,7 +230,8 @@ polcaLib = (function () {
             var execStack = substack.fork();
             callback.call(new Polca.Context(this.scope, execStack, this.info));
             return execStack;
-        }
+        },
+        cLog: x = console.log(x)
     };
     const polcaLib = {};
     for (const name in dict) {
@@ -240,7 +241,7 @@ polcaLib = (function () {
     String.prototype.type = 'string';
     Function.prototype.type = 'procedure';
     // Push operator methods to polcaLib module
-    ['+', '-', '*', '/', '%'].forEach(function (op) {
+    ['+', '-', '*', '/'].forEach(function (op) {
         polcaLib[op] = new Function('a,b', 'return a' + op + 'b');
     });
     // Same for comparisons
