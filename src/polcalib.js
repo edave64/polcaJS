@@ -9,6 +9,7 @@ polcaLib = (function () {
         round: Math.round,
         'pow ^': Math.pow,
         'min ⌊': Math.min, 'max ⌈': Math.max,
+        round: Math.round,
         'sqrt 2√': Math.sqrt,
         rand: Math.random,
         ln: Math.log,
