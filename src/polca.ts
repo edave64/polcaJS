@@ -114,7 +114,7 @@ module Polca {
         if (simple) {
             return `'${str}`;
         } else {
-            return `"${str.replace("\\", "\\\\").replace('"', '\\"')}"`
+            return `"${str.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`
         }
     }
 
@@ -241,7 +241,7 @@ module Polca {
         toHtml(): HTMLElement {
             const out = super.toHtml();
             if (out.firstChild) {
-                out.insertBefore(out.firstChild, document.createTextNode('['));
+                out.insertBefore(document.createTextNode('['), out.firstChild);
             } else {
                 out.appendChild(document.createTextNode('['));
             }
