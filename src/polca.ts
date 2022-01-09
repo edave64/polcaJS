@@ -375,7 +375,7 @@ module Polca {
                 const subcontext = context.subStackContext();
                 const substack = subcontext.stack;
                 this.elements.forEach((element) => {
-                    if (element instanceof ID) {
+                    if (element instanceof ID || element instanceof Structures.SubStack) {
                         substack.push(element.call(subcontext));
                     } else if (element instanceof CustomFunc) {
                         substack.push(element.bind(subcontext.scope));
