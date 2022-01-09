@@ -181,7 +181,7 @@ module Polca {
                         }
                         const result = Polca.exec(this.compiled, this.prev.context);
                         this.context = result;
-                        this.output.innerHTML = result.stack.toString();
+                        this.output.replaceChildren(result.stack.toHtml());
                         this.context.info.forEach((infoStr) => this.addInfo(infoStr));
                         if (this.failed) {
                             this.output.classList.remove("failed");

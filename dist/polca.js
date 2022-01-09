@@ -106,6 +106,15 @@ var Polca;
         return context;
     }
     Polca.exec = exec;
+    function formatString(str) {
+        const simple = !(/['"\(\)\[\]\s]/.test(str));
+        if (simple) {
+            return `'${str}`;
+        }
+        else {
+            return `"${str.replace("\\", "\\\\").replace('"', '\\"')}"`;
+        }
+    }
     class Context {
         constructor(scope = new Scope(), stack = new Stack(), info = []) {
             this.scope = scope;
@@ -176,20 +185,35 @@ var Polca;
         dropAll() {
             this.ary = [];
         }
-        static maskString(str) {
-            return str.replace("\\", "\\\\").replace('"', '\\"');
-        }
         toString() {
             return this.ary.reduce((sum, element, i) => {
                 if (i != 0)
                     sum += ' ';
                 if (typeof element === 'string') {
-                    const simple = !/\(|\)|\{|\}|\[|\]|\s/.test(element);
-                    return sum + (simple ? "'" : '"') + Polca.Stack.maskString(element) + (simple ? '' : '"');
+                    return sum + formatString(element);
                 }
                 else
                     return sum + element.toString();
             }, "");
+        }
+        toHtml() {
+            const out = document.createElement('span');
+            let first = true;
+            for (const ele of this.ary) {
+                if (!first)
+                    out.appendChild(document.createTextNode(' '));
+                if (typeof ele === 'string') {
+                    out.appendChild(document.createTextNode(formatString(ele)));
+                }
+                else if (ele.toHtml) {
+                    out.appendChild(ele.toHtml());
+                }
+                else {
+                    out.appendChild(document.createTextNode(ele.toString()));
+                }
+                first = false;
+            }
+            return out;
         }
     }
     Polca.Stack = Stack;
@@ -201,6 +225,17 @@ var Polca;
         }
         toString() {
             return "[" + super.toString() + "]";
+        }
+        toHtml() {
+            const out = super.toHtml();
+            if (out.firstChild) {
+                out.insertBefore(out.firstChild, document.createTextNode('['));
+            }
+            else {
+                out.appendChild(document.createTextNode('['));
+            }
+            out.appendChild(document.createTextNode(']'));
+            return out;
         }
         // todo: recursive equality checking does not work correctly!
         equal(other) {
@@ -323,7 +358,7 @@ var Polca;
                     else
                         result += ' ';
                     if (typeof element === 'string')
-                        result += `"${element}"`;
+                        result += formatString(element);
                     else
                         result += element.toString();
                 }
@@ -377,8 +412,8 @@ var Polca;
                         first = false;
                     else
                         result += ' ';
-                    if (typeof element == 'string')
-                        result += '"' + element + '"';
+                    if (typeof element === 'string')
+                        result += formatString(element);
                     else
                         result += element.toString();
                 });

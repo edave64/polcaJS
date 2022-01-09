@@ -218,6 +218,15 @@ polcaLib = (function () {
         'box □'() {
             return new Polca.SubStack(this.stack.ary.splice(0));
         },
+        toast() {
+            return {
+                toHtml() {
+                    const out = document.createElement('div');
+                    out.classList.add('toast');
+                    return out;
+                }
+            };
+        },
         /**
          * @param {Polca.Structures.Func} callback
          * @param {Polca.SubStack} substack
@@ -231,7 +240,7 @@ polcaLib = (function () {
             callback.call(new Polca.Context(this.scope, execStack, this.info));
             return execStack;
         },
-        cLog: x = console.log(x)
+        cLog(x) { console.log(x); }
     };
     const polcaLib = {};
     for (const name in dict) {
