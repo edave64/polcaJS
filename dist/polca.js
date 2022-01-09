@@ -217,7 +217,22 @@ var Polca;
         }
     }
     Polca.Stack = Stack;
-    Polca.equal = (a, b) => a instanceof SubStack ? a.equal(b) : a === b;
+    function equal(a, b) {
+        return a instanceof SubStack ? a.equal(b) : a === b;
+    }
+    Polca.equal = equal;
+    function ord(a, b) {
+        if (Polca.equal(a, b))
+            return 0;
+        if ((typeof a === 'number') && (typeof b === 'number')) {
+            return a < b ? -1 : 1;
+        }
+        if ((typeof a === 'string') && (typeof b === 'string')) {
+            return a < b ? -1 : 1;
+        }
+        throw new Error("Comparison error: no sorting for the given elements is known.");
+    }
+    Polca.ord = ord;
     class SubStack extends Stack {
         constructor() {
             super(...arguments);
@@ -241,13 +256,13 @@ var Polca;
         equal(other) {
             if (this.length != other.length)
                 return false;
-            return this.ary.every((val, idx) => Polca.equal(val, other.at(idx)));
+            return this.ary.every((val, idx) => equal(val, other.at(idx)));
         }
         has(item) {
-            return this.ary.some(part => Polca.equal(part, item));
+            return this.ary.some(part => equal(part, item));
         }
         count(item) {
-            return this.ary.reduce((prev, part) => prev + Polca.equal(part, item), 0);
+            return this.ary.reduce((prev, part) => prev + equal(part, item), 0);
         }
         // removes item once, if present. (otherwise return identical SubStack)
         removeOne(item) {
@@ -255,7 +270,7 @@ var Polca;
             return new SubStack(this.ary.filter(part => {
                 if (aleadyfound)
                     return true;
-                else if (Polca.equal(part, item)) {
+                else if (equal(part, item)) {
                     aleadyfound = true;
                     return false;
                 }

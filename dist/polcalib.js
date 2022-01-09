@@ -161,7 +161,7 @@ polcaLib = (function () {
                 throw new Error("Type Error: can only concatenate two functions, substacks or strings");
             }
         },
-        'compare <>': (a, b) => a < b ? -1 : a > b ? 1 : 0,
+        'compare <>': (a, b) => Polca.ord(a, b),
         // substack operations
         'push |<'(substack, value) {
             if (!(substack instanceof Polca.SubStack))
