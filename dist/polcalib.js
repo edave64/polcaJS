@@ -25,12 +25,11 @@ polcaLib = (function () {
         'mod %': (a, b) => ((a % b) + b) % b,
         '=': (a, b) => Number(Polca.equal(a, b)),
         // Forth stack operations
-        'drop ;': a => { }, '2drop 2;': (a, b) => { },
+        'drop ;': a => { }, '2drop 2;': (a, b) => { }, 'nip': (a, b) => b,
         'dup |\\': a => [a, a], '2dup 2|\\': (a, b) => [a, b, a, b],
         'swap ><': (a, b) => [b, a], '2swap >><<': (a, b, c, d) => [c, d, a, b],
         'rot ><<': (a, b, c) => [b, c, a], '-rot >><': (a, b, c) => [c, a, b],
         'over': (a, b) => [a, b, a], 'tuck': (a, b) => [b, a, b],
-        'nip': (a, b) => [b],
         'pick @>'(from) { return this.stack.at(from); },
         'roll @><'(position) {
             return this.stack.ary.splice(-1 - position, 1);
