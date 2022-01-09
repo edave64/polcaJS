@@ -301,7 +301,7 @@ module Polca {
             return new SubStack ([...this.ary, ...other.ary])
         }
 
-        cut (pos: number) {
+        cut (pos: number) : Array<SubStack> {
             return [
                 new SubStack (this.ary.slice(0, pos)),
                 new SubStack (this.ary.slice(pos))
