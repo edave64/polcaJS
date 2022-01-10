@@ -159,7 +159,7 @@ polcaLib = (function () {
                 throw new Error("Type Error: can only concatenate two functions, substacks or strings");
             }
         },
-        'compare <>': (a, b) => a < b ? -1 : a > b ? 1 : 0,
+        'compare <>': (a, b) => Polca.ord(a, b),
         // substack operations
         'push |<'(substack, value) {
             if (!(substack instanceof Polca.SubStack))
@@ -218,15 +218,6 @@ polcaLib = (function () {
         'take'(amount) {
             return new Polca.SubStack(this.stack.ary.splice(-amount));
         },
-        toast() {
-            return {
-                toHtml() {
-                    const out = document.createElement('div');
-                    out.classList.add('toast');
-                    return out;
-                }
-            };
-        },
         /**
          * @param {Polca.Structures.Func} callback
          * @param {Polca.SubStack} substack
@@ -252,10 +243,6 @@ polcaLib = (function () {
     // Push operator methods to polcaLib module
     ['+', '*', '/'].forEach(function (op) {
         polcaLib[op] = new Function('a,b', 'return a' + op + 'b');
-    });
-    // Same for comparisons
-    ['<', '<=', '>=', '>'].forEach(function (op) {
-        polcaLib[op] = new Function('a,b', 'return Number(polcaLib.compare(a, b)' + op + '0)');
     });
     return polcaLib;
 }());
