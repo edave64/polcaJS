@@ -1,7 +1,4 @@
-polcaStd = Polca.compile(`(<=) '≤ :
-(>=) '≥ :
-
-(_ +) '- :
+polcaStd = Polca.compile(`(_ +) '- :
 
 (1 +) ['inc '++] ::
 (1 -) ['dec '--] ::
@@ -10,6 +7,6 @@ polcaStd = Polca.compile(`(<=) '≤ :
 
 (compare -1  =) '< :
 (compare  1  =) '> :
-(compare -1 !=) '>= :
-(compare  1 !=) '<= :
+(compare -1 !=) ['>= '≥] ::
+(compare  1 !=) ['<= '≤] ::
 `)
