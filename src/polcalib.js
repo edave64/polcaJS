@@ -116,6 +116,11 @@ polcaLib = (function () {
             })
         },
 
+        'while ?!' (condition, consequence) {
+            while (condition.call (this), this.stack.ary.pop ())
+                consequence.call (this)
+        },
+
         // this is actually just each over an reverse iota 🤔
         timesI (proc, number) {
             for (; number > 0; number--) {
