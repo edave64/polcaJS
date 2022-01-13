@@ -110,6 +110,7 @@ polcaLib = (function () {
             else
                 throw new Error("length is not implemented for this type");
         },
+        'height #@'() { return this.stack.length; },
         forLength(proc, rest) {
             while (this.stack.length > rest) {
                 proc.call(this);
