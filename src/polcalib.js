@@ -109,6 +109,14 @@ polcaLib = (function () {
                 }
         },
 
+        'each !:' (substack, fun) {
+            substack.ary.forEach (item =>{
+                this.stack.push (item)
+                fun.call (this)
+            })
+        },
+
+        // this is actually just each over an reverse iota 🤔
         timesI (proc, number) {
             for (; number > 0; number--) {
                 this.stack.push(number);
