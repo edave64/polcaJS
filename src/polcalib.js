@@ -272,7 +272,7 @@ polcaLib = (function () {
          * @param {Polca.Structures.Func} callback
          * @param {Polca.SubStack} substack
          */
-        execIn (callback, substack) {
+        'execIn !<' (callback, substack) {
             if (!(callback instanceof Polca.Structures.CustomFunc)) throw new Error ("execIn is not implemented for this type");
             if (!(substack instanceof Polca.SubStack)) throw new Error ("execIn is not implemented for this type");
 
