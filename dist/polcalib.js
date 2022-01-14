@@ -5,7 +5,7 @@ polcaLib = (function () {
         'abs ||': Math.abs, 'sign ±': Math.sign,
         exp: Math.exp,
         'floor ⌋': Math.floor, 'ceil ⌉': Math.ceil,
-        'min ⌊ ∧': Math.min, 'max ⌈ ∨': Math.max,
+        'min and ⌊ ∧': Math.min, 'max or ⌈ ∨': Math.max,
         round: Math.round,
         'sqrt 2√': Math.sqrt,
         rand: Math.random,
