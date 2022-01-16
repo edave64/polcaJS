@@ -13,6 +13,9 @@
     (2 1 +)
 ) "add: too few args" test
 
+(
+    '\ "\\" =assert
+) "string equality" test
 
 (
     (pow) assertCrash
