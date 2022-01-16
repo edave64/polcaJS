@@ -1,0 +1,18 @@
+(
+    ("2 4 (+ exec" parse) assertCrash
+    ("2 4 (+) exec" parse) exec
+) "unclosed func" test
+
+(
+    ("\"toast" parse) assertCrash
+    "\"toast\"" parse exec 'toast =assert
+) "unclosed string" test
+
+(
+    ("[1 2 3" parse) assertCrash
+    "[1 2 3]" parse exec [1 2 3] =assert
+) "unclosed brackets" test
+
+(
+    ("a b c)" parse) assertCrash
+) "unopened function" test

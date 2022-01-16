@@ -33,6 +33,9 @@ const scope = Object.assign(Object.create(polcaLib), {
     },
     assertNoCrash(func) {
         (polcaLib as any).exec.call(this, func);
+    },
+    parse(str) {
+        return Polca.compile(str);
     }
 });
 
