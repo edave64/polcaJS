@@ -494,4 +494,5 @@ var Polca;
         Exceptions.SyntaxError = SyntaxError;
     })(Exceptions = Polca.Exceptions || (Polca.Exceptions = {}));
 })(Polca || (Polca = {}));
+globalThis.Polca = Polca;
 //# sourceMappingURL=polca.js.map

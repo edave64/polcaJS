@@ -1,4 +1,4 @@
-polcaLib = (function () {
+globalThis.polcaLib = (function () {
     const dict = {
         version: Polca.version,
         // imports from Math
