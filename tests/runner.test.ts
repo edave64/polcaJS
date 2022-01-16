@@ -26,13 +26,14 @@ const scope = Object.assign(Object.create(polcaLib), {
         expect(a).toBe(b);
     },
     assertCrash(func) {
-        const context = new Polca.Context (this.scope, this.stack.fork(), this.info)
+        const context = new Polca.Context (this.scope.fork(), this.stack.fork(), this.info);
         expect(() => {
             (polcaLib as any).exec.call(context, func);
         }).toThrowError()
     },
     assertNoCrash(func) {
-        (polcaLib as any).exec.call(this, func);
+        const context = new Polca.Context (this.scope.fork(), this.stack.fork(), this.info);
+        (polcaLib as any).exec.call(context, func);
     },
     parse(str) {
         return Polca.compile(str);

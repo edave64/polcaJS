@@ -30,7 +30,9 @@ globalThis.polcaLib = (function () {
         'swap ><': (a, b) => [b, a], '2swap >><<': (a, b, c, d) => [c, d, a, b],
         'rot ><<': (a, b, c) => [b, c, a], '-rot >><': (a, b, c) => [c, a, b],
         'over': (a, b) => [a, b, a], 'tuck': (a, b) => [b, a, b],
-        'pick @>'(from) { return this.stack.at(from); },
+        'pick @>'(from) {
+            return this.stack.at(from);
+        },
         'roll @><'(position) {
             return this.stack.ary.splice(-1 - position, 1);
         },
