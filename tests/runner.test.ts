@@ -26,8 +26,9 @@ const scope = Object.assign(Object.create(polcaLib), {
         expect(a).toBe(b);
     },
     assertCrash(func) {
+        const context = new Polca.Context (this.scope, this.stack.fork(), this.info)
         expect(() => {
-            (polcaLib as any).exec.call(this, func);
+            (polcaLib as any).exec.call(context, func);
         }).toThrowError()
     },
     assertNoCrash(func) {
