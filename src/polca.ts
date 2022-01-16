@@ -548,3 +548,5 @@ module Polca {
         }
     }
 }
+
+globalThis.Polca = Polca;

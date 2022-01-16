@@ -1,0 +1,14 @@
+(1 1 = assert) "trivial equality" test
+
+(1 3 + 4 = assert) "simple add" test
+(
+    (+) assertCrash
+    (1 +) assertCrash
+    (2 1 +)
+) "add: too few args" test
+
+(
+    (pow) assertCrash
+    (1 pow) assertCrash
+    3 3 pow 27 =assert
+) "pow" test
