@@ -2,7 +2,9 @@
 
 Polca ("**pol**ish notation **ca**lculator") is an interactive programming environment and language. The polca language is functional and stack-based. While the most basic syntax seems to have stabilized, many of the built-in functions have not. Do *not* expect them to be unchanging.
 
-## Basic calculations
+## Tutorial
+
+### Basic calculations
 
 If you are familiar with reverse polish notation (aka postfix notation), you can use polca as a caluclator immediately.
 
@@ -10,9 +12,9 @@ If you are familiar with reverse polish notation (aka postfix notation), you can
 
 Here is some other basic math functions you may want to play around with: `-` subtraction, `_` negation, `*` multiplication, `/` division, `%` modulo, `^` exponentiation. Oh, and `=`, `>` and `<` are just functions, too! Polca uses "0" and "1" as truth values.
 
-# Deployment and contributing
+## Deployment and contributing
 
-## How to set up a local install
+### How to set up a local install
 
 - Check out
 
@@ -22,7 +24,7 @@ Here is some other basic math functions you may want to play around with: `-` su
 
 - The development version can be found in the `dist` folder 
 
-## How to test
+### How to test
 
 - `npm test`
 
