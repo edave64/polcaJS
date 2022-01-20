@@ -12,6 +12,12 @@ If you are familiar with reverse polish notation (aka postfix notation), you can
 
 Here is some other basic math functions you may want to play around with: `-` subtraction, `_` negation, `*` multiplication, `/` division, `%` modulo, `^` exponentiation. Oh, and `=`, `>` and `<` are just functions, too! Polca uses "0" and "1" as truth values.
 
+### Functions
+
+To define a function, you can just write it in parentheses, like this: `(3 *)`. They can take any number of values as inputs and outputs.
+
+Functions are evaluated with `!`, but that is mostly useful within other functions.
+
 ## Deployment and contributing
 
 ### How to set up a local install
