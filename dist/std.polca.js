@@ -13,4 +13,9 @@ polcaStd = Polca.compile(`(_ +) '- :
 ('fun : 'vec : ['vec . 'fun . each]) ['map '!>] ::
 ('fun : shift >< 'fun . each) ['fold '!/] ::
 
+((+) !/) ['+/ 'sum] ::
+((*) !/) ['+/ 'prod] ::
+((∧) !/) ['∧/ 'min/] ::
+((∨) !/) ['∨/ 'max/] ::
+
 (_ cut >< ,) 'spin :`)
