@@ -191,6 +191,16 @@ globalThis.polcaLib = (function () {
         },
         /* } Based on JavaCalc 1.6  ©1996-2000 Ken Kikuchi */
 
+        // discrete integral
+        'Σ d_integral' (x) {
+            return new Polca.SubStack (x.ary.reduce ((prev, cur) =>
+                {
+                    const sum = prev.sum + cur
+                    return {sum, result: [...prev.result, sum]} 
+                },
+            {sum: 0, result: []}).result)
+        },
+
         'upto iota ⍳' (n) {
             let result = [];
             let count = 0;

@@ -157,6 +157,13 @@ globalThis.polcaLib = (function () {
             return ((((((((-3617 / 122400) * w + 7 / 1092) * w - 691 / 360360) * w + 5 / 5940) * w - 1 / 1680) * w + 1 / 1260) * w - 1 / 360) * w + 1 / 12) / x + 0.5 * polcaLib.ln(2 * polcaLib.PI) - polcaLib.ln(v) - x + (x - 0.5) * polcaLib.ln(x);
         },
         /* } Based on JavaCalc 1.6  ©1996-2000 Ken Kikuchi */
+        // discrete integral
+        'Σ d_integral'(x) {
+            return new Polca.SubStack(x.ary.reduce((prev, cur) => {
+                const sum = prev.sum + cur;
+                return { sum, result: [...prev.result, sum] };
+            }, { sum: 0, result: [] }).result);
+        },
         'upto iota ⍳'(n) {
             let result = [];
             let count = 0;
