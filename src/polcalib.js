@@ -201,6 +201,15 @@ globalThis.polcaLib = (function () {
             {sum: 0, result: []}).result)
         },
 
+        'Δ d_diff' (x) {
+            let result = []
+            x.ary.forEach ((val, idx) => result.push (
+                !idx ? x.at (0) :
+                val - x.at (idx - 1)
+            ))
+            return new Polca.SubStack (result)
+        },
+
         'upto iota ⍳' (n) {
             let result = [];
             let count = 0;
